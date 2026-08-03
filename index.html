@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Từ điển Phát âm Tiếng Anh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="gamification-dashboard">
+    <div class="trophy-icon">🏆</div>
+    <div class="score-text">
+      Thành tựu: <span id="scoreRules" class="score-number">0</span> Quy luật <span class="score-sub">(giúp đọc <span id="scoreCoveredWords" class="score-number-sub">0</span> từ)</span> | 
+      <span class="score-clickable" title="Nhấp để xem chi tiết trình độ CEFR" onclick="openKnownWordsModal()"><span id="scoreWords" class="score-number">0</span> Từ đã thuộc 🔍</span> | 
+      ⏱️ <span id="scoreTodayTime">0</span> ph | 
+      🔥 <span id="scoreStreak">0</span> ngày
+    </div>
+    <div style="display: flex; gap: 0.4rem;">
+      <a href="vault.html" class="btn-stats" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.5); color: #fbbf24; text-decoration: none; display: inline-flex; align-items: center;">🌐 Bảng Từ Vựng Tra Cứu</a>
+      <button class="btn-stats" onclick="openStatsModal()">📊 Thống kê</button>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 4rem;">
+    <header>
+      <h1>Khám phá cách đọc</h1>
+      <p class="subtitle">Gõ từ hoặc cụm chữ cái (VD: oo, ea, ch) để xem cách phát âm</p>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Nhập chữ cái hoặc từ vựng..." autocomplete="off">
+        <div class="search-icon">🔍</div>
+      </div>
+
+      <!-- CEFR Level Filters -->
+      <div class="filter-container">
+        <span class="filter-label">Trình độ:</span>
+        <div class="level-pills">
+          <button class="level-pill active" data-level="ALL">Tất cả</button>
+          <button class="level-pill" data-level="A1">A1</button>
+          <button class="level-pill" data-level="A2">A2</button>
+          <button class="level-pill" data-level="B1">B1</button>
+          <button class="level-pill" data-level="B2">B2</button>
+          <button class="level-pill" data-level="C1">C1</button>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button id="btnHeteronyms" class="action-btn">📚 Xem các từ đa âm</button>
+        <button id="btnRestoreKnown" class="action-btn hidden">🔄 Khôi phục từ đã ẩn (<span id="knownCount">0</span>)</button>
+      </div>
+    </header>
+
+    <div id="loading" class="hidden">Đang tải dữ liệu từ điển...</div>
+    <div id="results" class="results-container"></div>
+  </div>
+
+  <!-- Modal Báo Lỗi 3 Trong 1 -->
+  <div id="reportModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">🚩 Báo Lỗi Nhóm Từ</h3>
+        <button class="modal-close" onclick="closeReportModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Chọn các từ bị phân loại sai để tạo báo lỗi gửi cho AI:</p>
+        
+        <div class="modal-select-all">
+          <label><input type="checkbox" id="selectAllWords" onchange="toggleSelectAllModalWords(this)"> <b>Chọn tất cả từ trong nhóm</b></label>
+        </div>
+        
+        <div id="modalWordList" class="modal-word-list">
+          <!-- Checkbox items rendered dynamically -->
+        </div>
+        
+        <div class="modal-reason-box">
+          <label>Lý do báo lỗi:</label>
+          <select id="modalReportReason">
+            <option value="Thiếu chip quy luật / Grapheme">Thiếu chip quy luật phát âm (VD: thiếu a, er...)</option>
+            <option value="Sai quy tắc phát âm">Sai quy tắc phát âm / Nhóm phát âm</option>
+            <option value="Sai nghĩa tiếng Việt">Sai nghĩa tiếng Việt</option>
+            <option value="Sai phiên âm IPA">Sai phiên âm IPA</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeReportModal()">Hủy</button>
+        <button class="btn-copy-report" onclick="submitGroupReport()">📋 Copy báo lỗi vào bộ nhớ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast hidden"></div>
+
+  <!-- Modal Báo Lỗi Từ Lẻ Đa Năng -->
+  <div id="singleWordReportModal" class="modal-overlay hidden">
+    <div class="modal-content" style="max-width: 450px;">
+      <div class="modal-header">
+        <h3 id="singleWordModalTitle">🚩 Báo Lỗi Từ Vựng</h3>
+        <button class="modal-close" onclick="closeSingleWordReportModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="singleWordModalDesc">Từ đang chọn: <b>cater</b></p>
+        
+        <div class="modal-reason-box">
+          <label>Vui lòng chọn vấn đề cần sửa:</label>
+          <select id="singleWordReportReason">
+            <option value="Thiếu chip quy luật / Grapheme">Thiếu chip quy luật phát âm (VD: thiếu a, er...)</option>
+            <option value="Sai quy tắc phát âm">Sai quy tắc phát âm / Phân loại sai nhóm</option>
+            <option value="Sai nghĩa tiếng Việt">Sai nghĩa tiếng Việt</option>
+            <option value="Sai phiên âm IPA">Sai phiên âm IPA</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeSingleWordReportModal()">Hủy</button>
+        <button class="btn-copy-report" onclick="submitSingleWordReport()">📋 Copy báo lỗi vào bộ nhớ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thống Kê Học Tập -->
+  <div id="statsModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📊 Nhật Ký & Thống Kê Học Tập</h3>
+        <button class="modal-close" onclick="closeStatsModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="stats-summary-grid">
+          <div class="stats-card">
+            <div class="stats-card-title">Chuỗi Ngày Học</div>
+            <div class="stats-card-value">🔥 <span id="statsStreak">0</span> ngày</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-card-title">Hôm Nay</div>
+            <div class="stats-card-value">⏱️ <span id="statsToday">0</span> phút</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-card-title">Tuần Này</div>
+            <div class="stats-card-value">📅 <span id="statsWeek">0</span> phút</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-card-title">Tháng Này</div>
+            <div class="stats-card-value">🗓️ <span id="statsMonth">0</span> giờ</div>
+          </div>
+        </div>
+
+        <div class="chart-section">
+          <h4>Biểu đồ học tập 7 ngày qua</h4>
+          <div id="weeklyChart" class="weekly-chart">
+            <!-- Bars rendered dynamically -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeStatsModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thống Kê Chi Tiết Từ Đã Thuộc (CEFR Breakdown) -->
+  <div id="knownWordsModal" class="modal-overlay hidden">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3>🎓 Chi Tiết Từ Vựng Đã Thuộc theo Trình Độ</h3>
+        <button class="modal-close" onclick="closeKnownWordsModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-desc">
+          Tổng số: <b id="kwTotalCount" style="color:#fbbf24; font-size:1.1rem;">0</b> từ vựng đã chinh phục
+        </div>
+
+        <div class="cefr-section">
+          <h4>Phân bổ theo Khung chiếu châu Âu (CEFR):</h4>
+          <div id="cefrBarsContainer" class="cefr-bars-container">
+            <!-- Bars rendered dynamically -->
+          </div>
+        </div>
+
+        <div class="mastered-words-section">
+          <div class="mastered-words-header">
+            <h4>Danh sách từ vựng đã thuộc:</h4>
+            <input type="text" id="filterMasteredInput" placeholder="Tìm trong từ đã thuộc..." oninput="filterMasteredWords(this.value)">
+          </div>
+          <div id="masteredWordsList" class="mastered-words-list">
+            <!-- Items rendered dynamically -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeKnownWordsModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Kho Từ Nâng Cao Khám Phá (Context Vault) -->
+  <div id="contextVaultModal" class="modal-overlay hidden">
+    <div class="modal-content" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3>🌐 Kho Từ Nâng Cao Khám Phá (Từ Báo Chí & Web)</h3>
+        <button class="modal-close" onclick="closeContextVaultModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Các từ vựng nâng cao ngoài bộ 3000 từ được tự động lưu lại kèm câu ngữ cảnh gốc khi bạn đọc báo:</p>
+        <div id="contextVaultList" class="mastered-words-list" style="grid-template-columns: 1fr; gap: 0.8rem; margin-top: 0.8rem;">
+          <!-- Vault items rendered dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeContextVaultModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Đánh Vần Tiếng Anh - Phonics Explorer",
+  "version": "1.0.0",
+  "description": "Tra cứu quy luật đánh vần, phát âm IPA và phân loại trình độ tiếng Anh thông minh.",
+  "icons": {
+    "16": "favicon.svg",
+    "48": "favicon.svg",
+    "128": "favicon.svg"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Đánh Vần Tiếng Anh"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["dictionary_oxford.json"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

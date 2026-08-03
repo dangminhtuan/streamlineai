@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kho Từ Vựng Tra Cứu & Học Tập - Đánh Vần Tiếng Anh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="vault.css">
+</head>
+<body>
+  <div class="vault-container">
+    <!-- Header -->
+    <header class="vault-header">
+      <div class="header-brand">
+        <span class="brand-logo">🌐</span>
+        <div>
+          <h1>Kho Từ Vựng Tra Cứu & Học Tập</h1>
+          <p class="subtitle">Thống kê từ vựng lướt web, phân loại chuẩn bộ 3000 từ & xếp hạng theo số lần tra</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" class="btn-app-home">🚀 Về Trang Học Chính</a>
+      </div>
+    </header>
+
+    <!-- Stats Summary Cards -->
+    <div class="stats-overview-grid">
+      <div class="summary-card card-blue">
+        <div class="card-icon">📌</div>
+        <div class="card-data">
+          <div class="card-value" id="cntCore3k">0</div>
+          <div class="card-label">Bộ 3000 Từ Cần Học (A1-C1)</div>
+        </div>
+      </div>
+      <div class="summary-card card-amber">
+        <div class="card-icon">🌐</div>
+        <div class="card-data">
+          <div class="card-value" id="cntAdvanced">0</div>
+          <div class="card-label">Từ Nâng Cao Ngoài Bộ 3000</div>
+        </div>
+      </div>
+      <div class="summary-card card-purple">
+        <div class="card-icon">👁️</div>
+        <div class="card-data">
+          <div class="card-value" id="cntTotalLookups">0</div>
+          <div class="card-label">Tổng Lượt Tra Cứu Web</div>
+        </div>
+      </div>
+      <div class="summary-card card-green">
+        <div class="card-icon">✅</div>
+        <div class="card-data">
+          <div class="card-value" id="cntMastered">0</div>
+          <div class="card-label">Từ Đã Thuộc / Đã Biết</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation Tabs -->
+    <div class="vault-tabs-nav">
+      <button class="tab-btn active" data-tab="ALL">
+        <span>📚 Tất Cả Từ Tra Cứu</span>
+        <span class="tab-badge" id="badgeAll">0</span>
+      </button>
+      <button class="tab-btn" data-tab="CORE_3K">
+        <span>🔴 Bộ 3000 Từ Cần Học</span>
+        <span class="tab-badge badge-red" id="badge3k">0</span>
+      </button>
+      <button class="tab-btn" data-tab="OUT_3K">
+        <span>🟡 Từ Nâng Cao Ngoài 3000</span>
+        <span class="tab-badge badge-gold" id="badgeOut">0</span>
+      </button>
+      <button class="tab-btn" data-tab="MASTERED">
+        <span>✅ Từ Đã Biết</span>
+        <span class="tab-badge badge-green" id="badgeMastered">0</span>
+      </button>
+    </div>
+
+    <!-- Controls Toolbar (Search, Filter, Sort) -->
+    <div class="controls-toolbar">
+      <div class="search-field">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="vSearchInput" placeholder="Tìm theo từ Tiếng Anh hoặc nghĩa Tiếng Việt..." autocomplete="off">
+      </div>
+
+      <div class="filter-group">
+        <label for="vCefrSelect">CEFR:</label>
+        <select id="vCefrSelect" class="select-control">
+          <option value="ALL">Tất cả trình độ</option>
+          <option value="A1">A1 - Căn bản</option>
+          <option value="A2">A2 - Sơ cấp</option>
+          <option value="B1">B1 - Trung cấp</option>
+          <option value="B2">B2 - Trung cao</option>
+          <option value="C1">C1 - Cao cấp</option>
+          <option value="C2">C2 - Thành thạo</option>
+        </select>
+
+        <label for="vSortSelect">Sắp xếp:</label>
+        <select id="vSortSelect" class="select-control">
+          <option value="MOST_LOOKED_UP">👁️ Tra nhiều nhất trước</option>
+          <option value="NEWEST">⏱️ Mới nhất trước</option>
+          <option value="WORD_ASC">🔤 Theo bảng chữ cái A-Z</option>
+        </select>
+        
+        <button id="btnExtractAI" class="btn-extract-ai" title="Trích xuất các từ chưa có nghĩa 3000 để gửi cho AI xử lý">🤖 Trích xuất gửi AI</button>
+      </div>
+    </div>
+
+    <!-- Data Table Container -->
+    <div class="table-card">
+      <table class="vault-table">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Từ Vựng & IPA</th>
+            <th style="width: 14%;">Phân Loại</th>
+            <th style="width: 18%;">Nghĩa Tiếng Việt</th>
+            <th style="width: 16%;">Từ Gốc 3000 Tương Ứng</th>
+            <th style="width: 10%;">Lượt Tra</th>
+            <th style="width: 14%;">Ngữ Cảnh & Nguồn</th>
+            <th style="width: 10%; text-align: center;">Thao Tác</th>
+          </tr>
+        </thead>
+        <tbody id="vaultTableBody">
+          <!-- Dynamically Rendered Rows -->
+        </tbody>
+      </table>
+
+      <div id="emptyVaultMsg" class="empty-msg hidden">
+        <p>Không tìm thấy từ vựng nào phù hợp với bộ lọc.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="vault.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đánh Vần Tiếng Anh Menu</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <div class="brand">
+        <span class="brand-icon">✨</span>
+        <h2>Đánh Vần Tiếng Anh</h2>
+      </div>
+      <span class="version-tag">v1.0</span>
+    </div>
+
+    <!-- Dashboard Summary Grid -->
+    <div class="stats-card">
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-val" id="popStreak">0</span>
+          <span class="stat-lbl">🔥 Chuỗi ngày</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" id="popTime">0m</span>
+          <span class="stat-lbl">⏱️ Học hôm nay</span>
+        </div>
+      </div>
+      <div class="stats-row border-top">
+        <div class="stat-item">
+          <span class="stat-val color-green" id="popKnownWords">0</span>
+          <span class="stat-lbl">🟢 Từ đã thuộc</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val color-gold" id="popKnownRules">0</span>
+          <span class="stat-lbl">🏆 Quy luật thuộc</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Webpage Highlighter Toggle Switch -->
+    <div class="toggle-card">
+      <div class="toggle-info">
+        <span class="toggle-title">⚡ Tự động quét khi mở trang</span>
+        <span class="toggle-desc">Tắt để chuyển sang chế độ Quét Thủ Công (bấm nút mới quét)</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleHighlighter" checked>
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <!-- Toggle Switch for Known Green Highlights -->
+    <div class="toggle-card" style="margin-top: 0.4rem;">
+      <div class="toggle-info">
+        <span class="toggle-title">🟢 Hiện màu xanh (từ đã thuộc)</span>
+        <span class="toggle-desc">Tắt để chỉ hiện từ Cần học (Đỏ 🔴 / Vàng 🟡)</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleShowKnown" checked>
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <!-- Manual Scan Button -->
+    <button id="btnManualScan" class="btn-full-page" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); margin-top: 0.6rem;">
+      <span>🔍 Quét & Gạch Chân Trang Này</span>
+    </button>
+
+    <!-- Context Vault Button -->
+    <button id="btnOpenVault" class="btn-full-page" style="background: linear-gradient(135deg, #d97706, #b45309); margin-top: 0.4rem;">
+      <span>🌐 Xem Bảng Từ Vựng Tra Cứu (<span id="popVaultCount">0</span>)</span>
+    </button>
+
+    <!-- Primary Action Button -->
+    <button id="btnOpenFullPage" class="btn-full-page" style="margin-top: 0.4rem;">
+      <span>🚀 Mở Trang Học Full Page</span>
+    </button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
