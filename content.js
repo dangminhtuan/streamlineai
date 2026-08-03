@@ -701,96 +701,108 @@
       textNodes.push(walker.currentNode);
     }
 
-    const targetNodes = textNodes.slice(0, 2500);
+    // Process all nodes in chunks to avoid freezing the browser on massive pages
+    let currentIndex = 0;
+    const chunkSize = 300;
 
-    targetNodes.forEach(node => {
-      const text = node.nodeValue;
-      if (!text) return;
+    function processChunk() {
+      const chunk = textNodes.slice(currentIndex, currentIndex + chunkSize);
+      if (chunk.length === 0) return;
 
-      const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const customPhrases = userPrioritizedPhrases.map(escapeRegex).sort((a,b) => b.length - a.length).join('|');
-      const pattern = `(${customPhrases ? customPhrases + '|' : ''}\\b[a-zA-Z]{3,}\\b|\\b[\\u00C0-\\u1EF9a-zA-Z]{2,}\\b)`;
-      const tokenizer = new RegExp(pattern, 'gi');
-      
-      const tokens = text.split(tokenizer).filter(t => t !== undefined && t !== '');
-      if (tokens.length <= 1) return;
+      chunk.forEach(node => {
+        const text = node.nodeValue;
+        if (!text) return;
 
-      let hasMatch = false;
-      const frag = document.createDocumentFragment();
-
-      tokens.forEach((tok, tokIndex) => {
-        const tokRaw = tok.trim();
-        const info = getWordInfo(tokRaw);
-        const isPrioritized = userPrioritizedPhrases.some(p => p.toLowerCase() === tokRaw.toLowerCase());
+        const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const customPhrases = userPrioritizedPhrases.map(escapeRegex).sort((a,b) => b.length - a.length).join('|');
+        const pattern = `(${customPhrases ? customPhrases + '|' : ''}\\b[a-zA-Z]{3,}\\b|\\b[\\u00C0-\\u1EF9a-zA-Z]{2,}\\b)`;
+        const tokenizer = new RegExp(pattern, 'gi');
         
-        if (info || isPrioritized) {
-          const targetStem = info ? (info.enWord || info.stem || '').toLowerCase() : tokRaw.toLowerCase();
-          const synWord = info && info.synonymData ? info.synonymData.synWord.toLowerCase() : null;
-          const isKnown = knownWords.has(targetStem) || (synWord && knownWords.has(synWord));
-          const isInspected = wordLookupStats[targetStem] || (synWord && wordLookupStats[synWord]) || isPrioritized;
+        const tokens = text.split(tokenizer).filter(t => t !== undefined && t !== '');
+        if (tokens.length <= 1) return;
 
-          // Highlight rule: Only highlight Known (Green) or Inspected (Purple), unless forceScan is active!
-          if (!isKnown && !isInspected && !forceScan) {
-            frag.appendChild(document.createTextNode(tok));
-            return;
-          }
+        let hasMatch = false;
+        const frag = document.createDocumentFragment();
 
-          hasMatch = true;
-          const ipaStr = info && info.data && info.data.ipa && info.data.ipa[0] ? info.data.ipa[0].join('') : tokRaw;
-
-          let colorClass = 'dva-hl-unknown-3k';
-          if (isKnown) {
-            colorClass = 'dva-hl-known'; // 🟢 Green
-          } else if (isInspected) {
-            colorClass = 'dva-hl-inspected'; // 💜 Purple
-          } else if (info && info.isAdvanced) {
-            colorClass = 'dva-hl-advanced'; // 🟡 Yellow
-          }
-
-          const span = document.createElement('span');
-          span.className = `dva-hl-word ${colorClass}`;
-          span.setAttribute('data-stem', synWord || targetStem);
-          span.setAttribute('data-advanced', (info && info.isAdvanced) ? 'true' : 'false');
-          span.textContent = tok;
+        tokens.forEach((tok, tokIndex) => {
+          const tokRaw = tok.trim();
+          const info = getWordInfo(tokRaw);
+          const isPrioritized = userPrioritizedPhrases.some(p => p.toLowerCase() === tokRaw.toLowerCase());
           
-          span.addEventListener('mouseenter', () => {
-            // Context estimation for tooltip
-            let prevWord = null;
-            let nextWord = null;
-            if (tokIndex >= 2 && tokens[tokIndex - 2].trim().length > 1) {
-              prevWord = tokens[tokIndex - 2].trim();
-            }
-            if (tokIndex <= tokens.length - 3 && tokens[tokIndex + 2].trim().length > 1) {
-              nextWord = tokens[tokIndex + 2].trim();
+          if (info || isPrioritized) {
+            const targetStem = info ? (info.enWord || info.stem || '').toLowerCase() : tokRaw.toLowerCase();
+            const synWord = info && info.synonymData ? info.synonymData.synWord.toLowerCase() : null;
+            const isKnown = knownWords.has(targetStem) || (synWord && knownWords.has(synWord));
+            const isInspected = wordLookupStats[targetStem] || (synWord && wordLookupStats[synWord]) || isPrioritized;
+
+            if (!isKnown && !isInspected && !forceScan) {
+              frag.appendChild(document.createTextNode(tok));
+              return;
             }
 
-            showTooltip(span, {
-              displayWord: tok,
-              word: tokRaw,
-              stem: targetStem,
-              ipa: ipaStr,
-              mean: info ? info.data.mean : 'Cụm từ ghim',
-              cefr: info && info.data.cefr ? info.data.cefr : 'C1',
-              synonymData: info ? info.synonymData : null,
-              isAdvanced: info ? info.isAdvanced : true,
-              isVnMatch: info ? info.isVnMatch : true,
-              enWord: info ? info.enWord : tokRaw,
-              sentence: text.trim().slice(0, 150),
-              hoveredContext: { currentWord: tokRaw, prevWord, nextWord }
+            hasMatch = true;
+            const ipaStr = info && info.data && info.data.ipa && info.data.ipa[0] ? info.data.ipa[0].join('') : tokRaw;
+
+            let colorClass = 'dva-hl-unknown-3k';
+            if (isKnown) {
+              colorClass = 'dva-hl-known';
+            } else if (isInspected) {
+              colorClass = 'dva-hl-inspected';
+            } else if (info && info.isAdvanced) {
+              colorClass = 'dva-hl-advanced';
+            }
+
+            const span = document.createElement('span');
+            span.className = `dva-hl-word ${colorClass}`;
+            span.setAttribute('data-stem', synWord || targetStem);
+            span.setAttribute('data-advanced', (info && info.isAdvanced) ? 'true' : 'false');
+            span.textContent = tok;
+            
+            span.addEventListener('mouseenter', () => {
+              let prevWord = null;
+              let nextWord = null;
+              if (tokIndex >= 2 && tokens[tokIndex - 2].trim().length > 1) {
+                prevWord = tokens[tokIndex - 2].trim();
+              }
+              if (tokIndex <= tokens.length - 3 && tokens[tokIndex + 2].trim().length > 1) {
+                nextWord = tokens[tokIndex + 2].trim();
+              }
+
+              showTooltip(span, {
+                displayWord: tok,
+                word: tokRaw,
+                stem: targetStem,
+                ipa: ipaStr,
+                mean: info ? info.data.mean : 'Cụm từ ghim',
+                cefr: info && info.data.cefr ? info.data.cefr : 'C1',
+                synonymData: info ? info.synonymData : null,
+                isAdvanced: info ? info.isAdvanced : true,
+                isVnMatch: info ? info.isVnMatch : true,
+                enWord: info ? info.enWord : tokRaw,
+                sentence: text.trim().slice(0, 150),
+                hoveredContext: { currentWord: tokRaw, prevWord, nextWord }
+              });
             });
-          });
-          span.addEventListener('mouseleave', hideTooltip);
+            span.addEventListener('mouseleave', hideTooltip);
 
-          frag.appendChild(span);
-        } else {
-          frag.appendChild(document.createTextNode(tok));
+            frag.appendChild(span);
+          } else {
+            frag.appendChild(document.createTextNode(tok));
+          }
+        });
+
+        if (hasMatch && node.parentNode) {
+          node.parentNode.replaceChild(frag, node);
         }
       });
 
-      if (hasMatch && node.parentNode) {
-        node.parentNode.replaceChild(frag, node);
+      currentIndex += chunkSize;
+      if (currentIndex < textNodes.length) {
+        requestAnimationFrame(() => setTimeout(processChunk, 0));
       }
-    });
+    }
+
+    processChunk();
   }
 
   // On-Demand Inspector: Point and press Ctrl
