@@ -232,7 +232,7 @@
     document.body.appendChild(tooltipEl);
   }
 
-  function toggleWordKnownState(targetWord, targetEl) {
+  function toggleWordKnownState(targetWord) {
     const isNowKnown = !knownWords.has(targetWord);
     if (isNowKnown) {
       knownWords.add(targetWord);
@@ -244,11 +244,6 @@
       chrome.storage.local.set({ knownWords: [...knownWords] });
     }
 
-    // Dynamic Live DOM Update across the page
-    document.querySelectorAll(`.dva-hl-word[data-stem="${targetWord}"]`).forEach(el => {
-      if (isNowKnown) {
-        el.className = 'dva-hl-word dva-hl-known';
-      } else {
         const isAdv = el.getAttribute('data-advanced') === 'true';
         el.className = `dva-hl-word ${isAdv ? 'dva-hl-advanced' : 'dva-hl-unknown-3k'}`;
       }
@@ -653,7 +648,7 @@
 
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.action === 'MANUAL_SCAN') {
-          scanAndHighlight(true);
+          scanAndHighlightAPI(true);
           sendResponse({ status: 'SUCCESS' });
         }
       });
@@ -663,18 +658,20 @@
     }
   }
 
-  function removeHighlights() {
-    document.querySelectorAll('.dva-hl-word').forEach(span => {
-      const parent = span.parentNode;
-      if (parent) {
-        parent.replaceChild(document.createTextNode(span.textContent), span);
-        parent.normalize();
-      }
-    });
+  function clearHighlights() {
+    if (typeof CSS !== 'undefined' && CSS.highlights) {
+      CSS.highlights.clear();
+    }
   }
 
-  function scanAndHighlight(forceScan = false) {
+  function scanAndHighlightAPI(forceScan = false) {
+    if (typeof CSS === 'undefined' || !CSS.highlights) {
+      console.warn('[Đánh Vần Tiếng Anh] CSS Custom Highlights API is not supported in this browser.');
+      return;
+    }
+    
     if (!highlighterEnabled && !forceScan) return;
+    clearHighlights();
 
     const walker = document.createTreeWalker(
       document.body,
@@ -682,10 +679,7 @@
       {
         acceptNode: function(node) {
           const parentName = node.parentNode ? node.parentNode.nodeName.toUpperCase() : '';
-          if (['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'NOSCRIPT', 'IFRAME', 'CODE'].includes(parentName)) {
-            return NodeFilter.FILTER_REJECT;
-          }
-          if (node.parentNode && node.parentNode.classList && node.parentNode.classList.contains('dva-hl-word')) {
+          if (['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'NOSCRIPT', 'IFRAME', 'CODE', 'BUTTON'].includes(parentName)) {
             return NodeFilter.FILTER_REJECT;
           }
           if (node.nodeValue && node.nodeValue.trim().length > 1) {
@@ -701,31 +695,36 @@
       textNodes.push(walker.currentNode);
     }
 
-    // Process all nodes in chunks to avoid freezing the browser on massive pages
+    const rangesUnknown = [];
+    const rangesKnown = [];
+    const rangesInspected = [];
+    const rangesAdvanced = [];
+
+    // Process nodes in chunks for performance
     let currentIndex = 0;
-    const chunkSize = 300;
+    const chunkSize = 500;
 
     function processChunk() {
       const chunk = textNodes.slice(currentIndex, currentIndex + chunkSize);
-      if (chunk.length === 0) return;
+      if (chunk.length === 0) {
+        CSS.highlights.set('dva-unknown-3k', new Highlight(...rangesUnknown));
+        CSS.highlights.set('dva-known', new Highlight(...rangesKnown));
+        CSS.highlights.set('dva-inspected', new Highlight(...rangesInspected));
+        CSS.highlights.set('dva-advanced', new Highlight(...rangesAdvanced));
+        return;
+      }
+
+      const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const customPhrases = userPrioritizedPhrases.map(escapeRegex).sort((a,b) => b.length - a.length).join('|');
+      const pattern = `(${customPhrases ? customPhrases + '|' : ''}\\b[a-zA-Z]{3,}\\b|\\b[\\u00C0-\\u1EF9a-zA-Z]{2,}\\b)`;
+      const tokenizer = new RegExp(pattern, 'gi');
 
       chunk.forEach(node => {
         const text = node.nodeValue;
-        if (!text) return;
-
-        const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const customPhrases = userPrioritizedPhrases.map(escapeRegex).sort((a,b) => b.length - a.length).join('|');
-        const pattern = `(${customPhrases ? customPhrases + '|' : ''}\\b[a-zA-Z]{3,}\\b|\\b[\\u00C0-\\u1EF9a-zA-Z]{2,}\\b)`;
-        const tokenizer = new RegExp(pattern, 'gi');
+        let match;
         
-        const tokens = text.split(tokenizer).filter(t => t !== undefined && t !== '');
-        if (tokens.length <= 1) return;
-
-        let hasMatch = false;
-        const frag = document.createDocumentFragment();
-
-        tokens.forEach((tok, tokIndex) => {
-          const tokRaw = tok.trim();
+        while ((match = tokenizer.exec(text)) !== null) {
+          const tokRaw = match[0];
           const info = getWordInfo(tokRaw);
           const isPrioritized = userPrioritizedPhrases.some(p => p.toLowerCase() === tokRaw.toLowerCase());
           
@@ -736,196 +735,174 @@
             const isInspected = wordLookupStats[targetStem] || (synWord && wordLookupStats[synWord]) || isPrioritized;
 
             if (!isKnown && !isInspected && !forceScan) {
-              frag.appendChild(document.createTextNode(tok));
-              return;
+              continue;
             }
 
-            hasMatch = true;
-            const ipaStr = info && info.data && info.data.ipa && info.data.ipa[0] ? info.data.ipa[0].join('') : tokRaw;
-
-            let colorClass = 'dva-hl-unknown-3k';
-            if (isKnown) {
-              colorClass = 'dva-hl-known';
-            } else if (isInspected) {
-              colorClass = 'dva-hl-inspected';
-            } else if (info && info.isAdvanced) {
-              colorClass = 'dva-hl-advanced';
-            }
-
-            const span = document.createElement('span');
-            span.className = `dva-hl-word ${colorClass}`;
-            span.setAttribute('data-stem', synWord || targetStem);
-            span.setAttribute('data-advanced', (info && info.isAdvanced) ? 'true' : 'false');
-            span.textContent = tok;
-            
-            span.addEventListener('mouseenter', () => {
-              let prevWord = null;
-              let nextWord = null;
-              if (tokIndex >= 2 && tokens[tokIndex - 2].trim().length > 1) {
-                prevWord = tokens[tokIndex - 2].trim();
+            try {
+              const range = new Range();
+              range.setStart(node, match.index);
+              range.setEnd(node, match.index + tokRaw.length);
+              
+              if (isKnown) {
+                rangesKnown.push(range);
+              } else if (isInspected) {
+                rangesInspected.push(range);
+              } else if (info && info.isAdvanced) {
+                rangesAdvanced.push(range);
+              } else {
+                rangesUnknown.push(range);
               }
-              if (tokIndex <= tokens.length - 3 && tokens[tokIndex + 2].trim().length > 1) {
-                nextWord = tokens[tokIndex + 2].trim();
-              }
-
-              showTooltip(span, {
-                displayWord: tok,
-                word: tokRaw,
-                stem: targetStem,
-                ipa: ipaStr,
-                mean: info ? info.data.mean : 'Cụm từ ghim',
-                cefr: info && info.data.cefr ? info.data.cefr : 'C1',
-                synonymData: info ? info.synonymData : null,
-                isAdvanced: info ? info.isAdvanced : true,
-                isVnMatch: info ? info.isVnMatch : true,
-                enWord: info ? info.enWord : tokRaw,
-                sentence: text.trim().slice(0, 150),
-                hoveredContext: { currentWord: tokRaw, prevWord, nextWord }
-              });
-            });
-            span.addEventListener('mouseleave', hideTooltip);
-
-            frag.appendChild(span);
-          } else {
-            frag.appendChild(document.createTextNode(tok));
+            } catch (e) {}
           }
-        });
-
-        if (hasMatch && node.parentNode) {
-          node.parentNode.replaceChild(frag, node);
         }
       });
 
       currentIndex += chunkSize;
-      if (currentIndex < textNodes.length) {
-        requestAnimationFrame(() => setTimeout(processChunk, 0));
-      }
+      requestAnimationFrame(() => setTimeout(processChunk, 0));
     }
 
     processChunk();
   }
 
-  // On-Demand Inspector: Point and press Ctrl
-  let lastMouseX = 0;
-  let lastMouseY = 0;
-  let lastHoveredTarget = null;
+  // Radar Tracking System for Tooltips
+  let lastHoveredWord = null;
+  let lastHoveredNode = null;
 
-  function initOnDemandHoverInspector() {
+  function initRadarInspector() {
     document.addEventListener('mousemove', (e) => {
-      lastMouseX = e.clientX;
-      lastMouseY = e.clientY;
-      lastHoveredTarget = e.target;
-    }, { passive: true });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Control' && highlighterEnabled) {
-        
-        // 1. If already hovering a highlighted word, let the existing mouseenter event handle it
-        if (lastHoveredTarget && lastHoveredTarget.classList && lastHoveredTarget.classList.contains('dva-hl-word')) {
-          return;
-        }
-
-        let range, textNode, offset;
-        if (document.caretRangeFromPoint) {
-          range = document.caretRangeFromPoint(lastMouseX, lastMouseY);
-          if (range) {
-            textNode = range.startContainer;
-            offset = range.startOffset;
-          }
-        }
-
-        if (!textNode || textNode.nodeType !== Node.TEXT_NODE) return;
-        
-        // Prevent nesting spans if parent is already a dva-hl-word
-        if (textNode.parentNode && textNode.parentNode.classList && textNode.parentNode.classList.contains('dva-hl-word')) {
-          return;
-        }
-
-        const fullText = textNode.nodeValue;
-        if (!fullText || fullText.trim().length < 2) return;
-
-        const parentName = textNode.parentNode ? textNode.parentNode.nodeName.toUpperCase() : '';
-        if (['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'NOSCRIPT', 'IFRAME', 'CODE', 'BUTTON'].includes(parentName)) return;
-
-        // Extract accurate word boundaries around caret
-        const wordRegex = /[\u00C0-\u1EF9a-zA-Z]+/g;
-        let match;
-        let wordsList = [];
-        while ((match = wordRegex.exec(fullText)) !== null) {
-          wordsList.push({ word: match[0], start: match.index, end: match.index + match[0].length });
-        }
-
-        let hoveredIndex = -1;
-        for (let i = 0; i < wordsList.length; i++) {
-          if (offset >= wordsList[i].start && offset <= wordsList[i].end + 1) {
-            hoveredIndex = i;
-            break;
-          }
-        }
-
-        if (hoveredIndex === -1) return;
-
-        const currentWord = wordsList[hoveredIndex].word;
-        const prevWord = hoveredIndex > 0 ? wordsList[hoveredIndex - 1].word : null;
-        const nextWord = hoveredIndex < wordsList.length - 1 ? wordsList[hoveredIndex + 1].word : null;
-
-        const info = getWordInfo(currentWord);
-        
-        // Force Trigger for ANY word (even if not in dictionary) when Ctrl is intentionally pressed!
-        const targetStem = info ? (info.enWord || info.stem || '').toLowerCase() : currentWord.toLowerCase();
-        const isKnown = knownWords.has(targetStem);
-        const colorClass = isKnown ? 'dva-hl-known' : 'dva-hl-inspected'; // 💜 Purple
-
-        const matchIdx = wordsList[hoveredIndex].start;
-        const beforeStr = fullText.slice(0, matchIdx);
-        const matchStr = fullText.slice(matchIdx, matchIdx + currentWord.length);
-        const afterStr = fullText.slice(matchIdx + currentWord.length);
-
-        const span = document.createElement('span');
-        span.className = `dva-hl-word ${colorClass}`;
-        span.setAttribute('data-stem', targetStem);
-        span.textContent = matchStr;
-
-        const ipaStr = info && info.data && info.data.ipa && info.data.ipa[0] ? info.data.ipa[0].join('') : currentWord;
-
-        const tooltipData = {
-          displayWord: matchStr,
-          word: currentWord,
-          stem: targetStem,
-          ipa: ipaStr,
-          mean: info ? info.data.mean : 'Chưa có trong từ điển',
-          cefr: info && info.data.cefr ? info.data.cefr : 'C1',
-          synonymData: info ? info.synonymData : null,
-          isAdvanced: info ? info.isAdvanced : true,
-          isVnMatch: info ? info.isVnMatch : true,
-          enWord: info ? info.enWord : currentWord,
-          sentence: fullText.trim().slice(0, 150),
-          hoveredContext: { currentWord, prevWord, nextWord }
-        };
-
-        span.addEventListener('mouseenter', () => showTooltip(span, tooltipData));
-        span.addEventListener('mouseleave', hideTooltip);
-
-        const frag = document.createDocumentFragment();
-        if (beforeStr) frag.appendChild(document.createTextNode(beforeStr));
-        frag.appendChild(span);
-        if (afterStr) frag.appendChild(document.createTextNode(afterStr));
-
-        textNode.parentNode.replaceChild(frag, textNode);
-
-        // Trigger Tooltip for deliberate lookup
-        showTooltip(span, tooltipData);
+      if (!highlighterEnabled && !e.ctrlKey) {
+        hideTooltip();
+        return;
       }
-    });
+      
+      const isCtrlPressed = e.ctrlKey;
+      let range, textNode, offset;
+      
+      if (document.caretRangeFromPoint) {
+        range = document.caretRangeFromPoint(e.clientX, e.clientY);
+        if (range) {
+          textNode = range.startContainer;
+          offset = range.startOffset;
+        }
+      } else if (document.caretPositionFromPoint) {
+        // Fallback for Firefox
+        const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+        if (pos) {
+          textNode = pos.offsetNode;
+          offset = pos.offset;
+        }
+      }
+
+      if (!textNode || textNode.nodeType !== Node.TEXT_NODE) {
+         if (!isCtrlPressed) hideTooltip();
+         return;
+      }
+      
+      if (textNode.parentElement && textNode.parentElement.closest('#dva-tooltip-container')) {
+          return; // Do not hide or change anything if hovering inside our own tooltip
+      }
+
+      const fullText = textNode.nodeValue;
+      if (!fullText || fullText.trim().length < 2) {
+         if (!isCtrlPressed) hideTooltip();
+         return;
+      }
+      
+      const parentName = textNode.parentNode ? textNode.parentNode.nodeName.toUpperCase() : '';
+      if (['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'NOSCRIPT', 'IFRAME', 'CODE', 'BUTTON'].includes(parentName)) {
+         if (!isCtrlPressed) hideTooltip();
+         return;
+      }
+
+      // We only care about words, ignoring symbols
+      const wordRegex = /[\\u00C0-\\u1EF9a-zA-Z]+/g;
+      let match;
+      let hoveredMatch = null;
+      let prevWord = null;
+      let nextWord = null;
+      let words = [];
+
+      while ((match = wordRegex.exec(fullText)) !== null) {
+         words.push({ word: match[0], start: match.index, end: match.index + match[0].length });
+      }
+
+      for (let i = 0; i < words.length; i++) {
+        if (offset >= words[i].start && offset <= words[i].end) {
+          hoveredMatch = words[i];
+          prevWord = i > 0 ? words[i-1].word : null;
+          nextWord = i < words.length - 1 ? words[i+1].word : null;
+          break;
+        }
+      }
+
+      if (!hoveredMatch) {
+         if (!isCtrlPressed) hideTooltip();
+         return;
+      }
+
+      const currentWord = hoveredMatch.word;
+      const info = getWordInfo(currentWord);
+      const isPrioritized = userPrioritizedPhrases.some(p => p.toLowerCase() === currentWord.toLowerCase());
+
+      if (!info && !isPrioritized && !isCtrlPressed) {
+         hideTooltip();
+         return;
+      }
+      
+      const targetStem = info ? (info.enWord || info.stem || '').toLowerCase() : currentWord.toLowerCase();
+      const synWord = info && info.synonymData ? info.synonymData.synWord.toLowerCase() : null;
+      const isKnown = knownWords.has(targetStem) || (synWord && knownWords.has(synWord));
+      const isInspected = wordLookupStats[targetStem] || (synWord && wordLookupStats[synWord]) || isPrioritized;
+
+      if (!isKnown && !isInspected && !highlighterEnabled && !isCtrlPressed) {
+         hideTooltip();
+         return;
+      }
+      
+      // Debounce logic
+      if (tooltipEl && tooltipEl.classList.contains('visible') && 
+          lastHoveredWord === currentWord && lastHoveredNode === textNode) {
+          return;
+      }
+      
+      lastHoveredWord = currentWord;
+      lastHoveredNode = textNode;
+
+      const ipaStr = info && info.data && info.data.ipa && info.data.ipa[0] ? info.data.ipa[0].join('') : currentWord;
+      const tooltipData = {
+        displayWord: currentWord,
+        word: currentWord,
+        stem: targetStem,
+        ipa: ipaStr,
+        mean: info ? info.data.mean : 'Chưa có trong từ điển',
+        cefr: info && info.data.cefr ? info.data.cefr : 'C1',
+        synonymData: info ? info.synonymData : null,
+        isAdvanced: info ? info.isAdvanced : true,
+        isVnMatch: info ? info.isVnMatch : true,
+        enWord: info ? info.enWord : currentWord,
+        sentence: fullText.trim().slice(0, 150),
+        hoveredContext: { currentWord, prevWord, nextWord }
+      };
+
+      try {
+        const wordRange = document.createRange();
+        wordRange.setStart(textNode, hoveredMatch.start);
+        wordRange.setEnd(textNode, hoveredMatch.end);
+        const mockTarget = { getBoundingClientRect: () => wordRange.getBoundingClientRect() };
+        showTooltip(mockTarget, tooltipData);
+      } catch (e) {
+        // If range fails, fallback to passing null
+      }
+    }, { passive: true });
   }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initHighlighter();
-      initOnDemandHoverInspector();
+      initRadarInspector();
     });
   } else {
     initHighlighter();
-    initOnDemandHoverInspector();
+    initRadarInspector();
   }
 })();

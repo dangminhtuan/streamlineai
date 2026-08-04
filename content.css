@@ -1,58 +1,33 @@
 /* Webpage Highlighter Styles */
-.dva-hl-word {
-  position: relative;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
-  border-radius: 2px;
-}
 
-/* 1. Mastered / Known Words: Green Underline */
-.dva-hl-known {
-  border-bottom-color: #22c55e !important; /* Green */
-  background-color: rgba(34, 197, 94, 0.12);
-}
-
-/* 💜 Looked-up / Inspected Words: Purple Underline */
-.dva-hl-inspected {
-  border-bottom-color: #a855f7 !important; /* Purple */
-  background-color: rgba(168, 85, 247, 0.2) !important;
-}
-
-.dva-hl-inspected:hover {
-  background-color: rgba(168, 85, 247, 0.4) !important;
-}
-
-.dva-hl-known:hover {
-  background-color: rgba(34, 197, 94, 0.3) !important;
-}
-
-/* Hide Known Highlights Mode */
-body.dva-hide-known .dva-hl-known {
-  border-bottom-color: transparent !important;
-  background-color: transparent !important;
-}
-
-/* 2. Unlearned Core 3000 Words: Red Underline */
-.dva-hl-unknown-3k {
-  border-bottom-color: #ef4444 !important; /* Red */
+/* CSS Custom Highlights for Text Rendering */
+::highlight(dva-unknown-3k) {
   background-color: rgba(239, 68, 68, 0.12);
+  text-decoration: underline #ef4444 2px;
 }
 
-.dva-hl-unknown-3k:hover {
-  background-color: rgba(239, 68, 68, 0.3) !important;
+::highlight(dva-known) {
+  background-color: rgba(34, 197, 94, 0.12);
+  text-decoration: underline #22c55e 2px;
 }
 
-/* 3. Advanced / Out-of-3000 Words: Amber / Yellow Underline */
-.dva-hl-advanced {
-  border-bottom-color: #f59e0b !important; /* Amber Yellow */
-  background-color: rgba(245, 158, 11, 0.14);
+::highlight(dva-advanced) {
+  background-color: rgba(168, 85, 247, 0.12);
+  text-decoration: underline #a855f7 2px;
 }
 
-.dva-hl-advanced:hover {
-  background-color: rgba(245, 158, 11, 0.35) !important;
+::highlight(dva-inspected) {
+  background-color: rgba(234, 179, 8, 0.12);
+  text-decoration: underline #eab308 2px;
 }
+
+/* Fallback base if needed */
+.dva-hl-word {
+  cursor: pointer;
+}
+
+/* Note: we no longer use spans for highlights, so the hide-known class is less effective via standard CSS on spans,
+   we'll handle it via JS by clearing the known highlight ranges. */
 
 /* Tooltip Popup */
 #dva-tooltip-container {
