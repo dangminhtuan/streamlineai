@@ -723,6 +723,8 @@
         const text = node.nodeValue;
         let match;
         
+        tokenizer.lastIndex = 0; // CRITICAL: Reset regex state for each new string!
+        
         while ((match = tokenizer.exec(text)) !== null) {
           const tokRaw = match[0];
           const info = getWordInfo(tokRaw);
