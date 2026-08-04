@@ -707,10 +707,21 @@
     function processChunk() {
       const chunk = textNodes.slice(currentIndex, currentIndex + chunkSize);
       if (chunk.length === 0) {
-        CSS.highlights.set('dva-unknown-3k', new Highlight(...rangesUnknown));
-        CSS.highlights.set('dva-known', new Highlight(...rangesKnown));
-        CSS.highlights.set('dva-inspected', new Highlight(...rangesInspected));
-        CSS.highlights.set('dva-advanced', new Highlight(...rangesAdvanced));
+        const hlUnknown = new Highlight();
+        rangesUnknown.forEach(r => hlUnknown.add(r));
+        CSS.highlights.set('dva-unknown-3k', hlUnknown);
+
+        const hlKnown = new Highlight();
+        rangesKnown.forEach(r => hlKnown.add(r));
+        CSS.highlights.set('dva-known', hlKnown);
+
+        const hlInspected = new Highlight();
+        rangesInspected.forEach(r => hlInspected.add(r));
+        CSS.highlights.set('dva-inspected', hlInspected);
+
+        const hlAdvanced = new Highlight();
+        rangesAdvanced.forEach(r => hlAdvanced.add(r));
+        CSS.highlights.set('dva-advanced', hlAdvanced);
         return;
       }
 
