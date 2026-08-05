@@ -386,6 +386,7 @@
   function showTooltip(target, info) {
     clearTimeout(hideTimer);
     if (!tooltipEl) createTooltip();
+    initRadarInspector();
     
     recordWordLookup(info);
     
@@ -638,9 +639,9 @@
         highlighterEnabled = data.highlighterEnabled !== undefined ? data.highlighterEnabled : true;
         showKnownHighlights = data.showKnownHighlights !== undefined ? data.showKnownHighlights : false;
         showUnknownHighlights = data.showUnknownHighlights !== undefined ? data.showUnknownHighlights : false;
-        
+
         if (highlighterEnabled) {
-          scanAndHighlightAPI(true);
+          scanAndHighlight(true);
         }
         
         // Dynamic content handling
@@ -655,7 +656,7 @@
             isScanScheduled = true;
             setTimeout(() => {
               if (window.dvaObserver) window.dvaObserver.disconnect();
-              scanAndHighlightAPI(true);
+              scanAndHighlight(true);
               isScanScheduled = false;
               if (window.dvaObserver) window.dvaObserver.observe(document.body, { childList: true, subtree: true });
             }, 2000);
@@ -722,10 +723,10 @@
           let node;
           let count = 0;
           while ((node = walker.nextNode()) && count < 100) {
-            const clone = node.cloneNode(true);
-            clone.querySelectorAll('script, style, iframe, noscript').forEach(el => el.remove());
-            
-            let html = clone.innerHTML;
+            let html = node.innerHTML;
+            // Clean up scripts/styles if any
+            html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            html = html.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
             // Strip tags except basics
             html = html.replace(/<(?!\/?(b|i|u|strong|em|mark)\b)[^>]+>/gi, '');
             const cleanText = html.trim();
@@ -754,7 +755,8 @@
     }
   }
 
-  function clearHighlights() {
+
+function clearHighlights() {
     if (typeof CSS !== 'undefined' && CSS.highlights) {
       CSS.highlights.clear();
     }
@@ -774,7 +776,7 @@
     return new RegExp(`(${parts.join('|')})`, 'gi');
   }
 
-  function scanAndHighlightAPI(forceScan = false) {
+function scanAndHighlightAPI(forceScan = false) {
     if (typeof CSS === 'undefined' || !CSS.highlights) {
       console.warn('[Đánh Vần Tiếng Anh] CSS Custom Highlights API is not supported in this browser.');
       return;
@@ -957,8 +959,7 @@
     processChunk();
   }
 
-  // Radar Tracking System for Tooltips
-  let lastHoveredWord = null;
+let lastHoveredWord = null;
   let lastHoveredNode = null;
 
   function initRadarInspector() {
@@ -1095,13 +1096,95 @@
     }, { capture: true });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initHighlighter();
-      initRadarInspector();
-    });
-  } else {
-    initHighlighter();
+
+  async function initStudyPage() {
+    createTooltip();
     initRadarInspector();
+    
+    if (typeof chrome === 'undefined' || !chrome.storage || !chrome.storage.local) {
+      return;
+    }
+
+    try {
+      let dictUrl = chrome.runtime.getURL('dictionary_oxford.json');
+      let res = await fetch(dictUrl).catch(() => null);
+      if (!res || !res.ok) {
+        dictUrl = chrome.runtime.getURL('public/dictionary_oxford.json');
+        res = await fetch(dictUrl);
+      }
+      dictionary = await res.json();
+      buildVietnameseMap();
+
+      chrome.storage.local.get(['knownWords', 'highlighterEnabled', 'showKnownHighlights', 'showUnknownHighlights', 'userPrioritizedPhrases', 'extractedStudyContent', 'wordLookupStats', 'customDictionary'], (data) => {
+        knownWords = new Set(data.knownWords || []);
+        userPrioritizedPhrases = data.userPrioritizedPhrases || [];
+        wordLookupStats = data.wordLookupStats || {};
+        customDictionary = data.customDictionary || {};
+        highlighterEnabled = data.highlighterEnabled !== undefined ? data.highlighterEnabled : true;
+        showKnownHighlights = data.showKnownHighlights !== undefined ? data.showKnownHighlights : false;
+        showUnknownHighlights = data.showUnknownHighlights !== undefined ? data.showUnknownHighlights : false;
+
+        // Render extracted content
+        const contentArea = document.getElementById('content-area');
+        const extracted = data.extractedStudyContent || [];
+        
+        if (extracted.length > 0) {
+          contentArea.innerHTML = '';
+          extracted.forEach(item => {
+            const el = document.createElement(item.tag);
+            el.innerHTML = item.html;
+            contentArea.appendChild(el);
+          });
+        } else {
+          contentArea.innerHTML = '<p class="loading-msg">Không tìm thấy nội dung trích xuất. Hãy quay lại trang web và thử lại.</p>';
+        }
+
+        if (highlighterEnabled) {
+          scanAndHighlightAPI();
+        }
+
+        chrome.storage.onChanged.addListener((changes, area) => {
+          if (area === 'local') {
+            if (changes.knownWords) {
+              knownWords = new Set(changes.knownWords.newValue || []);
+            }
+            if (changes.userPrioritizedPhrases) {
+              userPrioritizedPhrases = changes.userPrioritizedPhrases.newValue || [];
+            }
+            if (changes.wordLookupStats) {
+              wordLookupStats = changes.wordLookupStats.newValue || {};
+            }
+            if (changes.highlighterEnabled !== undefined) {
+              highlighterEnabled = changes.highlighterEnabled.newValue;
+            }
+            if (changes.showKnownHighlights !== undefined) {
+              showKnownHighlights = changes.showKnownHighlights.newValue;
+            }
+            if (changes.showUnknownHighlights !== undefined) {
+              showUnknownHighlights = changes.showUnknownHighlights.newValue;
+            }
+            if (changes.customDictionary !== undefined) {
+              customDictionary = changes.customDictionary.newValue || {};
+            }
+            if (highlighterEnabled) {
+              scanAndHighlightAPI(true);
+            } else {
+              clearHighlights();
+            }
+          }
+        });
+      });
+      
+    } catch (e) {
+      console.error('[Đánh Vần Tiếng Anh] Lỗi khởi tạo trang học:', e);
+      document.getElementById('content-area').innerHTML = '<p style="color:red;">Lỗi tải dữ liệu. Vui lòng thử lại.</p>';
+    }
+  }
+
+  // Khởi chạy
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStudyPage);
+  } else {
+    initStudyPage();
   }
 })();

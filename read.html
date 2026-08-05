@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Học Chuyên Sâu</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --text-color: #cbd5e1;
+      --heading-color: #f8fafc;
+      --panel-bg: #1e293b;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .read-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .read-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .read-header h1 {
+      color: var(--heading-color);
+      font-size: 2.2rem;
+      margin: 0 0 10px 0;
+    }
+    
+    .read-header p {
+      color: #94a3b8;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    #content-area {
+      background: var(--panel-bg);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    #content-area p, #content-area h1, #content-area h2, #content-area h3, #content-area li, #content-area blockquote {
+      margin-bottom: 1.5em;
+    }
+
+    #content-area h1, #content-area h2, #content-area h3 {
+      color: var(--heading-color);
+      margin-top: 1.5em;
+    }
+
+    #content-area blockquote {
+      border-left: 4px solid #3b82f6;
+      padding-left: 20px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    /* CSS Custom Highlights for Text Rendering */
+    /* Red - Unknown */
+    ::highlight(dva-unknown) {
+      background-color: rgba(239, 68, 68, 0.12);
+      text-decoration: underline solid #ef4444 1px;
+    }
+    ::highlight(dva-unknown-adv) {
+      background-color: rgba(239, 68, 68, 0.12);
+      text-decoration: line-through solid #ef4444 1px;
+    }
+
+    /* Yellow - Inspected */
+    ::highlight(dva-inspected-1) {
+      background-color: rgba(234, 179, 8, 0.12);
+      text-decoration: underline solid #eab308 1px;
+    }
+    ::highlight(dva-inspected-1-adv) {
+      background-color: rgba(234, 179, 8, 0.12);
+      text-decoration: underline line-through solid #eab308 1px;
+    }
+
+    ::highlight(dva-inspected-2) {
+      background-color: rgba(234, 179, 8, 0.12);
+      text-decoration: underline double #eab308 3px;
+    }
+    ::highlight(dva-inspected-2-adv) {
+      background-color: rgba(234, 179, 8, 0.12);
+      text-decoration: underline line-through double #eab308 3px;
+    }
+
+    ::highlight(dva-inspected-3) {
+      background-color: rgba(234, 179, 8, 0.12);
+      text-decoration: underline wavy #eab308 1px;
+    }
+    ::highlight(dva-inspected-3-adv) {
+      background-color: rgba(234, 179, 8, 0.12);
+      text-decoration: underline line-through wavy #eab308 1px;
+    }
+
+    ::highlight(dva-inspected-4) {
+      background-color: rgba(234, 179, 8, 0.12);
+      text-decoration: underline dashed #eab308 2px;
+    }
+    ::highlight(dva-inspected-4-adv) {
+      background-color: rgba(234, 179, 8, 0.12);
+      text-decoration: underline line-through dashed #eab308 2px;
+    }
+
+    /* Green - Known */
+    ::highlight(dva-known) {
+      background-color: rgba(34, 197, 94, 0.12);
+      text-decoration: underline solid #22c55e 1px;
+    }
+
+    /* Tooltip Styles (copied from content.css) */
+    #dva-tooltip-container {
+      position: absolute;
+      z-index: 2147483647;
+      background-color: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      width: max-content;
+      max-width: 320px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(10px) scale(0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #dva-tooltip-container.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .dva-tt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 8px;
+    }
+
+    .dva-tt-word {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .dva-tt-cefr {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: #3b82f6;
+      color: white;
+    }
+    
+    .dva-tt-cefr.advanced {
+      background-color: #8b5cf6;
+    }
+
+    .dva-tt-ipa {
+      color: #94a3b8;
+      font-family: monospace;
+      font-size: 0.9rem;
+      margin-top: -4px;
+    }
+
+    .dva-tt-body {
+      color: #cbd5e1;
+    }
+
+    .dva-tt-btn-mark {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .dva-tt-btn-mark:hover {
+      background: #1d4ed8;
+    }
+
+    .dva-tt-btn-mark.is-known {
+      background: #059669;
+    }
+    
+    .dva-tt-btn-mark.is-known:hover {
+      background: #047857;
+    }
+
+    .loading-msg {
+      text-align: center;
+      color: #94a3b8;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="read-container">
+    <div class="read-header">
+      <h1>Trang Học Chuyên Sâu</h1>
+      <p>Tập trung đọc hiểu - Không lo quảng cáo & lỗi giao diện</p>
+    </div>
+    
+    <div id="content-area">
+      <div class="loading-msg">Đang xử lý nội dung...</div>
+    </div>
+  </div>
+
+  <script type="module" src="read.js"></script>
+</body>
+</html>

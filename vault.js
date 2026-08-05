@@ -1,6 +1,7 @@
 let dictionary = {};
 let knownWords = new Set();
 let wordLookupStats = {};
+let customDictionary = {};
 let encounteredAdvancedWords = [];
 
 let currentTab = 'ALL';
@@ -111,10 +112,11 @@ async function initVaultData() {
 
   // 2. Load storage data AFTER dictionary is loaded
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-    chrome.storage.local.get(['knownWords', 'wordLookupStats', 'encounteredAdvancedWords'], (res) => {
-      knownWords = new Set(res.knownWords || []);
-      wordLookupStats = res.wordLookupStats || {};
-      encounteredAdvancedWords = res.encounteredAdvancedWords || [];
+    chrome.storage.local.get(['knownWords', 'wordLookupStats', 'encounteredAdvancedWords', 'customDictionary'], async (data) => {
+      knownWords = new Set(data.knownWords || []);
+      wordLookupStats = data.wordLookupStats || {};
+      customDictionary = data.customDictionary || {};
+      encounteredAdvancedWords = data.encounteredAdvancedWords || [];
       renderVaultTable();
     });
 
@@ -339,7 +341,10 @@ function renderVaultTable() {
           <span class="domain-tag">${item.domain || 'web'}</span>
         </td>
         <td style="text-align: center;">
-          <button class="${btnClass}" onclick="toggleKnownInVault('${item.stem}')">${btnText}</button>
+          <div style="display: flex; gap: 0.5rem; justify-content: center;">
+            <button class="${btnClass}" onclick="toggleKnownInVault('${item.stem}')">${btnText}</button>
+            <button class="dva-tt-btn-mark" style="background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #f87171; padding: 0.25rem 0.5rem;" onclick="deleteWordFromVault('${item.stem}')" title="Xóa từ này khỏi bộ nhớ">🗑️</button>
+          </div>
         </td>
       </tr>
     `;
@@ -360,6 +365,39 @@ window.toggleKnownInVault = function(stem) {
   }
 
   renderVaultTable();
+};
+
+window.deleteWordFromVault = function(stem) {
+  if (confirm(`Bạn có chắc chắn muốn xóa từ "${stem}" khỏi lịch sử?`)) {
+    let updated = false;
+    
+    if (wordLookupStats[stem]) {
+      delete wordLookupStats[stem];
+      updated = true;
+    }
+    
+    if (customDictionary[stem]) {
+      delete customDictionary[stem];
+      updated = true;
+    }
+    
+    if (knownWords.has(stem)) {
+      knownWords.delete(stem);
+      updated = true;
+    }
+
+    if (updated && typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      chrome.storage.local.set({ 
+        wordLookupStats: wordLookupStats,
+        customDictionary: customDictionary,
+        knownWords: [...knownWords]
+      }, () => {
+        renderVaultTable();
+      });
+    } else {
+      renderVaultTable();
+    }
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -412,34 +450,30 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnExtractAI) {
     btnExtractAI.addEventListener('click', () => {
       const allItems = processAllItems();
-      const needsSync = allItems.filter(item => {
-        // Cần xử lý nếu là từ Ngoài 3000, hoặc là từ C1/C2 (quá khó)
-        const isAdvanced = item.isOut3k || item.cefr === 'C1' || item.cefr === 'C2';
-        if (!isAdvanced) return false; // Từ A1-B2 thì không cần quy đổi
-        if (item.synonym3k) return false; // Đã có nghĩa ghim thủ công
-        if (SYNONYMS_3000[item.stem]) return false; // Đã được AI map trong hệ thống
-        return true;
-      });
+      const needsSync = allItems.filter(item => item.mean === 'Chưa rõ nghĩa (Cần cập nhật AI)');
 
       if (needsSync.length === 0) {
         const ogText = btnExtractAI.innerHTML;
-        btnExtractAI.innerHTML = '✨ Đã hoàn hảo, không có lỗi!';
+        btnExtractAI.innerHTML = '✨ Không có từ nào cần AI cập nhật!';
         setTimeout(() => btnExtractAI.innerHTML = ogText, 2500);
         return;
       }
 
-      const payload = needsSync.map(item => ({
-        word: item.stem,
-        meaning: item.mean,
-        cefr: item.cefr,
-        context: item.sentence || item.domain
-      }));
-
-      const payloadStr = JSON.stringify(payload, null, 2);
+      const wordsList = needsSync.map(item => `"${item.stem}"`).join(', ');
       
-      navigator.clipboard.writeText(payloadStr).then(() => {
+      const promptText = `Tôi có danh sách các từ vựng tiếng Anh sau cần dịch nghĩa sát với ngữ cảnh thực tế, cung cấp phiên âm IPA, và trình độ CEFR (A1-C2).
+Vui lòng trả về kết quả DƯỚI DẠNG MỘT KHỐI JSON DUY NHẤT theo định dạng sau (chỉ trả về JSON, không giải thích thêm):
+{
+  "từ_1": { "mean": "nghĩa tiếng việt", "ipa": "phiên âm", "cefr": "C2" },
+  "từ_2": { "mean": "nghĩa tiếng việt", "ipa": "phiên âm", "cefr": "C2" }
+}
+
+Danh sách từ:
+[ ${wordsList} ]`;
+      
+      navigator.clipboard.writeText(promptText).then(() => {
         const ogText = btnExtractAI.innerHTML;
-        btnExtractAI.innerHTML = '✅ Đã Copy Dữ Liệu! Hãy dán vào chat';
+        btnExtractAI.innerHTML = '✅ Đã Copy Prompt! Hãy dán vào AI';
         btnExtractAI.style.background = 'linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.2))';
         btnExtractAI.style.borderColor = 'rgba(34, 197, 94, 0.5)';
         btnExtractAI.style.color = '#4ade80';
@@ -451,6 +485,64 @@ document.addEventListener('DOMContentLoaded', () => {
           btnExtractAI.style.color = '';
         }, 3000);
       });
+    });
+  }
+
+  // Import AI functionality
+  const btnImportAI = document.getElementById('btnImportAI');
+  if (btnImportAI) {
+    btnImportAI.addEventListener('click', () => {
+      const input = prompt('Hãy dán khối JSON do AI trả về vào đây:');
+      if (!input) return;
+
+      try {
+        // Handle markdown code blocks if the user copied them
+        let cleanInput = input.trim();
+        if (cleanInput.startsWith('\`\`\`')) {
+          cleanInput = cleanInput.replace(/^\`\`\`(json)?/, '').replace(/\`\`\`$/, '').trim();
+        }
+
+        const data = JSON.parse(cleanInput);
+        let updatedCount = 0;
+
+        for (const [key, value] of Object.entries(data)) {
+          const stemKey = getBaseStem(key.toLowerCase());
+          
+          if (value.mean && value.ipa) {
+            customDictionary[stemKey] = {
+              mean: value.mean,
+              ipa: [[value.ipa]],
+              cefr: value.cefr || 'C2',
+              isAdvanced: true
+            };
+            
+            // Also update wordLookupStats if it exists
+            if (wordLookupStats[stemKey]) {
+              wordLookupStats[stemKey].mean = value.mean;
+              wordLookupStats[stemKey].ipa = value.ipa;
+              wordLookupStats[stemKey].cefr = value.cefr || 'C2';
+            }
+            
+            updatedCount++;
+          }
+        }
+
+        if (updatedCount > 0 && typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+          chrome.storage.local.set({ 
+            customDictionary: customDictionary,
+            wordLookupStats: wordLookupStats
+          }, () => {
+            alert(`✅ Đã cập nhật thành công ${updatedCount} từ vựng từ AI!`);
+            renderVaultTable();
+          });
+        } else {
+          alert('⚠️ Không tìm thấy từ nào hợp lệ trong JSON!');
+        }
+
+      } catch (e) {
+        alert('❌ Lỗi: Dữ liệu bạn dán vào không phải là một JSON hợp lệ. Vui lòng kiểm tra lại!');
+        console.error(e);
+      }
     });
   }
 });

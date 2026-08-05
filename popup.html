@@ -57,10 +57,22 @@
     <div class="toggle-card" style="margin-top: 0.4rem;">
       <div class="toggle-info">
         <span class="toggle-title">🟢 Hiện màu xanh (từ đã thuộc)</span>
-        <span class="toggle-desc">Tắt để chỉ hiện từ Cần học (Đỏ 🔴 / Vàng 🟡)</span>
+        <span class="toggle-desc">Mặc định tắt để giao diện đỡ rối</span>
       </div>
       <label class="switch">
-        <input type="checkbox" id="toggleShowKnown" checked>
+        <input type="checkbox" id="toggleShowKnown">
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <!-- Toggle Switch for Unknown Red Highlights -->
+    <div class="toggle-card" style="margin-top: 0.4rem;">
+      <div class="toggle-info">
+        <span class="toggle-title">🔴 Hiện màu đỏ (từ chưa tra)</span>
+        <span class="toggle-desc">Mặc định tắt. Bạn vẫn có thể click từ để tra!</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleShowUnknown">
         <span class="slider round"></span>
       </label>
     </div>
@@ -75,12 +87,17 @@
       <span>🌐 Xem Bảng Từ Vựng Tra Cứu (<span id="popVaultCount">0</span>)</span>
     </button>
 
+    <!-- Extract Study Page Button -->
+    <button id="btnExtractStudy" class="btn-full-page" style="background: linear-gradient(135deg, #10b981, #047857); margin-top: 0.6rem; margin-bottom: 0.2rem;">
+      <span>📖 Học Trang Này (Trích xuất)</span>
+    </button>
+
     <!-- Primary Action Button -->
     <button id="btnOpenFullPage" class="btn-full-page" style="margin-top: 0.4rem;">
       <span>🚀 Mở Trang Học Full Page</span>
     </button>
   </div>
 
-  <script src="popup.js"></script>
+  <script type="module" src="popup.js"></script>
 </body>
 </html>

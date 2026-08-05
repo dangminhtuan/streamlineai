@@ -31,14 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Load data from chrome.storage.local or fallback to localStorage
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-    chrome.storage.local.get(['knownWords', 'knownRules', 'studyLog', 'highlighterEnabled', 'showKnownHighlights', 'encounteredAdvancedWords', 'wordLookupStats'], (res) => {
+    chrome.storage.local.get(['knownWords', 'knownRules', 'studyLog', 'highlighterEnabled', 'showKnownHighlights', 'showUnknownHighlights', 'encounteredAdvancedWords', 'wordLookupStats'], (res) => {
       const knownWords = res.knownWords || [];
       const knownRules = res.knownRules || [];
       const studyLog = res.studyLog || {};
       const vaultList = res.encounteredAdvancedWords || [];
       const wordStats = res.wordLookupStats || {};
       const enabled = res.highlighterEnabled !== undefined ? res.highlighterEnabled : true;
-      const showKnown = res.showKnownHighlights !== undefined ? res.showKnownHighlights : true;
+      const showKnown = res.showKnownHighlights !== undefined ? res.showKnownHighlights : false;
+      const showUnknown = res.showUnknownHighlights !== undefined ? res.showUnknownHighlights : false;
       
       const uniqueWords = new Set([
         ...vaultList.map(w => (w.stem || w.word).toLowerCase()),
@@ -57,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       toggleHighlighter.checked = enabled;
       toggleShowKnown.checked = showKnown;
+      const toggleShowUnknown = document.getElementById('toggleShowUnknown');
+      if (toggleShowUnknown) toggleShowUnknown.checked = showUnknown;
     });
 
     toggleHighlighter.addEventListener('change', (e) => {
@@ -66,6 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleShowKnown.addEventListener('change', (e) => {
       chrome.storage.local.set({ showKnownHighlights: e.target.checked });
     });
+
+    const toggleShowUnknown = document.getElementById('toggleShowUnknown');
+    if (toggleShowUnknown) {
+      toggleShowUnknown.addEventListener('change', (e) => {
+        chrome.storage.local.set({ showUnknownHighlights: e.target.checked });
+      });
+    }
   }
 
   const btnManualScan = document.getElementById('btnManualScan');
@@ -93,6 +103,31 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.tabs.create({ url: chrome.runtime.getURL('vault.html') });
       } else {
         window.open('http://localhost:5120/vault.html', '_blank');
+      }
+    });
+  }
+
+  const btnExtractStudy = document.getElementById('btnExtractStudy');
+  if (btnExtractStudy) {
+    btnExtractStudy.addEventListener('click', () => {
+      if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.query) {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          if (tabs[0] && tabs[0].id) {
+            btnExtractStudy.querySelector('span').textContent = '⏳ Đang trích xuất...';
+            chrome.tabs.sendMessage(tabs[0].id, { action: 'EXTRACT_CONTENT' }, (res) => {
+              if (chrome.runtime.lastError) {
+                btnExtractStudy.querySelector('span').textContent = '⚠️ Lỗi: Không thể trích xuất';
+                setTimeout(() => {
+                  btnExtractStudy.querySelector('span').textContent = '📖 Học Trang Này (Trích xuất)';
+                }, 2000);
+                return;
+              }
+              if (res && res.status === 'SUCCESS') {
+                chrome.tabs.create({ url: chrome.runtime.getURL('read.html') });
+              }
+            });
+          }
+        });
       }
     });
   }
