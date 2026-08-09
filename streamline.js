@@ -1,6 +1,7 @@
 import { DEPARTURES_LESSONS } from './departures_data.js';
 import { CONNECTIONS_LESSONS } from './connections_data.js';
 import { DESTINATIONS_LESSONS } from './destinations_data.js';
+import { DIRECTIONS_LESSONS } from './directions_data.js';
 
 let activeBook = 'DEPARTURES';
 let STREAMLINE_LESSONS = DEPARTURES_LESSONS;
@@ -539,6 +540,8 @@ function attachEventListeners() {
         STREAMLINE_LESSONS = CONNECTIONS_LESSONS;
       } else if (book === 'DESTINATIONS') {
         STREAMLINE_LESSONS = DESTINATIONS_LESSONS;
+      } else if (book === 'DIRECTIONS') {
+        STREAMLINE_LESSONS = DIRECTIONS_LESSONS;
       } else {
         STREAMLINE_LESSONS = DEPARTURES_LESSONS;
       }
