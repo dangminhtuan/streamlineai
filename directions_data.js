@@ -76,7 +76,7 @@ for (let i = 244; i <= 320; i++) {
     subtitle: `Bài ${i} SE: Streamline Directions Standard Unit`,
     topic: "Giao tiếp Chuyên sâu SE",
     level: "B2 Directions",
-    description: `Bài học số ${i - 240} nằm trong bộ 80 bài học chuyên sâu kết thúc trọn bộ 320 bài Streamline Directions.`,
+    description: `Bài học tương đương bài số ${i - 240} trong bộ 80 bài học chuyên sâu thuộc bộ 320 bài Streamline Directions.`,
     dialogue: [
       { speaker: "A", name: "Speaker A", en: `Welcome to the final master level, Directions Unit ${i - 240}!`, vi: `Chào mừng bạn đến với cấp độ cuối cùng, bài Directions số ${i - 240}!` },
       { speaker: "B", name: "You (Master)", en: `I have completed Unit ${i} out of 320 StreamlAI Master Series!`, vi: `Tôi đã hoàn thành Bài ${i} trên tổng số 320 bài StreamlAI Master Series!` },

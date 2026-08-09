@@ -99,7 +99,7 @@ for (let i = 165; i <= 240; i++) {
     subtitle: `Bài ${i} SE: Streamline Destinations Standard Unit`,
     topic: "Giao tiếp Nâng cao SE",
     level: "B1 Destinations",
-    description: `Bài học số ${i - 160} nằm trong bộ 80 bài học nâng cao Streamline Destinations.`,
+    description: `Bài học tương đương bài số ${i - 160} trong bộ 80 bài học nâng cao Streamline Destinations.`,
     dialogue: [
       { speaker: "A", name: "Speaker A", en: `Welcome to Destinations Unit ${i - 160}.`, vi: `Chào mừng đến với bài Destinations số ${i - 160}.` },
       { speaker: "B", name: "You (Person B)", en: "I am mastering advanced reflex patterns!", vi: "Tôi đang làm chủ các mẫu câu phản xạ nâng cao!" },

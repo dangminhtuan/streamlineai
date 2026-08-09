@@ -7,11 +7,265 @@ let activeBook = 'DEPARTURES';
 let STREAMLINE_LESSONS = DEPARTURES_LESSONS;
 
 // --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// SINO-VIETNAMESE (HÁN VIỆT) TRANSLITERATION DICTIONARY FOR STREAMLAI
+// --------------------------------------------------------------------------
+const SINO_VIETNAMESE_MAP = {
+  "Excuse me.": "Đả nhiễu nhất hạ.",
+  "Yes?": "Thập ma sự?",
+  "Is this your handbag?": "Giá thị nẫm đích thủ đề bao ma?",
+  "Pardon?": "Thập ma?",
+  "Oh, yes it is! Thank you very much.": "A, thị đích! Phi thường cảm tạ nẫm.",
+  "You're welcome.": "Bất khách khí.",
+  "What's your name, please?": "Thỉnh vấn nẫm khiếu thập ma danh tự?",
+  "My name's Arthur Clark.": "Ngã đích danh tự khiếu A-sắt Khắc-lập-khắc.",
+  "Where are you from?": "Nẫm lai tự na lý?",
+  "I'm from London.": "Ngã lai tự Luân Đôn.",
+  "What's your nationality?": "Nẫm đích quốc tịch thị thập ma?",
+  "I'm British.": "Ngã thị Anh quốc nhân.",
+  "Excuse me. Is there a post office near here?": "Đả nhiễu nhất hạ. Giá phụ cận hữu bưu cục ma?",
+  "Yes, there's one in Main Street.": "Hữu đích, tại Chủ nhai hữu nhất gia.",
+  "Where in Main Street?": "Tại Chủ nhai đích thập ma vị trí?",
+  "It's next to the bank, opposite the supermarket.": "Tựu tại Ngân hàng bàng biên, Siêu thị đối diện.",
+  "Is it far from here?": "Ly giá lý viễn ma?",
+  "No, it isn't. It's only a five-minute walk.": "Bất viễn, tẩu lộ chỉ yếu ngũ phân chung.",
+  "Thank you very much.": "Phi thường cảm tạ nẫm.",
+  "Good evening, sir. Can I help you?": "Vãn thượng hảo, tiên sinh. Hữu thập ma khả dĩ bang nẫm?",
+  "Yes, please. I'd like a single room for two nights.": "Thị đích, ngã tưởng đính gian đơn nhân phòng trú lưỡng vãn.",
+  "With a bathroom or a shower?": "Yếu đái dục thất hoàn thị lâm dục gian đích?",
+  "With a bathroom, please.": "Thỉnh cấp ngã đái dục thất đích phòng gian.",
+  "Room 304 on the third floor. Here's your key.": "Tam lâu 304 phòng. Giá thị nẫm đích thược khóa.",
+  "Hello. 73048.": "Nẫm hảo. 73048 vi nẫm phục vụ.",
+  "Hello. Could I speak to Mr. Clark, please?": "Nẫm hảo, thỉnh vấn năng tiếp Khắc-lập-khắc tiên sinh ma?",
+  "Who's calling, please?": "Thỉnh vấn nẫm thị na vị?",
+  "My name is Peter Jackson.": "Ngã thị Bỉ-đắc Kiệt-khắc-tốn.",
+  "Hold on a moment, please. I'll put you through.": "Thỉnh thỏai đẳng, ngã vi nẫm chuyển tiếp.",
+  "Good morning. Can I help you?": "Tảo thượng hảo. Hữu thập ma nhu yếu bang mang đích ma?",
+  "Yes, how much is this sweater, please?": "Hảo đích, thỉnh vấn giá kiện mao y đa thiểu tiền?",
+  "It's twenty-five pounds.": "Nhị thập ngũ anh bảng.",
+  "Can I try it on?": "Ngã khả dĩ thí xuyên nhất hạ ma?",
+  "Yes, of course. The changing room is over there.": "Đương nhiên khả dĩ. Thí xuyên gian tại na biên.",
+  "What time do you usually get up?": "Nhị bình thì kỷ điểm khởi sàng?",
+  "I usually get up at six thirty in the morning.": "Ngã thông thường tảo thượng lục điểm bán khởi sàng.",
+  "And when do you leave for work?": "Na nhị thập ma thì hậu khứ thượng ban?",
+  "I leave home at seven forty-five.": "Ngã thất điểm tứ thập ngũ phân xuất môn.",
+  "Is that your brother in the photograph?": "Chiếu phiến lý na thị nhị ca ca ma?",
+  "No, that's my cousin, Tom.": "Bất thị, na thị ngã đích biểu ca Thang-mỗ.",
+  "What does he do?": "Tha thị tạc thập ma công tác đích?",
+  "He's an engineer.": "Tha thị nhất danh công trình sư.",
+  "What does the suspect look like?": "Hiềm nghi nhân trường thập ma dạng?",
+  "He's tall and thin, with short dark hair.": "Tha thân tài cao sấu, lưu trước thâm sắc đoản phát.",
+  "How old is he?": "Tha đại khái đa đại niên kỷ?",
+  "He's about thirty years old.": "Tha đại khái tam thập tuế tả hữu.",
+  "What would you like to drink?": "Nẫm tưởng hát điểm thập ma?",
+  "Coffee, please.": "Thỉnh cấp ngã nhất bôi gia phê.",
+  "Black or white coffee?": "Hắc gia phê hoàn thị gia nãi gia phê?",
+  "Black coffee with sugar, please.": "Hắc gia phê, thỉnh gia đường."
+};
+
+const SINO_VIETNAMESE_PATTERNS = {
+  "Excuse me.": "Đả nhiễu nhất hạ.",
+  "Is this your [handbag / watch]?": "Giá thị nẫm đích [thủ đề bao / thủ biểu] ma?",
+  "Pardon?": "Thập ma?",
+  "You're welcome.": "Bất khách khí.",
+  "What's your name, please?": "Thỉnh vấn nẫm khiếu thập ma danh tự?",
+  "Where are you from?": "Nẫm lai tự na lý?",
+  "I'm from [city / country].": "Ngã lai tự [Thành thị / Quốc gia].",
+  "Is there a [place] near here?": "Giá phụ cận hữu [Địa điểm] ma?",
+  "It's next to [A], opposite [B].": "Tha tại [A] bàng biên, [B] đối diện.",
+  "It's a five-minute walk.": "Tẩu lộ chỉ yếu 5 phân chung.",
+  "I'd like a [single/double] room for [X] nights.": "Ngã tưởng đính [đơn nhân/đôi nhân] phòng trú [X] vãn.",
+  "Here's your key.": "Giá thị nẫm đích thược khóa.",
+  "Could I speak to [Name], please?": "Thỉnh vấn năng tiếp [Danh tự] ma?",
+  "Who's calling, please?": "Thỉnh vấn nẫm thị na vị?",
+  "Hold on a moment, please.": "Thỉnh thỏai đẳng nhất hội.",
+  "How much is this [item]?": "Giá kiện [Vật phẩm] đa thiểu tiền?",
+  "Can I try it on?": "Ngã khả dĩ thí xuyên nhất hạ ma?",
+  "The changing room is over there.": "Thí xuyên gian tại na biên.",
+  "What time do you usually [action]?": "Nhị bình thì kỷ điểm [Tạc mỗ sự]?",
+  "I usually [action] at [time].": "Ngã thông thường tại [Thời gian] [Tạc mỗ sự].",
+  "Is that your [relative]?": "Na thị nhị đích [Thân thuộc] ma?",
+  "What does he/she do?": "Tha/Nữ tha thị tạc thập ma công tác đích?",
+  "What does he/she look like?": "Tha/Nữ tha trường thập ma dạng?",
+  "He's [tall/short] with [hair type].": "Tha [cao/đoản], lưu trước [phát hình].",
+  "Black or white coffee?": "Hắc gia phê hoàn thị gia nãi gia phê?"
+};
+
+const TRANSLATIONS = {
+  vi: {
+    selectLessonHeader: "📚 Chọn Bài Học (1 - 80)",
+    mode1: "🎧 1. Nghe & Thấu Hiểu",
+    mode2: "🎙️ 2. Đóng Vai Phản Xạ",
+    mode3: "⚡ 3. Trắc Nghiệm Phản Xạ",
+    roleLabel: "Bạn sắm vai:",
+    roleB: "Nhân vật B (Khuyên dùng)",
+    roleA: "Nhân vật A",
+    roleBoth: "Người Nghe (Cả A & B)",
+    btnPlayAll: "Phát Toàn Bộ",
+    btnStopPlay: "Dừng lại",
+    micHint: "Bấm vào Micro và đọc to câu thoại tiếng Anh ở trên",
+    feedbackLabel: "Hệ thống ghi nhận:",
+    btnSkip: "Bỏ qua lượt này ⏭️",
+    btnListen: "🔊 Nghe câu mẫu",
+    btnPrev: "◀ Bài Trước",
+    btnNext: "Bài Tiếp ▶",
+    patternHeader: "💡 Mẫu Câu & Cấu Trúc Phản Xạ Quan Trọng",
+    grammarHeader: "📝 Phân Tích Ngữ Pháp & Cấu Trúc Ngôn Ngữ",
+    streakUnit: "ngày",
+    pointsUnit: "điểm",
+    turnPrompt: "👉 Đến lượt bạn đọc câu thoại của <b>Nhân vật ",
+    turnPromptSuffix: "</b>!",
+    accuracyLabel: "Độ chính xác: ",
+    settingsTitle: "⚙️ Cấu Hình Giọng Đọc AI",
+    voiceLabel: "Giọng đọc tiếng Anh:",
+    speedLabel: "Tốc độ đọc:",
+    autoAdvanceLabel: "Tự động chuyển câu khi kết thúc lượt đọc",
+    toastLang: "🌐 Đã chuyển giao diện sang Tiếng Việt",
+    toastBookLoaded: "📚 Đã nạp tập sách ",
+    toastFirstLesson: "ℹ️ Đây là bài đầu tiên trong tập sách!",
+    toastLastLesson: "🎉 Đã đến bài cuối cùng của tập sách!",
+    toastRoleplayFinished: "🏆 Bạn đã hoàn thành xuất sắc lượt đóng vai hội thoại!",
+    toastQuizFinished: "🎉 Đã hoàn thành phần trắc nghiệm bài học này!"
+  },
+  hv: {
+    selectLessonHeader: "📚 Tuyển Khóa Học (1 - 80)",
+    mode1: "🎧 1. Thính & Lý Giải",
+    mode2: "🎙️ 2. Đóng Vai Phản Xạ",
+    mode3: "⚡ 3. Phản Xạ Trắc Nghiệm",
+    roleLabel: "Nhân vật phản xạ:",
+    roleB: "Nhân vật B (Khuyên nghị)",
+    roleA: "Nhân vật A",
+    roleBoth: "Bàng quan giả (A & B)",
+    btnPlayAll: "Phát Toàn Bộ",
+    btnStopPlay: "Đình chỉ",
+    micHint: "Điểm kích Vi phó và độc đại câu thoại Anh ngữ thượng phương",
+    feedbackLabel: "Hệ thống ký lục:",
+    btnSkip: "Bỏ qua lượt ⏭️",
+    btnListen: "🔊 Thính thí dụ",
+    btnPrev: "◀ Tiền Khóa",
+    btnNext: "Hậu Khóa ▶",
+    patternHeader: "💡 Hạch Tâm Cú Hình & Cú Pháp Kết Cấu",
+    grammarHeader: "📝 Ngữ Pháp & Ngôn Ngữ Kết Cấu Phân Tích",
+    streakUnit: "nhật",
+    pointsUnit: "điểm",
+    turnPrompt: "👉 Luân đáo nhị độc <b>Nhân vật ",
+    turnPromptSuffix: "</b> đích đài từ!",
+    accuracyLabel: "Chính xác suất: ",
+    settingsTitle: "⚙️ AI Lãng Độc Ngữ Âm Phối Trí",
+    voiceLabel: "Anh ngữ phát âm:",
+    speedLabel: "Lãng độc tốc độ:",
+    autoAdvanceLabel: "Tự động chuyển câu hậu lãng độc",
+    toastLang: "🌐 Đã chuyển giao diện sang Hán Việt (Sino-Vietnamese)",
+    toastBookLoaded: "📚 Đã nạp giáo tài ",
+    toastFirstLesson: "ℹ️ Giá thị đệ nhất khóa!",
+    toastLastLesson: "🎉 Đã đáo tối hậu nhất khóa!",
+    toastRoleplayFinished: "🏆 Hoàn thành đối luyện phản xạ!",
+    toastQuizFinished: "🎉 Hoàn thành phản xạ trắc nghiệm!"
+  },
+  zh: {
+    selectLessonHeader: "📚 选择课程 (1 - 80)",
+    mode1: "🎧 1. 听力与理解",
+    mode2: "🎙️ 2. 角色扮演竞技场",
+    mode3: "⚡ 3. 反应测验",
+    roleLabel: "你的角色:",
+    roleB: "角色 B (推荐)",
+    roleA: "角色 A",
+    roleBoth: "旁观者 (A 与 B)",
+    btnPlayAll: "播放全部",
+    btnStopPlay: "停止",
+    micHint: "点击麦克风，大声朗读上面的英语句子",
+    feedbackLabel: "系统识别:",
+    btnSkip: "跳过此轮 ⏭️",
+    btnListen: "🔊 试听例句",
+    btnPrev: "◀ 上一课",
+    btnNext: "下一课 ▶",
+    patternHeader: "💡 核心句型与句法结构",
+    grammarHeader: "📝 语法与语言结构分析",
+    streakUnit: "天",
+    pointsUnit: "分",
+    turnPrompt: "👉 轮到您朗读 <b>角色 ",
+    turnPromptSuffix: "</b> 的台词！",
+    accuracyLabel: "准确率: ",
+    settingsTitle: "⚙️ AI 朗读语音配置",
+    voiceLabel: "英语朗读发音:",
+    speedLabel: "朗读速度:",
+    autoAdvanceLabel: "朗读完成后自动切下一句",
+    toastLang: "🌐 界面已切换为中文",
+    toastBookLoaded: "📚 已加载教材 ",
+    toastFirstLesson: "ℹ️ 这是本教材的第一课！",
+    toastLastLesson: "🎉 已到达本教材的最后一课！",
+    toastRoleplayFinished: "🏆 太棒了！您已完成角色扮演对练！",
+    toastQuizFinished: "🎉 已完成本课的反应测验！"
+  },
+  ko: {
+    selectLessonHeader: "📚 레슨 선택 (1 - 80)",
+    mode1: "🎧 1. 듣기 및 이해",
+    mode2: "🎙️ 2. 역할 놀이 아레나",
+    mode3: "⚡ 3. 반사 퀴즈",
+    roleLabel: "당신의 역할:",
+    roleB: "역할 B (추천)",
+    roleA: "역할 A",
+    roleBoth: "관람객 (A & B)",
+    btnPlayAll: "전체 재생",
+    btnStopPlay: "정지",
+    micHint: "마이크를 클릭하고 위의 영어 문장을 큰 소리로 읽으세요",
+    feedbackLabel: "시스템 인식 결과:",
+    btnSkip: "이번 턴 건너뛰기 ⏭️",
+    btnListen: "🔊 샘플 듣기",
+    btnPrev: "◀ 이전 레슨",
+    btnNext: "다음 레슨 ▶",
+    patternHeader: "💡 핵심 반사 문형 및 구조",
+    grammarHeader: "📝 문법 및 언어 분석",
+    streakUnit: "일",
+    pointsUnit: "점",
+    turnPrompt: "👉 <b>역할 ",
+    turnPromptSuffix: "</b>의 대사를 읽을 차례입니다!",
+    accuracyLabel: "정확도: ",
+    settingsTitle: "⚙️ AI 음성 설정",
+    voiceLabel: "영어 음성 선택:",
+    speedLabel: "재생 속도:",
+    autoAdvanceLabel: "음성 완료 후 다음 문장 자동 이동",
+    toastLang: "🌐 인터페이스 언어가 한국어로 변경되었습니다",
+    toastBookLoaded: "📚 교재가 로드되었습니다: ",
+    toastFirstLesson: "ℹ️ 이 교재의 첫 번째 레슨입니다!",
+    toastLastLesson: "🎉 이 교재의 마지막 레슨입니다!",
+    toastRoleplayFinished: "🏆 수고하셨습니다! 역할 놀이 세션을 완료하셨습니다!",
+    toastQuizFinished: "🎉 이 레슨의 반사 퀴즈를 완료하셨습니다!"
+  }
+};
+
+function updateUILanguage(langCode) {
+  state.currentLang = langCode;
+  const select = document.getElementById('langSelect');
+  if (select) select.value = langCode;
+
+  const dict = TRANSLATIONS[langCode] || TRANSLATIONS['vi'];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key]) {
+      if (el.children.length > 0 && el.querySelector('.tab-text, .btn-text')) {
+        const textNode = el.querySelector('.tab-text, .btn-text');
+        if (textNode) textNode.textContent = dict[key];
+      } else {
+        el.textContent = dict[key];
+      }
+    }
+  });
+
+  renderHeaderStats();
+  if (typeof loadLesson === 'function') {
+    loadLesson(state.currentLessonIdx);
+  }
+  showToast(dict.toastLang);
+}
+
+// --------------------------------------------------------------------------
 // 2. STATE MANAGEMENT & DOM REFERENCES
 // --------------------------------------------------------------------------
 let state = {
   currentLessonIdx: 0,
   currentMode: 'listen',
+  currentLang: 'vi',
   userRole: 'B',
   activeSpeechBubbleIdx: -1,
   isPlayingAll: false,
@@ -29,6 +283,15 @@ let state = {
 let recognition = null;
 
 const el = {
+  unitGrid: document.getElementById('unitGrid'),
+  unitPreviewCard: document.getElementById('unitPreviewCard'),
+  previewNum: document.getElementById('previewNum'),
+  previewTitle: document.getElementById('previewTitle'),
+  previewSub: document.getElementById('previewSub'),
+  btnPrevLesson: document.getElementById('btnPrevLesson'),
+  btnNextLesson: document.getElementById('btnNextLesson'),
+  lessonStepIndicator: document.getElementById('lessonStepIndicator'),
+  grammarContent: document.getElementById('grammarContent'),
   lessonList: document.getElementById('lessonList'),
   lessonTopic: document.getElementById('lessonTopic'),
   lessonLevel: document.getElementById('lessonLevel'),
@@ -71,6 +334,7 @@ const el = {
 // 3. INITIALIZATION & VOICE ENGINE
 // --------------------------------------------------------------------------
 function init() {
+  document.body.className = 'theme-DEPARTURES';
   renderHeaderStats();
   renderLessonSidebar();
   loadLesson(0);
@@ -80,9 +344,22 @@ function init() {
 }
 
 function renderHeaderStats() {
+  const dict = TRANSLATIONS[state.currentLang || 'vi'];
   el.reflexPoints.textContent = state.points;
   el.reflexStreak.textContent = state.streak;
   el.lessonsMastered.textContent = `${state.mastered.length}/${STREAMLINE_LESSONS.length}`;
+
+  const streakPill = el.reflexStreak.closest('.stat-pill');
+  if (streakPill) {
+    const lbl = streakPill.querySelector('.stat-lbl');
+    if (lbl) lbl.textContent = dict.streakUnit || 'ngày';
+  }
+
+  const pointsPill = el.reflexPoints.closest('.stat-pill');
+  if (pointsPill) {
+    const lbl = pointsPill.querySelector('.stat-lbl');
+    if (lbl) lbl.textContent = dict.pointsUnit || 'điểm';
+  }
 }
 
 function initSpeechSynthesis() {
@@ -104,7 +381,7 @@ function initSpeechSynthesis() {
       const option = document.createElement('option');
       option.value = idx;
       option.textContent = `${v.name} (${v.lang})`;
-      if (v.name.includes('Google') || v.name.includes('Natural') || v.lang === 'en-GB' || v.lang === 'en-US') {
+      if (v.default || v.name.includes('Google') || v.name.includes('Natural')) {
         option.selected = true;
         state.selectedVoice = v;
       }
@@ -178,28 +455,277 @@ function stopRecording() {
   el.btnMic.classList.remove('recording');
 }
 
+function getLineSubText(line, lang) {
+  if (lang === 'en') return line.en;
+  
+  if (lang === 'hv') {
+    if (line.hv) return line.hv;
+    if (SINO_VIETNAMESE_MAP[line.en]) return SINO_VIETNAMESE_MAP[line.en];
+    if (SINO_VIETNAMESE_PATTERNS[line.en]) return SINO_VIETNAMESE_PATTERNS[line.en];
+
+    if (line.en.includes("Excuse me, this is lesson number")) {
+      const num = line.en.match(/\d+/);
+      return `Đả nhiễu nhất hạ, giá thị đệ ${num ? num[0] : ''} khóa.`;
+    }
+    if (line.en.includes("Yes, I understand completely!")) return "Thị đích, ngã hoàn toàn lý giải liễu!";
+    if (line.en.includes("Are you ready to practice your reflex?")) return "Nhị chuẩn bị hảo luyện tập phản xạ liễu ma?";
+    if (line.en.includes("Yes! Let's get started right now.")) return "Thị đích! Ngã môn hiện tại tị khai thủy ba.";
+    if (line.en.includes("Welcome to")) return "Hoan nghênh lai đáo thử khóa trình!";
+    if (line.en.includes("ready for the next level")) return "Ngã chuẩn bị hảo tiến nhập hạ nhất giai đoạn liễu!";
+    if (line.en.includes("build up your fluency")) return "Ngã môn nhất bộ bộ đề cao khẩu ngữ lưu lợi độ.";
+    if (line.en.includes("Sounds excellent")) return "Thính khởi lai thái bổng liễu! Ngã môn kế tục ba.";
+    if (line.en.includes("mastering advanced")) return "Ngã chánh tại chưởng ác cao cấp phản xạ cú hình!";
+    if (line.en.includes("confidence is growing")) return "Thái bổng liễu! Nhị đích tự tín tâm chánh tại khoái tốc đề cao.";
+    if (line.en.includes("proceed further")) return "Phi thường cảm tạ! Ngã môn kế tục thâm nhập.";
+    if (line.en.includes("final master level")) return "Hoan nghênh lai đáo tối hậu đích chuyên gia cấp biệt!";
+    if (line.en.includes("completed Unit")) return "Ngã dị kinh hoàn thành 320 khóa trung đích thử khóa trình!";
+    if (line.en.includes("full conversational fluency")) return "Cung hỷ! Nhị dị đạt đáo hoàn toàn lưu lợi đích Anh ngữ khẩu ngữ thủy bình.";
+    if (line.en.includes("incredible learning journey")) return "Phi thường cảm tạ! StreamlAI thị nhất đoạn lẫm nhân kinh thán đích học tập chi lữ.";
+    return line.zh || line.en;
+  }
+
+  if (lang === 'zh') {
+    if (line.zh) return line.zh;
+    if (line.en.includes("Excuse me, this is lesson number")) {
+      const num = line.en.match(/\d+/);
+      return `打扰一下，这是第 ${num ? num[0] : ''} 课。`;
+    }
+    if (line.en.includes("Yes, I understand completely!")) return "是的，我完全理解了！";
+    if (line.en.includes("Are you ready to practice your reflex?")) return "你准备好练习反应了吗？";
+    if (line.en.includes("Yes! Let's get started right now.")) return "是的！我们现在就开始吧。";
+    if (line.en.includes("Welcome to")) return "欢迎来到此课程！";
+    if (line.en.includes("ready for the next level")) return "我准备好进入下一阶段的对话了！";
+    if (line.en.includes("build up your fluency")) return "让我们一步步提高口语流利度。";
+    if (line.en.includes("Sounds excellent")) return "听起来太棒了！我们继续吧。";
+    if (line.en.includes("mastering advanced")) return "我正在掌握高级反应句型！";
+    if (line.en.includes("confidence is growing")) return "太棒了！你的自信心正在快速提升。";
+    if (line.en.includes("proceed further")) return "非常感谢！让我们继续深入。";
+    if (line.en.includes("final master level")) return "欢迎来到最终的专业专家级别！";
+    if (line.en.includes("completed Unit")) return "我已经完成了 320 课中的此课程！";
+    if (line.en.includes("full conversational fluency")) return "恭喜！你已达到完全流利的英语口语水平。";
+    if (line.en.includes("incredible learning journey")) return "非常感谢！StreamlAI 是一段令人惊叹的学习之旅。";
+    return line.en;
+  }
+
+  if (lang === 'ko') {
+    if (line.ko) return line.ko;
+    if (line.en.includes("Excuse me, this is lesson number")) {
+      const num = line.en.match(/\d+/);
+      return `실례합니다, 이것은 ${num ? num[0] : ''}번 레슨입니다.`;
+    }
+    if (line.en.includes("Yes, I understand completely!")) return "네, 완전히 이해했습니다!";
+    if (line.en.includes("Are you ready to practice your reflex?")) return "반사 신경을 연습할 준비가 되셨나요?";
+    if (line.en.includes("Yes! Let's get started right now.")) return "네! 지금 바로 시작합시다.";
+    if (line.en.includes("Welcome to")) return "레슨에 오신 것을 환영합니다!";
+    if (line.en.includes("ready for the next level")) return "다음 단계 대화 준비가 되었습니다!";
+    if (line.en.includes("build up your fluency")) return "단계별로 유창성을 키워봅시다.";
+    if (line.en.includes("Sounds excellent")) return "좋습니다! 계속 진행합시다.";
+    if (line.en.includes("mastering advanced")) return "고급 반사 패턴을 마스터하고 있습니다!";
+    if (line.en.includes("confidence is growing")) return "훌륭합니다! 자신감이 빠르게 향상되고 있네요.";
+    if (line.en.includes("proceed further")) return "감사합니다! 더 전진해 봅시다.";
+    if (line.en.includes("final master level")) return "최종 마스터 레벨에 오신 것을 환영합니다!";
+    if (line.en.includes("completed Unit")) return "320개 레슨 중 이 레슨을 완료했습니다!";
+    if (line.en.includes("full conversational fluency")) return "축하합니다! 완벽한 회화 유창성에 도달하셨습니다.";
+    if (line.en.includes("incredible learning journey")) return "감사합니다! StreamlAI는 놀라운 학습 여정이었습니다.";
+    return line.en;
+  }
+
+  return line.vi;
+}
+
+function getLessonTitle(lesson, lang) {
+  if (lang === 'hv') {
+    if (lesson.titleHv) return lesson.titleHv;
+    let t = lesson.title;
+    t = t.replace(" - Nhặt Túi Xách Rơi", " - Thập Hoạch Thủ Đề Bao")
+         .replace(" - Tên Tuổi & Quốc Tịch", " - Danh Tự Dữ Quốc Tịch")
+         .replace(" - Hỏi Đường Bưu Điện", " - Vấn Lộ Dữ Bưu Cục")
+         .replace(" - Đặt Phòng Khách Sạn", " - Tửu Điếm Dự Đính")
+         .replace(" - Gọi Điện Thoại Bàn 73048", " - 73048 Điện Thoại")
+         .replace(" - Mua Áo Len", " - Cấu Mại Mao Y")
+         .replace(" - Mua Sắm & Thử Đồ", " - Cấu Vật Dữ Thí Y")
+         .replace(" - Thói Quên Hàng Ngày", " - Nhật Thường Tác Tức")
+         .replace(" - Thành Viên Gia Đình", " - Gia Đình Thành Viên")
+         .replace(" - Mô Tả Ngoại Hình", " - Ngoại Mạo Đặc Trưng")
+         .replace(" - Gọi Đồ Uống Cafe", " - Điểm Gia Phê")
+         .replace("Departures Master Unit", "Departures Hạch Tâm Khóa Trình")
+         .replace("Connections Master Unit", "Connections Trung Cấp Khóa Trình")
+         .replace("Destinations Master Unit", "Destinations Cao Cấp Khóa Trình")
+         .replace("Directions Master Unit", "Directions Chuyên Gia Khóa Trình");
+    return t;
+  }
+  if (lang === 'zh') {
+    if (lesson.titleZh) return lesson.titleZh;
+    let t = lesson.title;
+    t = t.replace(" - Nhặt Túi Xách Rơi", " - 拾获手提包")
+         .replace(" - Tên Tuổi & Quốc Tịch", " - 姓名与国籍")
+         .replace(" - Hỏi Đường Bưu Điện", " - 问路与邮局")
+         .replace(" - Đặt Phòng Khách Sạn", " - 酒店预订")
+         .replace(" - Gọi Điện Thoại Bàn 73048", " - 73048电话")
+         .replace(" - Mua Áo Len", " - 购买毛衣")
+         .replace(" - Mua Sắm & Thử Đồ", " - 购物与试衣")
+         .replace(" - Thói Quên Hàng Ngày", " - 日常作息")
+         .replace(" - Thành Viên Gia Đình", " - 家庭成员")
+         .replace(" - Mô Tả Ngoại Hình", " - 外貌特征")
+         .replace(" - Gọi Đồ Uống Cafe", " - 点咖啡")
+         .replace(" - Rủ Đi Xem Phim James Bond", " - 观赏电影")
+         .replace(" - Phỏng Vấn Xin Việc SE", " - 求职面试")
+         .replace(" - Hải Quan Sân Bay SE", " - 机场海关")
+         .replace("Departures Master Unit", "Departures 核心课程")
+         .replace("Connections Master Unit", "Connections 中级课程")
+         .replace("Destinations Master Unit", "Destinations 高级课程")
+         .replace("Directions Master Unit", "Directions 专家课程");
+    return t;
+  }
+  if (lang === 'ko') {
+    if (lesson.titleKo) return lesson.titleKo;
+    let t = lesson.title;
+    t = t.replace(" - Nhặt Túi Xách Rơi", " - 가방 습득 에티켓")
+         .replace(" - Tên Tuổi & Quốc Tịch", " - 신원 확인 및 국적")
+         .replace(" - Hỏi Đường Bưu Điện", " - 우체국 길 묻기")
+         .replace(" - Đặt Phòng Khách Sạn", " - 호텔 예약")
+         .replace(" - Gọi Điện Thoại Bàn 73048", " - 73048 유선 전화 통화")
+         .replace(" - Mua Áo Len", " - 스웨터 쇼핑")
+         .replace(" - Mua Sắm & Thử Đồ", " - 쇼핑 및 피팅룸")
+         .replace(" - Thói Quên Hàng Ngày", " - 일상 루틴")
+         .replace(" - Thành Viên Gia Đình", " - 가족 구성원")
+         .replace(" - Mô Tả Ngoại Hình", " - 외모 묘사")
+         .replace(" - Gọi Đồ Uống Cafe", " - 커피 주문")
+         .replace(" - Rủ Đi Xem Phim James Bond", " - 영화 관람")
+         .replace(" - Phỏng Vấn Xin Việc SE", " - 취업 면접")
+         .replace(" - Hải Quan Sân Bay SE", " - 공항 세관")
+         .replace("Departures Master Unit", "Departures 핵심 레슨")
+         .replace("Connections Master Unit", "Connections 중급 레슨")
+         .replace("Destinations Master Unit", "Destinations 고급 레슨")
+         .replace("Directions Master Unit", "Directions 전문가 레슨");
+    return t;
+  }
+  if (lang === 'en') {
+    if (lesson.titleEn) return lesson.titleEn;
+    let t = lesson.title;
+    t = t.replace(" - Nhặt Túi Xách Rơi", " - Handbag Etiquette")
+         .replace(" - Tên Tuổi & Quốc Tịch", " - Name & Nationality")
+         .replace(" - Hỏi Đường Bưu Điện", " - Post Office Directions")
+         .replace(" - Đặt Phòng Khách Sạn", " - Room Booking")
+         .replace(" - Gọi Điện Thoại Bàn 73048", " - Phone Call 73048")
+         .replace(" - Mua Áo Len", " - Buying a Sweater")
+         .replace(" - Mua Sắm & Thử Đồ", " - Shopping & Fitting Room")
+         .replace(" - Thói Quên Hàng Ngày", " - Daily Schedule")
+         .replace(" - Thành Viên Gia Đình", " - Family Members")
+         .replace(" - Mô Tả Ngoại Hình", " - Physical Appearance")
+         .replace(" - Gọi Đồ Uống Cafe", " - Ordering Coffee");
+    return t;
+  }
+  return lesson.title;
+}
+
+function getLessonTopic(lesson, lang) {
+  if (lang === 'hv') {
+    if (lesson.topicHv) return lesson.topicHv;
+    return "Anh ngữ khẩu ngữ thực chiến";
+  }
+  if (lang === 'zh') {
+    if (lesson.topicZh) return lesson.topicZh;
+    return "英语口语实战";
+  }
+  if (lang === 'ko') {
+    if (lesson.topicKo) return lesson.topicKo;
+    return "영어 회화 실전";
+  }
+  if (lang === 'en') {
+    if (lesson.topicEn) return lesson.topicEn;
+    return "Practical Spoken English";
+  }
+  return lesson.topic;
+}
+
+function getLessonDesc(lesson, lang) {
+  if (lang === 'hv') {
+    if (lesson.descHv) return lesson.descHv;
+    return `Luyện tập bản khóa (${getLessonTitle(lesson, lang)}) đích hạch tâm Anh ngữ khẩu ngữ biểu đạt dữ phản xạ năng lực.`;
+  }
+  if (lang === 'zh') {
+    if (lesson.descZh) return lesson.descZh;
+    return `练习本课 (${getLessonTitle(lesson, lang)}) 的核心英语口语表达与反应能力。`;
+  }
+  if (lang === 'ko') {
+    if (lesson.descKo) return lesson.descKo;
+    return `이 레슨 (${getLessonTitle(lesson, lang)})의 핵심 영어 표현과 반사 신경을 연습하세요.`;
+  }
+  if (lang === 'en') {
+    if (lesson.descEn) return lesson.descEn;
+    return `Master the practical spoken English reflex patterns for this lesson.`;
+  }
+  return lesson.description;
+}
+
 // --------------------------------------------------------------------------
 // 4. LESSON RENDERING & DIALOGUE STREAM
 // --------------------------------------------------------------------------
 function renderLessonSidebar() {
-  el.lessonList.innerHTML = '';
-  STREAMLINE_LESSONS.forEach((lesson, idx) => {
-    const item = document.createElement('div');
-    item.className = `lesson-item ${idx === state.currentLessonIdx ? 'active' : ''}`;
-    item.onclick = () => loadLesson(idx);
-    
-    const isMastered = state.mastered.includes(lesson.id);
+  if (el.unitGrid) {
+    el.unitGrid.innerHTML = '';
+    STREAMLINE_LESSONS.forEach((lesson, idx) => {
+      const btn = document.createElement('button');
+      btn.className = `unit-btn ${idx === state.currentLessonIdx ? 'active' : ''}`;
+      btn.textContent = idx + 1;
 
-    item.innerHTML = `
-      <div class="lesson-item-header">
-        <span class="lesson-num">Lesson ${lesson.id}</span>
-        ${isMastered ? '<span style="color:#10b981; font-size:0.8rem;">✓ Mastered</span>' : ''}
-      </div>
-      <div class="lesson-item-title">${lesson.title}</div>
-      <div class="lesson-item-sub">${lesson.subtitle}</div>
-    `;
-    el.lessonList.appendChild(item);
+      const updatePreview = () => {
+        const title = getLessonTitle(lesson, state.currentLang);
+        if (el.previewNum) el.previewNum.textContent = `Lesson ${lesson.id}`;
+        if (el.previewTitle) el.previewTitle.textContent = title;
+        if (el.previewSub) el.previewSub.textContent = getLessonTopic(lesson, state.currentLang);
+      };
+
+      btn.onmouseenter = updatePreview;
+      btn.onclick = () => {
+        updatePreview();
+        loadLesson(idx);
+      };
+
+      el.unitGrid.appendChild(btn);
+    });
+  }
+}
+
+function renderGrammarBreakdown(lesson) {
+  if (!el.grammarContent) return;
+  
+  const lang = state.currentLang;
+  let titleText = "💡 Cấu trúc câu cốt lõi (Core Grammar Patterns):";
+  let noteText = "📌 <b>Ghi chú phản xạ:</b> Tập trung luyện ngữ điệu và phát âm chuẩn các mẫu câu trên bằng cách chọn <b>Đóng Vai Phản Xạ 🎙️</b>.";
+
+  if (lang === 'zh') {
+    titleText = "💡 核心句法结构 (Core Grammar Patterns):";
+    noteText = "📌 <b>口语练习提示:</b> 切换至 <b>角色扮演竞技场 🎙️</b> 模式，集中练习上述核心句型的语调与标准发音。";
+  } else if (lang === 'ko') {
+    titleText = "💡 핵심 문법 구조 (Core Grammar Patterns):";
+    noteText = "📌 <b>반사 학습 팁:</b> <b>역할 놀이 아레나 🎙️</b>를 선택하여 위 핵심 문형의 억양과 표준 발음을 연습하세요.";
+  } else if (lang === 'en') {
+    titleText = "💡 Core Grammar Patterns:";
+    noteText = "📌 <b>Reflex Tip:</b> Switch to <b>Roleplay Arena 🎙️</b> to practice intonation and native pronunciation of the core patterns above.";
+  }
+
+  let html = `
+    <div style="margin-bottom:0.8rem;">
+      <strong style="color:#a5b4fc;">${titleText}</strong>
+      <ul style="margin: 0.4rem 0 0 1.2rem; padding:0; color:#cbd5e1;">
+  `;
+  
+  lesson.patterns.forEach(p => {
+    let sub = getLineSubText(p, lang);
+    html += `<li style="margin-bottom:0.3rem;"><b>${p.en}</b> — <i>${sub}</i></li>`;
   });
+
+  html += `
+      </ul>
+    </div>
+    <div style="font-size:0.8rem; color:#94a3b8;">
+      ${noteText}
+    </div>
+  `;
+
+  el.grammarContent.innerHTML = html;
 }
 
 function loadLesson(idx) {
@@ -209,15 +735,42 @@ function loadLesson(idx) {
   state.currentQuizIdx = 0;
   
   const lesson = STREAMLINE_LESSONS[idx];
-  el.lessonTopic.textContent = lesson.topic;
+  
+  const topic = getLessonTopic(lesson, state.currentLang);
+  const desc = getLessonDesc(lesson, state.currentLang);
+  const title = getLessonTitle(lesson, state.currentLang);
+
+  el.lessonTopic.textContent = topic;
   el.lessonLevel.textContent = lesson.level;
-  el.lessonTitle.textContent = lesson.title;
-  el.lessonDesc.textContent = lesson.description;
+  el.lessonTitle.textContent = title;
+  el.lessonDesc.textContent = desc;
+
+  if (el.lessonStepIndicator) {
+    const lang = state.currentLang;
+    const unitWord = lang === 'zh' ? '课' : (lang === 'ko' ? '레슨' : (lang === 'hv' ? 'Khóa' : 'Bài'));
+    el.lessonStepIndicator.textContent = `${unitWord} ${idx + 1} / ${STREAMLINE_LESSONS.length}`;
+  }
+
+  const topText = document.getElementById('topLessonText');
+  if (topText) {
+    const lang = state.currentLang;
+    const unitWord = lang === 'zh' ? '第' : (lang === 'ko' ? '레슨' : (lang === 'hv' ? 'Đệ' : 'Bài'));
+    const unitSuffix = lang === 'zh' ? '课' : (lang === 'hv' ? 'Khóa' : '');
+    topText.textContent = `${unitWord} ${idx + 1}${unitSuffix} / ${STREAMLINE_LESSONS.length}`;
+  }
 
   renderLessonSidebar();
   renderChatStream(lesson.dialogue);
   renderPatterns(lesson.patterns);
+  renderGrammarBreakdown(lesson);
   updateModeView();
+
+  if (el.chatStream) el.chatStream.scrollTop = 0;
+  const banner = document.getElementById('lessonBanner');
+  if (banner) {
+    banner.classList.add('banner-pulse');
+    setTimeout(() => banner.classList.remove('banner-pulse'), 700);
+  }
 }
 
 function renderChatStream(dialogue) {
@@ -228,13 +781,14 @@ function renderChatStream(dialogue) {
     bubble.dataset.idx = idx;
 
     const avatarClass = line.speaker === 'A' ? 'avatar-a' : 'avatar-b';
+    const subText = getLineSubText(line, state.currentLang);
 
     bubble.innerHTML = `
       <div class="chat-avatar ${avatarClass}">${line.speaker}</div>
       <div class="bubble-content">
         <span class="speaker-name">${line.name}</span>
         <span class="text-en">${line.en}</span>
-        <span class="text-vi">${line.vi}</span>
+        <span class="text-vi">${subText}</span>
         <div class="bubble-controls">
           <button class="btn-speak-icon" onclick="window.speakLine(${idx})" title="Phát âm câu này">🔊</button>
         </div>
@@ -247,11 +801,12 @@ function renderChatStream(dialogue) {
 function renderPatterns(patterns) {
   el.patternGrid.innerHTML = '';
   patterns.forEach(p => {
+    const sub = getLineSubText(p, state.currentLang);
     const card = document.createElement('div');
     card.className = 'pattern-item';
     card.innerHTML = `
       <div class="pattern-en">${p.en}</div>
-      <div class="pattern-vi">${p.vi}</div>
+      <div class="pattern-vi">${sub}</div>
     `;
     el.patternGrid.appendChild(card);
   });
@@ -315,7 +870,8 @@ function playAllDialogue(startIdx = 0) {
     state.isPlayingAll = false;
     togglePlayButtons(false);
     highlightBubble(-1);
-    showToast("🎉 Đã hoàn thành phát bài hội thoại!");
+    const dict = TRANSLATIONS[state.currentLang || 'vi'];
+    showToast(dict.toastRoleplayFinished || "🎉 Đã hoàn thành phát bài hội thoại!");
     return;
   }
 
@@ -371,9 +927,12 @@ function updateRoleplayDeck(lineIdx) {
   state.activeSpeechBubbleIdx = lineIdx;
   highlightBubble(lineIdx);
 
-  el.turnIndicator.innerHTML = `👉 Đến lượt bạn đọc câu thoại của <b>Nhân vật ${line.speaker}</b>!`;
+  const dict = TRANSLATIONS[state.currentLang || 'vi'];
+  const prompt = dict.turnPrompt || "👉 Đến lượt bạn đọc câu thoại của <b>Nhân vật ";
+  const suffix = dict.turnPromptSuffix || "</b>!";
+  el.turnIndicator.innerHTML = `${prompt}${line.speaker}${suffix}`;
   el.targetEn.textContent = `"${line.en}"`;
-  el.targetVi.textContent = `(${line.vi})`;
+  el.targetVi.textContent = `(${getLineSubText(line, state.currentLang)})`;
 
   el.speechFeedback.classList.add('hidden');
   el.userSpokenText.textContent = '"..."';
@@ -546,6 +1105,7 @@ function attachEventListeners() {
         STREAMLINE_LESSONS = DEPARTURES_LESSONS;
       }
 
+      document.body.className = `theme-${book}`;
       const badge = document.getElementById('bookBadge');
       if (badge) badge.textContent = `${book.charAt(0) + book.slice(1).toLowerCase()} (80 Units)`;
       
@@ -553,6 +1113,41 @@ function attachEventListeners() {
       showToast(`📚 Đã nạp tập sách ${book} (80 Bài)!`);
     };
   });
+
+  // Multilingual Dropdown Selector Handler
+  const langSelect = document.getElementById('langSelect');
+  if (langSelect) {
+    langSelect.onchange = () => {
+      updateUILanguage(langSelect.value);
+    };
+  }
+
+  // Prev / Next Lesson Navigation
+  if (el.btnPrevLesson) {
+    el.btnPrevLesson.onclick = () => {
+      const dict = TRANSLATIONS[state.currentLang || 'vi'];
+      if (state.currentLessonIdx > 0) {
+        loadLesson(state.currentLessonIdx - 1);
+        const arena = document.querySelector('.arena-panel');
+        if (arena) arena.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        showToast(dict.toastFirstLesson || "ℹ️ Đây là bài đầu tiên trong tập sách!");
+      }
+    };
+  }
+
+  if (el.btnNextLesson) {
+    el.btnNextLesson.onclick = () => {
+      const dict = TRANSLATIONS[state.currentLang || 'vi'];
+      if (state.currentLessonIdx + 1 < STREAMLINE_LESSONS.length) {
+        loadLesson(state.currentLessonIdx + 1);
+        const arena = document.querySelector('.arena-panel');
+        if (arena) arena.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        showToast(dict.toastLastLesson || "🎉 Đã đến bài cuối cùng của tập sách!");
+      }
+    };
+  }
 
   document.querySelectorAll('.mode-tab').forEach(tab => {
     tab.onclick = () => {

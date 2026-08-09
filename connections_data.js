@@ -125,7 +125,7 @@ for (let i = 86; i <= 160; i++) {
     subtitle: `Bài ${i} SE: Streamline Connections Standard Unit`,
     topic: "Giao tiếp Trung cấp SE",
     level: "A2 Connections",
-    description: `Bài học số ${i - 80} nằm trong bộ 80 bài học trung cấp Streamline Connections.`,
+    description: `Bài học tương đương bài số ${i - 80} trong bộ 80 bài học trung cấp Streamline Connections.`,
     dialogue: [
       { speaker: "A", name: "Speaker A", en: `Welcome to Connections Unit ${i - 80}.`, vi: `Chào mừng đến với bài Connections số ${i - 80}.` },
       { speaker: "B", name: "You (Person B)", en: "I'm ready for the next level of conversation!", vi: "Tôi đã sẵn sàng cho cấp độ hội thoại tiếp theo!" },

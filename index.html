@@ -16,10 +16,27 @@
   <header class="app-header">
     <div class="header-content">
       <div class="brand">
-        <a href="dict.html" class="back-link">🌐 Từ điển phát âm</a>
+        <a href="dict.html" class="dict-search-btn" title="Từ điển phát âm">🔍</a>
         <div class="brand-title">
           <span class="badge-icon">🎙️</span>
-          <h1>StreamlAI <span class="accent-badge">2.0</span></h1>
+          <h1>StreamlAI <span class="accent-badge">4.0</span></h1>
+        </div>
+      </div>
+
+      <!-- Fixed Header Controls: Lesson Indicator + Compact Language Dropdown -->
+      <div class="header-center-controls">
+        <div class="top-lesson-badge" id="topLessonBadge" title="Bài học đang chọn">
+          <span class="badge-icon">📖</span>
+          <span class="badge-text" id="topLessonText">Bài 1 / 80</span>
+        </div>
+
+        <div class="lang-dropdown-wrapper">
+          <select id="langSelect" class="lang-dropdown" title="Chọn ngôn ngữ giao diện">
+            <option value="vi">🇻🇳 VN (Tiếng Việt)</option>
+            <option value="hv">🈳 HV (Hán Việt)</option>
+            <option value="zh">🇨🇳 中文 (Tiếng Trung)</option>
+            <option value="ko">🇰🇷 한국어 (Tiếng Hàn)</option>
+          </select>
         </div>
       </div>
       
@@ -36,7 +53,7 @@
         </div>
         <div class="stat-pill" title="Bài học đã chinh phục">
           <span class="stat-icon">🏆</span>
-          <span class="stat-val" id="lessonsMastered">0/5</span>
+          <span class="stat-val" id="lessonsMastered">0/80</span>
         </div>
       </div>
     </div>
@@ -44,57 +61,8 @@
 
   <!-- Main Container -->
   <main class="main-container">
-    
-    <!-- Sidebar: Lesson List & Practice Modes -->
-    <aside class="sidebar-panel">
-      <div class="panel-card">
-        <div class="panel-header">
-          <h2>📚 Danh Sách 320 Bài</h2>
-          <span class="badge-level" id="bookBadge">Departures (80 Units)</span>
-        </div>
-        
-        <div class="book-tabs">
-          <button class="book-tab active" data-book="DEPARTURES">Departures</button>
-          <button class="book-tab" data-book="CONNECTIONS">Connections</button>
-          <button class="book-tab" data-book="DESTINATIONS">Destinations</button>
-          <button class="book-tab" data-book="DIRECTIONS">Directions</button>
-        </div>
 
-        <div class="lesson-list" id="lessonList">
-          <!-- Dynamically populated lessons -->
-        </div>
-      </div>
-
-      <!-- Settings Card -->
-      <div class="panel-card settings-card">
-        <div class="panel-header">
-          <h3>⚙️ Cấu Hình Giọng Đọc AI</h3>
-        </div>
-        <div class="setting-group">
-          <label for="voiceSelect">Giọng đọc tiếng Anh:</label>
-          <select id="voiceSelect" class="form-select">
-            <option value="">Đang tải danh sách giọng...</option>
-          </select>
-        </div>
-
-        <div class="setting-group">
-          <div class="slider-header">
-            <label for="speedSlider">Tốc độ đọc:</label>
-            <span id="speedValue" class="slider-val">1.0x</span>
-          </div>
-          <input type="range" id="speedSlider" min="0.6" max="1.3" step="0.05" value="1.0" class="form-range">
-        </div>
-
-        <div class="setting-group">
-          <label class="checkbox-label">
-            <input type="checkbox" id="autoAdvanceCheck" checked>
-            <span>Tự động chuyển câu khi kết thúc lượt đọc</span>
-          </label>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Workspace: Conversation Arena -->
+    <!-- Main Workspace: Conversation Arena (Placed FIRST) -->
     <section class="arena-panel">
       
       <!-- Lesson Banner -->
@@ -109,15 +77,15 @@
 
       <!-- Learning Mode Tabs -->
       <div class="mode-tabs">
-        <button class="mode-tab active" data-mode="listen">
+        <button class="mode-tab active" data-mode="listen" data-i18n="mode1">
           <span class="tab-icon">🎧</span>
           <span class="tab-text">1. Nghe & Thấu Hiểu</span>
         </button>
-        <button class="mode-tab" data-mode="roleplay">
+        <button class="mode-tab" data-mode="roleplay" data-i18n="mode2">
           <span class="tab-icon">🎙️</span>
           <span class="tab-text">2. Đóng Vai Phản Xạ</span>
         </button>
-        <button class="mode-tab" data-mode="quiz">
+        <button class="mode-tab" data-mode="quiz" data-i18n="mode3">
           <span class="tab-icon">⚡</span>
           <span class="tab-text">3. Trắc Nghiệm Phản Xạ</span>
         </button>
@@ -129,22 +97,22 @@
         <!-- Action Toolbar -->
         <div class="dialogue-toolbar">
           <div class="role-selector">
-            <span class="role-label">Bạn sắm vai:</span>
+            <span class="role-label" data-i18n="roleLabel">Bạn sắm vai:</span>
             <div class="role-btns">
-              <button class="role-btn active" data-role="B">Nhân vật B (Khuyên dùng)</button>
-              <button class="role-btn" data-role="A">Nhân vật A</button>
-              <button class="role-btn" data-role="SPECTATOR">Người Nghe (Cả A & B)</button>
+              <button class="role-btn active" data-role="B" data-i18n="roleB">Nhân vật B (Khuyên dùng)</button>
+              <button class="role-btn" data-role="A" data-i18n="roleA">Nhân vật A</button>
+              <button class="role-btn" data-role="SPECTATOR" data-i18n="roleBoth">Người Nghe (Cả A & B)</button>
             </div>
           </div>
 
           <div class="playback-controls">
             <button id="btnPlayAll" class="btn-primary">
               <span class="btn-icon">▶</span>
-              <span class="btn-text">Phát Toàn Bộ</span>
+              <span class="btn-text" data-i18n="btnPlayAll">Phát Toàn Bộ</span>
             </button>
             <button id="btnStopPlay" class="btn-secondary hidden">
               <span class="btn-icon">⏹</span>
-              <span class="btn-text">Dừng lại</span>
+              <span class="btn-text" data-i18n="btnStopPlay">Dừng lại</span>
             </button>
           </div>
         </div>
@@ -180,20 +148,20 @@
             <button id="btnMic" class="mic-btn" title="Nhấn để phát âm thử câu này">
               <span class="mic-icon">🎙️</span>
             </button>
-            <div class="mic-hint">Bấm vào Micro và đọc to câu thoại tiếng Anh ở trên</div>
+            <div class="mic-hint" data-i18n="micHint">Bấm vào Micro và đọc to câu thoại tiếng Anh ở trên</div>
           </div>
 
           <!-- Recognition Live Transcript Feedback -->
           <div class="speech-feedback hidden" id="speechFeedback">
-            <div class="feedback-label">Hệ thống ghi nhận:</div>
+            <div class="feedback-label" data-i18n="feedbackLabel">Hệ thống ghi nhận:</div>
             <div class="feedback-text" id="userSpokenText">"..."</div>
             <div class="accuracy-badge" id="accuracyBadge">Độ chính xác: 0%</div>
           </div>
 
           <!-- Manual Pass / Next Turn Button -->
           <div class="deck-actions">
-            <button id="btnSkipTurn" class="btn-ghost">Bỏ qua lượt này ⏭️</button>
-            <button id="btnListenSample" class="btn-ghost">🔊 Nghe câu mẫu</button>
+            <button id="btnSkipTurn" class="btn-ghost" data-i18n="btnSkip">Bỏ qua lượt này ⏭️</button>
+            <button id="btnListenSample" class="btn-ghost" data-i18n="btnListen">🔊 Nghe câu mẫu</button>
           </div>
         </div>
 
@@ -212,17 +180,95 @@
           </div>
         </div>
 
+        <!-- Lesson Navigation Footer Bar -->
+        <div class="lesson-nav-bar">
+          <button id="btnPrevLesson" class="nav-btn" data-i18n="btnPrev">◀ Bài Trước</button>
+          <span class="lesson-step-indicator" id="lessonStepIndicator">Bài 1 / 80</span>
+          <button id="btnNextLesson" class="nav-btn" data-i18n="btnNext">Bài Tiếp ▶</button>
+        </div>
+
       </div>
 
       <!-- Key Vocabulary & Pattern Cards -->
       <div class="pattern-card">
-        <h3>💡 Mẫu Câu & Cấu Trúc Phản Xạ Quan Trọng</h3>
+        <h3 data-i18n="patternHeader">💡 Mẫu Câu & Cấu Trúc Phản Xạ Quan Trọng</h3>
         <div class="pattern-grid" id="patternGrid">
           <!-- Dynamic patterns -->
         </div>
       </div>
 
+      <!-- Grammar Analysis & Breakdown Card -->
+      <div class="grammar-card">
+        <h3 data-i18n="grammarHeader">📝 Phân Tích Ngữ Pháp & Cấu Trúc Ngôn Ngữ</h3>
+        <div class="grammar-content" id="grammarContent">
+          <p>Bài học này sử dụng các mẫu câu giao tiếp lịch sự chuẩn ngữ pháp tiếng Anh.</p>
+        </div>
+      </div>
+
     </section>
+
+    <!-- Sidebar: Lesson List & Selection Grid (Placed AFTER Arena) -->
+    <aside class="sidebar-panel">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h2 data-i18n="selectLessonHeader">📚 Chọn Bài Học (1 - 80)</h2>
+          <span class="badge-level" id="bookBadge">Departures (80 Units)</span>
+        </div>
+        
+        <div class="book-tabs">
+          <button class="book-tab active" data-book="DEPARTURES">Departures</button>
+          <button class="book-tab" data-book="CONNECTIONS">Connections</button>
+          <button class="book-tab" data-book="DESTINATIONS">Destinations</button>
+          <button class="book-tab" data-book="DIRECTIONS">Directions</button>
+        </div>
+
+        <!-- Unit Grid (Compact Number Buttons 1..80 with Preview ON TOP) -->
+        <div class="unit-grid-container">
+          <!-- Preview Card ON TOP of Grid -->
+          <div class="unit-preview-card" id="unitPreviewCard">
+            <span class="preview-num" id="previewNum">Lesson 1</span>
+            <div class="preview-title" id="previewTitle">Everyday Excuses</div>
+            <div class="preview-sub" id="previewSub">Rê chuột hoặc rê ô số để xem tiêu đề bài</div>
+          </div>
+
+          <div class="unit-grid" id="unitGrid">
+            <!-- Dynamically populated unit number buttons 1..80 -->
+          </div>
+        </div>
+
+        <div class="lesson-list hidden" id="lessonList">
+          <!-- Fallback -->
+        </div>
+      </div>
+
+      <!-- Settings Card -->
+      <div class="panel-card settings-card">
+        <div class="panel-header">
+          <h3 data-i18n="settingsTitle">⚙️ Cấu Hình Giọng Đọc AI</h3>
+        </div>
+        <div class="setting-group">
+          <label for="voiceSelect" data-i18n="voiceLabel">Giọng đọc tiếng Anh:</label>
+          <select id="voiceSelect" class="form-select">
+            <option value="">Đang tải danh sách giọng...</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <div class="slider-header">
+            <label for="speedSlider" data-i18n="speedLabel">Tốc độ đọc:</label>
+            <span id="speedValue" class="slider-val">1.0x</span>
+          </div>
+          <input type="range" id="speedSlider" min="0.6" max="1.3" step="0.05" value="1.0" class="form-range">
+        </div>
+
+        <div class="setting-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="autoAdvanceCheck" checked>
+            <span data-i18n="autoAdvanceLabel">Tự động chuyển câu khi kết thúc lượt đọc</span>
+          </label>
+        </div>
+      </div>
+    </aside>
   </main>
 
   <!-- Toast Notification Container -->
