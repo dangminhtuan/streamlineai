@@ -55,6 +55,10 @@
           <span class="stat-icon">🏆</span>
           <span class="stat-val" id="lessonsMastered">0/80</span>
         </div>
+        <div class="stat-pill mastery-pill" title="Tỷ lệ làm chủ giáo trình qua tần suất từ vựng">
+          <span class="stat-icon">🎯</span>
+          <span class="stat-val" id="masteryPercent">0.0%</span>
+        </div>
       </div>
     </div>
   </header>
@@ -187,6 +191,22 @@
           <button id="btnNextLesson" class="nav-btn" data-i18n="btnNext">Bài Tiếp ▶</button>
         </div>
 
+      </div>
+
+      <!-- 320-Unit Vocabulary Frequency & Mastery Card -->
+      <div class="vocab-analytics-card" id="vocabCard">
+        <div class="vocab-card-header">
+          <h3 data-i18n="vocabAnalyticsHeader">📊 Thống Kê Từ Vựng & Tần Suất (320 Bài Master)</h3>
+          <div class="mastery-mini-bar-wrapper">
+            <span class="mastery-mini-label" id="masteryMiniLabel">Làm chủ: 0.0%</span>
+            <div class="mastery-mini-bar">
+              <div class="mastery-mini-fill" id="masteryMiniFill" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="vocab-grid" id="vocabGrid">
+          <!-- Dynamic vocabulary frequency items rendered here -->
+        </div>
       </div>
 
       <!-- Key Vocabulary & Pattern Cards -->

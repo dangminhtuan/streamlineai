@@ -277,10 +277,247 @@ let state = {
   points: parseInt(localStorage.getItem('reflex_points') || '0', 10),
   streak: parseInt(localStorage.getItem('reflex_streak') || '1', 10),
   mastered: JSON.parse(localStorage.getItem('reflex_mastered') || '[]'),
-  currentQuizIdx: 0
+  masteredWords: JSON.parse(localStorage.getItem('streaml_mastered_words') || '[]'),
+  currentQuizIdx: 0,
+  curriculumMasteryPct: 0
 };
 
 let recognition = null;
+let vocabIndex = {
+  totalTokens: 0,
+  wordMap: {}
+};
+
+function build320VocabularyIndex() {
+  const allLessons = [
+    ...(typeof DEPARTURES_LESSONS !== 'undefined' ? DEPARTURES_LESSONS : []),
+    ...(typeof CONNECTIONS_LESSONS !== 'undefined' ? CONNECTIONS_LESSONS : []),
+    ...(typeof DESTINATIONS_LESSONS !== 'undefined' ? DESTINATIONS_LESSONS : []),
+    ...(typeof DIRECTIONS_LESSONS !== 'undefined' ? DIRECTIONS_LESSONS : [])
+  ];
+
+  let totalTokens = 0;
+  let map = {};
+
+  allLessons.forEach((lesson, lIdx) => {
+    let textChunk = '';
+    if (lesson.dialogue) {
+      lesson.dialogue.forEach(line => textChunk += ' ' + (line.en || ''));
+    }
+    if (lesson.patterns) {
+      lesson.patterns.forEach(p => textChunk += ' ' + (p.en || ''));
+    }
+
+    const words = textChunk.toLowerCase().replace(/[^a-z0-9\s'-]/g, ' ').split(/\s+/).filter(w => w.length > 1);
+    words.forEach(w => {
+      totalTokens++;
+      if (!map[w]) {
+        map[w] = { count: 0, lessons: new Set() };
+      }
+      map[w].count++;
+      map[w].lessons.add(lIdx);
+    });
+  });
+
+  vocabIndex.totalTokens = totalTokens || 1;
+  vocabIndex.wordMap = map;
+}
+
+function calculateCurriculumMastery() {
+  const masteredList = state.masteredWords || [];
+  let masteredTokens = 0;
+
+  masteredList.forEach(w => {
+    const key = w.toLowerCase();
+    if (vocabIndex.wordMap[key]) {
+      masteredTokens += vocabIndex.wordMap[key].count;
+    }
+  });
+
+  const pct = ((masteredTokens / vocabIndex.totalTokens) * 100).toFixed(1);
+  state.curriculumMasteryPct = pct;
+
+  const badge = document.getElementById('masteryPercent');
+  if (badge) badge.textContent = `${pct}%`;
+
+  const miniLabel = document.getElementById('masteryMiniLabel');
+  if (miniLabel) {
+    const lang = state.currentLang;
+    const lblText = lang === 'zh' ? `已掌握: ${pct}%` : (lang === 'ko' ? `마스터: ${pct}%` : (lang === 'hv' ? `Làm chủ: ${pct}%` : `Làm chủ: ${pct}%`));
+    miniLabel.textContent = lblText;
+  }
+
+  const miniFill = document.getElementById('masteryMiniFill');
+  if (miniFill) miniFill.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+}
+
+function toggleWordMastered(word) {
+  const lower = word.toLowerCase();
+  const idx = state.masteredWords.indexOf(lower);
+  if (idx >= 0) {
+    state.masteredWords.splice(idx, 1);
+  } else {
+    state.masteredWords.push(lower);
+  }
+  localStorage.setItem('streaml_mastered_words', JSON.stringify(state.masteredWords));
+  calculateCurriculumMastery();
+  const currentLesson = STREAMLINE_LESSONS[state.currentLessonIdx];
+  if (currentLesson) renderVocabularyAnalytics(currentLesson);
+}
+
+function getWordMeaning(word, lang, lesson) {
+  if (SINO_VIETNAMESE_MAP[word]) return SINO_VIETNAMESE_MAP[word];
+  
+  if (lang === 'hv') {
+    if (word === 'excuse') return 'Đả nhiễu / Tấu thỉnh';
+    if (word === 'pardon') return 'Thâm cảm tạ lỗi';
+    if (word === 'handbag') return 'Thủ đề bao';
+    if (word === 'hotel') return 'Tửu điếm';
+    if (word === 'single') return 'Đơn nhân';
+    if (word === 'room') return 'Phòng gian';
+    if (word === 'post') return 'Bưu cục';
+    if (word === 'office') return 'Bàn công thất';
+    if (word === 'sweater') return 'Mao y';
+    if (word === 'coffee') return 'Gia phê';
+  }
+  if (lang === 'zh') {
+    if (word === 'excuse') return '打扰 / 原谅';
+    if (word === 'pardon') return '请再说一遍';
+    if (word === 'handbag') return '手提包';
+    if (word === 'hotel') return '酒店 / 宾馆';
+    if (word === 'single') return '单人';
+    if (word === 'room') return '房间';
+    if (word === 'post') return '邮政';
+    if (word === 'office') return '办公室';
+    if (word === 'sweater') return '毛衣';
+    if (word === 'coffee') return '咖啡';
+  }
+  if (lang === 'ko') {
+    if (word === 'excuse') return '실례합니다';
+    if (word === 'pardon') return '다시 말씀해 주세요';
+    if (word === 'handbag') return '핸드백';
+    if (word === 'hotel') return '호텔';
+    if (word === 'single') return '싱글';
+    if (word === 'room') return '방 / 객실';
+    if (word === 'post') return '우체국';
+    if (word === 'office') return '사무실';
+    if (word === 'sweater') return '스웨터';
+    if (word === 'coffee') return '커피';
+  }
+  
+  if (word === 'excuse') return 'Xin lỗi / Tha lỗi';
+  if (word === 'pardon') return 'Nhắc lại / Dạ?';
+  if (word === 'handbag') return 'Túi xách tay';
+  if (word === 'hotel') return 'Khách sạn';
+  if (word === 'single') return 'Phòng đơn';
+  if (word === 'room') return 'Phòng';
+  if (word === 'post') return 'Bưu điện';
+  if (word === 'office') return 'Văn phòng';
+  if (word === 'sweater') return 'Áo len';
+  if (word === 'coffee') return 'Cà phê';
+  
+  return 'Từ vựng giao tiếp cốt lõi';
+}
+
+function renderVocabularyAnalytics(lesson) {
+  const grid = document.getElementById('vocabGrid');
+  if (!grid) return;
+
+  const lang = state.currentLang;
+  
+  let candidateWords = new Set();
+  const ignoreWords = new Set([
+    'the','a','an','is','are','am','was','were','be','been','being',
+    'to','of','and','in','on','at','for','with','about','against','between',
+    'into','through','during','before','after','above','below','from','up',
+    'down','in','out','off','over','under','again','further','then','once',
+    'here','there','when','where','why','how','all','any','both','each',
+    'few','more','most','other','some','such','no','nor','not','only','own',
+    'same','so','than','too','very','can','will','just','should','now'
+  ]);
+
+  if (lesson.dialogue) {
+    lesson.dialogue.forEach(line => {
+      const words = (line.en || '').toLowerCase().replace(/[^a-z0-9\s'-]/g, ' ').split(/\s+/);
+      words.forEach(w => {
+        if (w.length > 2 && !ignoreWords.has(w)) candidateWords.add(w);
+      });
+    });
+  }
+
+  if (lesson.patterns) {
+    lesson.patterns.forEach(p => {
+      const words = (p.en || '').toLowerCase().replace(/[^a-z0-9\s'-]/g, ' ').split(/\s+/);
+      words.forEach(w => {
+        if (w.length > 2 && !ignoreWords.has(w)) candidateWords.add(w);
+      });
+    });
+  }
+
+  const wordList = Array.from(candidateWords).map(w => {
+    const info = vocabIndex.wordMap[w] || { count: 1, lessons: new Set() };
+    return {
+      word: w,
+      count: info.count,
+      lessons: Array.from(info.lessons).sort((a,b) => a - b)
+    };
+  }).sort((a,b) => b.count - a.count).slice(0, 8);
+
+  grid.innerHTML = '';
+  wordList.forEach(item => {
+    const isMastered = state.masteredWords.includes(item.word.toLowerCase());
+    let meaning = getWordMeaning(item.word, lang, lesson);
+    
+    const card = document.createElement('div');
+    card.className = `vocab-card-item ${isMastered ? 'mastered' : ''}`;
+
+    const lessonBadgesHTML = item.lessons.slice(0, 4).map(lIdx => {
+      return `<button class="lesson-tag-btn" onclick="window.jumpToLesson(${lIdx})" title="Chuyển đến Bài ${lIdx + 1}">B${lIdx + 1}</button>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="vocab-item-top">
+        <span class="vocab-word-en">
+          ${item.word}
+          <button class="btn-speak-icon" onclick="window.speakWord('${item.word}')" style="font-size:0.85rem; padding:0; background:none; border:none; cursor:pointer;" title="Phát âm từ này">🔊</button>
+        </span>
+        <span class="freq-badge" title="Tần suất xuất hiện trong 320 bài">🔥 ${item.count}x / 320 bài</span>
+      </div>
+      <div class="vocab-meaning">${meaning}</div>
+      <div class="vocab-item-bottom">
+        <div class="lesson-tags-row">
+          <span style="font-size:0.7rem; color:#94a3b8;">Có tại:</span>
+          ${lessonBadgesHTML}
+        </div>
+        <button class="mastered-btn ${isMastered ? 'active' : ''}" onclick="window.toggleMasteredWord('${item.word}')">
+          ${isMastered ? '☑️ Đã thuộc' : '☐ Thuộc rồi?'}
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+window.jumpToLesson = function(lIdx) {
+  loadLesson(lIdx);
+  const arena = document.querySelector('.arena-panel');
+  if (arena) arena.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+window.toggleMasteredWord = function(word) {
+  toggleWordMastered(word);
+};
+
+window.speakWord = function(word) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = 'en-US';
+    u.rate = state.speechRate || 1.0;
+    if (state.selectedVoice) u.voice = state.selectedVoice;
+    window.speechSynthesis.speak(u);
+  }
+};
 
 const el = {
   unitGrid: document.getElementById('unitGrid'),
@@ -327,6 +564,7 @@ const el = {
   reflexPoints: document.getElementById('reflexPoints'),
   reflexStreak: document.getElementById('reflexStreak'),
   lessonsMastered: document.getElementById('lessonsMastered'),
+  masteryPercent: document.getElementById('masteryPercent'),
   toast: document.getElementById('toast')
 };
 
@@ -335,6 +573,8 @@ const el = {
 // --------------------------------------------------------------------------
 function init() {
   document.body.className = 'theme-DEPARTURES';
+  build320VocabularyIndex();
+  calculateCurriculumMastery();
   renderHeaderStats();
   renderLessonSidebar();
   loadLesson(0);
@@ -761,6 +1001,7 @@ function loadLesson(idx) {
 
   renderLessonSidebar();
   renderChatStream(lesson.dialogue);
+  renderVocabularyAnalytics(lesson);
   renderPatterns(lesson.patterns);
   renderGrammarBreakdown(lesson);
   updateModeView();
