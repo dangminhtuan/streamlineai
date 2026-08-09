@@ -1403,6 +1403,17 @@ body {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.vocab-ipa {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.18);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace, sans-serif;
 }
 
 .freq-badge {

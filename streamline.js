@@ -365,56 +365,127 @@ function toggleWordMastered(word) {
   if (currentLesson) renderVocabularyAnalytics(currentLesson);
 }
 
+const IPA_DICTIONARY = {
+  "yes": "/jes/",
+  "no": "/nəʊ/",
+  "this": "/ðɪs/",
+  "that": "/ðæt/",
+  "excuse": "/ɪkˈskjuːz/",
+  "pardon": "/ˈpɑːdn/",
+  "handbag": "/ˈhændbæɡ/",
+  "watch": "/wɒtʃ/",
+  "name": "/neɪm/",
+  "nationality": "/ˌnæʃəˈnæləti/",
+  "british": "/ˈbrɪtɪʃ/",
+  "post": "/pəʊst/",
+  "office": "/ˈɒfɪs/",
+  "bank": "/bæŋk/",
+  "supermarket": "/ˈsuːpəmɑːkɪt/",
+  "hotel": "/həʊˈtel/",
+  "room": "/ruːm/",
+  "single": "/ˈsɪŋɡl/",
+  "double": "/ˈdʌbl/",
+  "bathroom": "/ˈbɑːθruːm/",
+  "shower": "/ˈʃaʊə/",
+  "phone": "/fəʊn/",
+  "sweater": "/ˈswetə/",
+  "changing": "/ˈtʃeɪndʒɪŋ/",
+  "usually": "/ˈjuːʒuəli/",
+  "brother": "/ˈbrʌðə/",
+  "cousin": "/ˈkʌzn/",
+  "engineer": "/ˌendʒɪˈnɪə/",
+  "suspect": "/ˈsʌspekt/",
+  "coffee": "/ˈkɒfi/",
+  "sugar": "/ˈʃʊɡə/",
+  "black": "/blæk/",
+  "white": "/waɪt/",
+  "where": "/weə/",
+  "what": "/wɒt/",
+  "when": "/wen/",
+  "how": "/haʊ/",
+  "time": "/taɪm/",
+  "look": "/lʊk/",
+  "drink": "/drɪŋk/",
+  "help": "/help/",
+  "please": "/pliːz/",
+  "thank": "/θæŋk/",
+  "welcome": "/ˈwelkəm/",
+  "speak": "/spiːk/",
+  "try": "/traɪ/",
+  "listen": "/ˈlɪsn/",
+  "understand": "/ˌʌndəˈstænd/",
+  "practice": "/ˈpræktɪs/",
+  "reflex": "/ˈriːfleks/",
+  "fluency": "/ˈfluːənsi/",
+  "master": "/ˈmɑːstə/",
+  "journey": "/ˈdʒɜːni/"
+};
+
+const WORD_MEANINGS = {
+  "yes": { vi: "Vâng / Đúng vậy", hv: "Thị / Tán đồng", zh: "是的 / 好的", ko: "네 / 그렇습니다" },
+  "no": { vi: "Không / Không phải", hv: "Bất / Phủ định", zh: "不 / 不是", ko: "아니요" },
+  "this": { vi: "Cái này / Đây", hv: "Giá / Thử", zh: "这个 / 这", ko: "이것 / 이" },
+  "that": { vi: "Cái kia / Đó", hv: "Na / Bỉ", zh: "那个 / 那", ko: "저것 / 그" },
+  "excuse": { vi: "Xin lỗi (để ngắt lời)", hv: "Đả nhiễu / Tấu thỉnh", zh: "打扰 / 原谅", ko: "실례합니다" },
+  "pardon": { vi: "Dạ? / Xin nhắc lại", hv: "Thâm cảm tạ lỗi", zh: "请再说一遍", ko: "다시 말씀해 주세요" },
+  "handbag": { vi: "Túi xách tay", hv: "Thủ đề bao", zh: "手提包", ko: "핸드백" },
+  "watch": { vi: "Đồng hồ đeo tay", hv: "Thủ biểu", zh: "手表", ko: "손목시계" },
+  "name": { vi: "Tên / Họ tên", hv: "Danh tự", zh: "名字 / 姓名", ko: "이름" },
+  "nationality": { vi: "Quốc tịch", hv: "Quốc tịch", zh: "国籍", ko: "국적" },
+  "british": { vi: "Người/Quốc tịch Anh", hv: "Anh quốc nhân", zh: "英国人 / 英国的", ko: "영국인 / 영국의" },
+  "post": { vi: "Bưu điện / Thư từ", hv: "Bưu chính / Thư", zh: "邮政 / 邮件", ko: "우체국 / 우편" },
+  "office": { vi: "Văn phòng / Cơ quan", hv: "Bàn công thất", zh: "办公室", ko: "사무실" },
+  "bank": { vi: "Ngân hàng", hv: "Ngân hàng", zh: "银行", ko: "은행" },
+  "supermarket": { vi: "Siêu thị", hv: "Siêu thị", zh: "超市", ko: "슈퍼마켓" },
+  "hotel": { vi: "Khách sạn", hv: "Tửu điếm / Khách ngoạn", zh: "酒店 / 宾馆", ko: "호텔" },
+  "room": { vi: "Phòng / Căn phòng", hv: "Phòng gian", zh: "房间", ko: "방 / 객실" },
+  "single": { vi: "Đơn / Một người", hv: "Đơn nhân / Độc", zh: "单人 / 单一", ko: "싱글 / 단일" },
+  "double": { vi: "Đôi / Hai người", hv: "Song nhân / Bội", zh: "双人 / 双重", ko: "더블 / 2인용" },
+  "bathroom": { vi: "Phòng tắm", hv: "Dục thất", zh: "浴室 / 卫生间", ko: "욕실" },
+  "shower": { vi: "Vòi hoa sen", hv: "Lâm dục gian", zh: "淋浴", ko: "샤워기" },
+  "phone": { vi: "Điện thoại", hv: "Điện thoại", zh: "电话", ko: "전화" },
+  "sweater": { vi: "Áo len", hv: "Mao y", zh: "毛衣", ko: "스웨터" },
+  "changing": { vi: "Thay đồ / Thay đổi", hv: "Thán y / Thiết hoán", zh: "换衣 / 更换", ko: "탈의 / 변경" },
+  "usually": { vi: "Thường xuyên / Thông thường", hv: "Thông thường / Bình thì", zh: "通常 / 平时", ko: "보통 / 평소에" },
+  "brother": { vi: "Anh / Em trai", hv: "Huynh đệ", zh: "兄弟 / 哥哥 / 弟弟", ko: "형제 / 남동생" },
+  "cousin": { vi: "Anh chị em họ", hv: "Biểu huynh đệ", zh: "堂/表亲", ko: "사촌" },
+  "engineer": { vi: "Kỹ sư / Công trình sư", hv: "Công trình sư", zh: "工程师", ko: "엔지니어 / 공학자" },
+  "suspect": { vi: "Kẻ nghi phạm", hv: "Hiềm nghi nhân", zh: "嫌疑人", ko: "용의자" },
+  "coffee": { vi: "Cà phê", hv: "Gia phê", zh: "咖啡", ko: "커피" },
+  "sugar": { vi: "Đường ăn", hv: "Đường phân", zh: "糖", ko: "설탕" },
+  "black": { vi: "Màu đen / Cà phê đen", hv: "Hắc sắc", zh: "黑色 / 黑咖啡", ko: "블랙 / 검은색" },
+  "white": { vi: "Màu trắng / Thêm sữa", hv: "Bạch sắc / Gia nãi", zh: "白色 / 加奶", ko: "화이트 / 우유추가" },
+  "where": { vi: "Ở đâu / Nơi nào", hv: "Na lý / Hà xứ", zh: "在哪里", ko: "어디" },
+  "what": { vi: "Cái gì / Gì", hv: "Thập ma", zh: "什么", ko: "무엇" },
+  "when": { vi: "Khi nào / Bao giờ", hv: "Hà thì", zh: "什么时候", ko: "언제" },
+  "how": { vi: "Như thế nào / Làm sao", hv: "Như hà", zh: "怎样 / 如何", ko: "어떻게" },
+  "time": { vi: "Thời gian / Giờ", hv: "Thời gian / Thời khắc", zh: "时间 / 点", ko: "시간" },
+  "look": { vi: "Nhìn / Trông như", hv: "Quan sát / Trường dạng", zh: "看 / 看起来", ko: "보다 / ~처럼 보다" },
+  "drink": { vi: "Đồ uống / Uống", hv: "Ẩm liệu / Hát", zh: "饮料 / 喝", ko: "음료 / 마시다" },
+  "help": { vi: "Giúp đỡ / Hỗ trợ", hv: "Bang trợ", zh: "帮助 / 帮忙", ko: "도움 / 돕다" },
+  "please": { vi: "Làm ơn / Xin vui lòng", hv: "Thỉnh / Thỉnh nguyện", zh: "请", ko: "부탁합니다" },
+  "thank": { vi: "Cảm ơn", hv: "Cảm tạ", zh: "感谢 / 谢谢", ko: "감사합니다" },
+  "welcome": { vi: "Hoan nghênh / Không có chi", hv: "Hoan nghênh / Bất khách khí", zh: "欢迎 / 不客气", ko: "환영합니다" },
+  "speak": { vi: "Nói / Nói chuyện", hv: "Đàm thoại / Thuyết", zh: "说话 / 讲", ko: "말하다" },
+  "try": { vi: "Thử / Thử đồ", hv: "Thí nghiệm / Thí xuyên", zh: "尝试 / 试穿", ko: "시도하다 / 입어보다" },
+  "listen": { vi: "Lắng nghe", hv: "Thính", zh: "听 / 倾听", ko: "듣기" },
+  "understand": { vi: "Hiểu / Lĩnh hội", hv: "Lý giải", zh: "理解 / 明白", ko: "이해하다" },
+  "practice": { vi: "Luyện tập", hv: "Luyện tập", zh: "练习", ko: "연습하다" },
+  "reflex": { vi: "Phản xạ", hv: "Phản xạ", zh: "反应 / 反射", ko: "반사 신경" },
+  "fluency": { vi: "Sự trôi chảy", hv: "Lưu lợi độ", zh: "流利度", ko: "유창성" },
+  "master": { vi: "Thành thạo / Quán quân", hv: "Chuyên gia / Hạch tâm", zh: "精通 / 掌握", ko: "마스터" },
+  "journey": { vi: "Hành trình / Chuyến đi", hv: "Hành trình / Chi lữ", zh: "旅程", ko: "여정" }
+};
+
 function getWordMeaning(word, lang, lesson) {
+  const w = word.toLowerCase();
+  if (WORD_MEANINGS[w] && WORD_MEANINGS[w][lang]) {
+    return WORD_MEANINGS[w][lang];
+  }
+  if (WORD_MEANINGS[w] && WORD_MEANINGS[w]['vi']) {
+    return WORD_MEANINGS[w]['vi'];
+  }
   if (SINO_VIETNAMESE_MAP[word]) return SINO_VIETNAMESE_MAP[word];
-  
-  if (lang === 'hv') {
-    if (word === 'excuse') return 'Đả nhiễu / Tấu thỉnh';
-    if (word === 'pardon') return 'Thâm cảm tạ lỗi';
-    if (word === 'handbag') return 'Thủ đề bao';
-    if (word === 'hotel') return 'Tửu điếm';
-    if (word === 'single') return 'Đơn nhân';
-    if (word === 'room') return 'Phòng gian';
-    if (word === 'post') return 'Bưu cục';
-    if (word === 'office') return 'Bàn công thất';
-    if (word === 'sweater') return 'Mao y';
-    if (word === 'coffee') return 'Gia phê';
-  }
-  if (lang === 'zh') {
-    if (word === 'excuse') return '打扰 / 原谅';
-    if (word === 'pardon') return '请再说一遍';
-    if (word === 'handbag') return '手提包';
-    if (word === 'hotel') return '酒店 / 宾馆';
-    if (word === 'single') return '单人';
-    if (word === 'room') return '房间';
-    if (word === 'post') return '邮政';
-    if (word === 'office') return '办公室';
-    if (word === 'sweater') return '毛衣';
-    if (word === 'coffee') return '咖啡';
-  }
-  if (lang === 'ko') {
-    if (word === 'excuse') return '실례합니다';
-    if (word === 'pardon') return '다시 말씀해 주세요';
-    if (word === 'handbag') return '핸드백';
-    if (word === 'hotel') return '호텔';
-    if (word === 'single') return '싱글';
-    if (word === 'room') return '방 / 객실';
-    if (word === 'post') return '우체국';
-    if (word === 'office') return '사무실';
-    if (word === 'sweater') return '스웨터';
-    if (word === 'coffee') return '커피';
-  }
-  
-  if (word === 'excuse') return 'Xin lỗi / Tha lỗi';
-  if (word === 'pardon') return 'Nhắc lại / Dạ?';
-  if (word === 'handbag') return 'Túi xách tay';
-  if (word === 'hotel') return 'Khách sạn';
-  if (word === 'single') return 'Phòng đơn';
-  if (word === 'room') return 'Phòng';
-  if (word === 'post') return 'Bưu điện';
-  if (word === 'office') return 'Văn phòng';
-  if (word === 'sweater') return 'Áo len';
-  if (word === 'coffee') return 'Cà phê';
   
   return 'Từ vựng giao tiếp cốt lõi';
 }
@@ -467,6 +538,7 @@ function renderVocabularyAnalytics(lesson) {
   wordList.forEach(item => {
     const isMastered = state.masteredWords.includes(item.word.toLowerCase());
     let meaning = getWordMeaning(item.word, lang, lesson);
+    let ipa = IPA_DICTIONARY[item.word.toLowerCase()] || '';
     
     const card = document.createElement('div');
     card.className = `vocab-card-item ${isMastered ? 'mastered' : ''}`;
@@ -478,7 +550,7 @@ function renderVocabularyAnalytics(lesson) {
     card.innerHTML = `
       <div class="vocab-item-top">
         <span class="vocab-word-en">
-          ${item.word}
+          ${item.word} ${ipa ? `<span class="vocab-ipa">${ipa}</span>` : ''}
           <button class="btn-speak-icon" onclick="window.speakWord('${item.word}')" style="font-size:0.85rem; padding:0; background:none; border:none; cursor:pointer;" title="Phát âm từ này">🔊</button>
         </span>
         <span class="freq-badge" title="Tần suất xuất hiện trong 320 bài">🔥 ${item.count}x / 320 bài</span>
