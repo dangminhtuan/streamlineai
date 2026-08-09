@@ -1,6 +1,8 @@
 import { DEPARTURES_LESSONS } from './departures_data.js';
+import { CONNECTIONS_LESSONS } from './connections_data.js';
 
-const STREAMLINE_LESSONS = DEPARTURES_LESSONS;
+let activeBook = 'DEPARTURES';
+let STREAMLINE_LESSONS = DEPARTURES_LESSONS;
 
 // --------------------------------------------------------------------------
 // 2. STATE MANAGEMENT & DOM REFERENCES
@@ -530,9 +532,19 @@ function attachEventListeners() {
       document.querySelectorAll('.book-tab').forEach(b => b.classList.remove('active'));
       tab.classList.add('active');
       const book = tab.dataset.book;
+      activeBook = book;
+      
+      if (book === 'CONNECTIONS') {
+        STREAMLINE_LESSONS = CONNECTIONS_LESSONS;
+      } else {
+        STREAMLINE_LESSONS = DEPARTURES_LESSONS;
+      }
+
       const badge = document.getElementById('bookBadge');
       if (badge) badge.textContent = `${book.charAt(0) + book.slice(1).toLowerCase()} (80 Units)`;
-      showToast(`📚 Đã chọn tập sách ${book}`);
+      
+      loadLesson(0);
+      showToast(`📚 Đã nạp tập sách ${book} (80 Bài)!`);
     };
   });
 
