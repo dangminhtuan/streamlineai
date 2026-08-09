@@ -262,6 +262,13 @@ function updateUILanguage(langCode) {
 // --------------------------------------------------------------------------
 // 2. STATE MANAGEMENT & DOM REFERENCES
 // --------------------------------------------------------------------------
+function getCombinedMasteredWords() {
+  const streamlList = JSON.parse(localStorage.getItem('streaml_mastered_words') || '[]');
+  const knownList = JSON.parse(localStorage.getItem('knownWords') || '[]');
+  const set = new Set([...streamlList.map(w => w.toLowerCase()), ...knownList.map(w => w.toLowerCase())]);
+  return Array.from(set);
+}
+
 let state = {
   currentLessonIdx: 0,
   currentMode: 'listen',
@@ -277,7 +284,7 @@ let state = {
   points: parseInt(localStorage.getItem('reflex_points') || '0', 10),
   streak: parseInt(localStorage.getItem('reflex_streak') || '1', 10),
   mastered: JSON.parse(localStorage.getItem('reflex_mastered') || '[]'),
-  masteredWords: JSON.parse(localStorage.getItem('streaml_mastered_words') || '[]'),
+  masteredWords: getCombinedMasteredWords(),
   visitedLessons: JSON.parse(localStorage.getItem('streaml_visited_lessons') || '[]'),
   currentQuizIdx: 0,
   curriculumMasteryPct: 0
@@ -357,9 +364,18 @@ function toggleWordMastered(word) {
   const idx = state.masteredWords.indexOf(lower);
   if (idx >= 0) {
     state.masteredWords.splice(idx, 1);
+    let dictKnown = JSON.parse(localStorage.getItem('knownWords') || '[]');
+    dictKnown = dictKnown.filter(w => w.toLowerCase() !== lower);
+    localStorage.setItem('knownWords', JSON.stringify(dictKnown));
   } else {
     state.masteredWords.push(lower);
+    let dictKnown = JSON.parse(localStorage.getItem('knownWords') || '[]');
+    if (!dictKnown.map(w => w.toLowerCase()).includes(lower)) {
+      dictKnown.push(lower);
+      localStorage.setItem('knownWords', JSON.stringify(dictKnown));
+    }
   }
+  
   localStorage.setItem('streaml_mastered_words', JSON.stringify(state.masteredWords));
   calculateCurriculumMastery();
   renderLessonSidebar();
