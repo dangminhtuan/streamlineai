@@ -150,6 +150,17 @@
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
   }
 
+  function getFriendlyDomain() {
+    const hostname = window.location.hostname;
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id === hostname) {
+      return 'Phonics Reader (Extension)';
+    }
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'Local Dev';
+    }
+    return hostname || 'web';
+  }
+
   function getBaseStem(word) {
     let w = word.toLowerCase().replace(/['’]s$/, '');
     if (dictionary[w] || ADVANCED_FALLBACK_DICT[w]) return w;
@@ -302,7 +313,6 @@
   }
 
   function saveToContextVault(info, sentenceText) {
-    if (!info.isAdvanced) return;
     
     const entry = {
       word: info.word,
@@ -312,17 +322,19 @@
       cefr: info.cefr,
       synonym3k: info.synonymData ? `${info.synonymData.synWord} /${info.synonymData.ipa}/ (${info.synonymData.level})` : null,
       sentence: sentenceText,
-      domain: window.location.hostname,
+      domain: getFriendlyDomain(),
       timestamp: Date.now()
     };
 
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       chrome.storage.local.get(['encounteredAdvancedWords'], (res) => {
         const list = res.encounteredAdvancedWords || [];
-        const exists = list.some(item => item.word.toLowerCase() === entry.word.toLowerCase() && item.domain === entry.domain);
+        // Deduplicate only if it's the exact same sentence for the same word
+        const exists = list.some(item => item.word.toLowerCase() === entry.word.toLowerCase() && item.sentence === entry.sentence);
         if (!exists) {
           list.unshift(entry);
-          chrome.storage.local.set({ encounteredAdvancedWords: list.slice(0, 100) });
+          // Increase limit to 500 so it can hold many contexts for many words
+          chrome.storage.local.set({ encounteredAdvancedWords: list.slice(0, 500) });
         }
       });
     }
@@ -330,7 +342,7 @@
 
   function recordWordLookup(info) {
     const key = (info.enWord || info.stem || info.word).toLowerCase();
-    const domain = window.location.hostname;
+    const domain = getFriendlyDomain();
     
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       chrome.storage.local.get(['wordLookupStats'], (res) => {
@@ -514,7 +526,7 @@
           userPrioritizedPhrases.push(phrase);
           
           const key = phrase.toLowerCase();
-          const domain = window.location.hostname;
+          const domain = getFriendlyDomain();
           if (!wordLookupStats[key]) {
             wordLookupStats[key] = { word: key, displayWord: phrase, count: 0, domains: {} };
           }
@@ -739,7 +751,10 @@
           }
           
           if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-             chrome.storage.local.set({ extractedStudyContent: extracted }, () => {
+             chrome.storage.local.set({ 
+               extractedStudyContent: extracted,
+               extractedDomain: window.location.hostname
+             }, () => {
                sendResponse({ status: 'SUCCESS', count });
              });
              return true; // async response
@@ -1078,7 +1093,7 @@
         isAdvanced: info ? info.isAdvanced : true,
         isVnMatch: info ? info.isVnMatch : true,
         enWord: info ? info.enWord : currentWord,
-        sentence: fullText.trim().slice(0, 150),
+        sentence: fullText.trim().slice(0, 300),
         hoveredContext: { currentWord, prevWord, nextWord },
         parentLink: closestLink ? closestLink.href : null
       };

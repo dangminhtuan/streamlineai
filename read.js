@@ -145,9 +145,23 @@
       .replace(/đ/g, 'd').replace(/Đ/g, 'd');
   }
 
-  function getTodayKey() {
+  function getFormattedDate() {
     const now = new Date();
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  }
+
+  function getFriendlyDomain() {
+    if (window.__extractedDomain) {
+      return window.__extractedDomain;
+    }
+    const hostname = window.location.hostname;
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id === hostname) {
+      return 'Phonics Reader (Extension)';
+    }
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'Local Dev';
+    }
+    return hostname || 'web';
   }
 
   function getBaseStem(word) {
@@ -302,7 +316,6 @@
   }
 
   function saveToContextVault(info, sentenceText) {
-    if (!info.isAdvanced) return;
     
     const entry = {
       word: info.word,
@@ -312,17 +325,17 @@
       cefr: info.cefr,
       synonym3k: info.synonymData ? `${info.synonymData.synWord} /${info.synonymData.ipa}/ (${info.synonymData.level})` : null,
       sentence: sentenceText,
-      domain: window.location.hostname,
+      domain: getFriendlyDomain(),
       timestamp: Date.now()
     };
 
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       chrome.storage.local.get(['encounteredAdvancedWords'], (res) => {
         const list = res.encounteredAdvancedWords || [];
-        const exists = list.some(item => item.word.toLowerCase() === entry.word.toLowerCase() && item.domain === entry.domain);
+        const exists = list.some(item => item.word.toLowerCase() === entry.word.toLowerCase() && item.sentence === entry.sentence);
         if (!exists) {
           list.unshift(entry);
-          chrome.storage.local.set({ encounteredAdvancedWords: list.slice(0, 100) });
+          chrome.storage.local.set({ encounteredAdvancedWords: list.slice(0, 500) });
         }
       });
     }
@@ -330,7 +343,7 @@
 
   function recordWordLookup(info) {
     const key = (info.enWord || info.stem || info.word).toLowerCase();
-    const domain = window.location.hostname;
+    const domain = getFriendlyDomain();
     
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       chrome.storage.local.get(['wordLookupStats'], (res) => {
@@ -602,7 +615,7 @@
             if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
               chrome.storage.local.get(['studyLog'], (res) => {
                 const studyLog = res.studyLog || {};
-                const todayKey = getTodayKey();
+                const todayKey = getFormattedDate();
                 studyLog[todayKey] = (studyLog[todayKey] || 0) + 1;
                 chrome.storage.local.set({ studyLog });
               });
@@ -1115,15 +1128,17 @@ let lastHoveredWord = null;
       dictionary = await res.json();
       buildVietnameseMap();
 
-      chrome.storage.local.get(['knownWords', 'highlighterEnabled', 'showKnownHighlights', 'showUnknownHighlights', 'userPrioritizedPhrases', 'extractedStudyContent', 'wordLookupStats', 'customDictionary'], (data) => {
+      chrome.storage.local.get(['knownWords', 'highlighterEnabled', 'showKnownHighlights', 'showUnknownHighlights', 'userPrioritizedPhrases', 'extractedStudyContent', 'extractedDomain', 'wordLookupStats', 'customDictionary'], (data) => {
         knownWords = new Set(data.knownWords || []);
-        userPrioritizedPhrases = data.userPrioritizedPhrases || [];
         wordLookupStats = data.wordLookupStats || {};
         customDictionary = data.customDictionary || {};
         highlighterEnabled = data.highlighterEnabled !== undefined ? data.highlighterEnabled : true;
         showKnownHighlights = data.showKnownHighlights !== undefined ? data.showKnownHighlights : false;
         showUnknownHighlights = data.showUnknownHighlights !== undefined ? data.showUnknownHighlights : false;
-
+        userPrioritizedPhrases = data.userPrioritizedPhrases || [];
+        
+        window.__extractedDomain = data.extractedDomain || '';
+        
         // Render extracted content
         const contentArea = document.getElementById('content-area');
         const extracted = data.extractedStudyContent || [];

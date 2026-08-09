@@ -75,6 +75,10 @@
         <span>✅ Từ Đã Biết</span>
         <span class="tab-badge badge-green" id="badgeMastered">0</span>
       </button>
+      <button class="tab-btn" data-tab="ERROR">
+        <span>🗑️ Từ Lỗi</span>
+        <span class="tab-badge badge-red" id="badgeError" style="background:#fee2e2; color:#ef4444;">0</span>
+      </button>
     </div>
 
     <!-- Controls Toolbar (Search, Filter, Sort) -->
@@ -85,23 +89,16 @@
       </div>
 
       <div class="filter-group">
-        <label for="vCefrSelect">CEFR:</label>
-        <select id="vCefrSelect" class="select-control">
-          <option value="ALL">Tất cả trình độ</option>
-          <option value="A1">A1 - Căn bản</option>
-          <option value="A2">A2 - Sơ cấp</option>
-          <option value="B1">B1 - Trung cấp</option>
-          <option value="B2">B2 - Trung cao</option>
-          <option value="C1">C1 - Cao cấp</option>
-          <option value="C2">C2 - Thành thạo</option>
-        </select>
-
-        <label for="vSortSelect">Sắp xếp:</label>
-        <select id="vSortSelect" class="select-control">
-          <option value="MOST_LOOKED_UP">👁️ Tra nhiều nhất trước</option>
-          <option value="NEWEST">⏱️ Mới nhất trước</option>
-          <option value="WORD_ASC">🔤 Theo bảng chữ cái A-Z</option>
-        </select>
+        <div class="cefr-filters" id="vCefrFilters">
+          <button class="cefr-toggle active" data-cefr="A1">A1</button>
+          <button class="cefr-toggle active" data-cefr="A2">A2</button>
+          <button class="cefr-toggle active" data-cefr="B1">B1</button>
+          <button class="cefr-toggle active" data-cefr="B2">B2</button>
+          <button class="cefr-toggle active" data-cefr="C1">C1</button>
+          <button class="cefr-toggle active" data-cefr="C2">C2</button>
+        </div>
+        
+        <button id="btnDeleteAllErrors" class="btn-extract-ai" style="display: none; background-color: #ef4444; border-color: #ef4444; color: white;" title="Xóa tất cả các từ được AI gắn nhãn là 'Từ lỗi'">🔥 Xóa hết từ lỗi</button>
         
         <button id="btnExtractAI" class="btn-extract-ai" title="Trích xuất các từ chưa có nghĩa 3000 để gửi cho AI xử lý">🤖 Trích xuất gửi AI</button>
         <button id="btnImportAI" class="btn-extract-ai" style="background-color: #059669; border-color: #059669;" title="Nhập dữ liệu JSON do AI trả về">📥 Nhập dữ liệu AI</button>
@@ -113,12 +110,12 @@
       <table class="vault-table">
         <thead>
           <tr>
-            <th style="width: 18%;">Từ Vựng & IPA</th>
-            <th style="width: 14%;">Phân Loại</th>
+            <th style="width: 18%; cursor: pointer; user-select: none;" data-sort-col="word">Từ Vựng & IPA <span class="sort-icon"></span></th>
+            <th style="width: 14%; cursor: pointer; user-select: none;" data-sort-col="group">Phân Loại <span class="sort-icon"></span></th>
             <th style="width: 18%;">Nghĩa Tiếng Việt</th>
             <th style="width: 16%;">Từ Gốc 3000 Tương Ứng</th>
-            <th style="width: 10%;">Lượt Tra</th>
-            <th style="width: 14%;">Ngữ Cảnh & Nguồn</th>
+            <th style="width: 10%; cursor: pointer; user-select: none;" data-sort-col="count">Lượt Tra <span class="sort-icon"></span></th>
+            <th style="width: 14%; cursor: pointer; user-select: none;" data-sort-col="time" title="Sắp xếp theo thời gian tra cứu">Ngữ Cảnh & Nguồn <span class="sort-icon"></span></th>
             <th style="width: 10%; text-align: center;">Thao Tác</th>
           </tr>
         </thead>

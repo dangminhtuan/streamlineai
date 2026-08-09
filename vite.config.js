@@ -16,6 +16,7 @@ export default defineConfig({
         popup: resolve(__dirname, 'popup.html'),
         vault: resolve(__dirname, 'vault.html'),
         read: resolve(__dirname, 'read.html'),
+        streamline: resolve(__dirname, 'streamline.html'),
         content: resolve(__dirname, 'content.js')
       },
       output: {

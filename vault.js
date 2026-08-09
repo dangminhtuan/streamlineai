@@ -6,7 +6,7 @@ let encounteredAdvancedWords = [];
 
 let currentTab = 'ALL';
 let currentSearchQuery = '';
-let currentCefr = 'ALL';
+let currentCefr = new Set(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']);
 let currentSort = 'MOST_LOOKED_UP';
 
 const SYNONYMS_3000 = {
@@ -146,21 +146,29 @@ function processAllItems() {
 
     const stemKey = getBaseStem(key);
     const dictData = dictionary[key] || dictionary[stemKey];
+    const customData = customDictionary[key] || customDictionary[stemKey];
     const isOut3k = !dictData;
 
-    itemMap.set(key, {
-      word: adv.word || key,
-      stem: adv.stem || stemKey || key,
-      ipa: adv.ipa || (dictData && dictData.ipa[0] ? dictData.ipa[0].join('') : ''),
-      mean: adv.mean || (dictData ? dictData.mean : ''),
-      cefr: adv.cefr || (dictData ? dictData.cefr : 'C2'),
-      synonym3k: adv.synonym3k || null,
-      sentence: adv.sentence || '',
-      domain: adv.domain || 'web',
-      count: (wordLookupStats[key] && wordLookupStats[key].count) ? wordLookupStats[key].count : 1,
-      isOut3k: isOut3k,
-      lastLookedUp: adv.timestamp || Date.now()
-    });
+    if (!itemMap.has(key)) {
+      itemMap.set(key, {
+        word: adv.word || key,
+        stem: adv.stem || stemKey || key,
+        ipa: (customData && customData.ipa && customData.ipa[0]) ? customData.ipa[0].join(', ') : (adv.ipa || (dictData && dictData.ipa[0] ? dictData.ipa[0].join('') : '')),
+        mean: (customData && customData.mean) ? customData.mean : (adv.mean || (dictData ? dictData.mean : '')),
+        cefr: (customData && customData.cefr) ? customData.cefr : (adv.cefr || (dictData ? dictData.cefr : 'C2')),
+        synonym3k: (customData && customData.synonym3k) ? customData.synonym3k : (adv.synonym3k || null),
+        contexts: [],
+        domain: adv.domain || 'web',
+        count: (wordLookupStats[key] && wordLookupStats[key].count) ? wordLookupStats[key].count : 1,
+        isOut3k: isOut3k,
+        lastLookedUp: adv.timestamp || Date.now()
+      });
+    }
+    
+    const item = itemMap.get(key);
+    if (adv.sentence && !item.contexts.some(c => c.text === adv.sentence)) {
+      item.contexts.push({ text: adv.sentence, domain: adv.domain || 'web' });
+    }
   });
 
   // B. Process lookup stats (all words looked up on web pages)
@@ -168,6 +176,7 @@ function processAllItems() {
     const stat = wordLookupStats[key];
     const stemKey = getBaseStem(key);
     const dictData = dictionary[key] || dictionary[stemKey];
+    const customData = customDictionary[key] || customDictionary[stemKey];
     const isOut3k = !dictData;
 
     if (!itemMap.has(key)) {
@@ -175,11 +184,12 @@ function processAllItems() {
       itemMap.set(key, {
         word: stat.displayWord || key,
         stem: stemKey || key,
-        ipa: stat.ipa || (dictData && dictData.ipa[0] ? dictData.ipa[0].join('') : ''),
-        mean: stat.mean || (dictData ? dictData.mean : ''),
-        cefr: stat.cefr || (dictData ? dictData.cefr : 'A1'),
-        synonym3k: null,
-        sentence: '',
+        ipa: (customData && customData.ipa && customData.ipa[0]) ? customData.ipa[0].join(', ') : (stat.ipa || (dictData && dictData.ipa[0] ? dictData.ipa[0].join('') : '')),
+        mean: (customData && customData.mean) ? customData.mean : (stat.mean || (dictData ? dictData.mean : '')),
+        cefr: (customData && customData.cefr) ? customData.cefr : (stat.cefr || (dictData ? dictData.cefr : 'A1')),
+        cefr: (customData && customData.cefr) ? customData.cefr : (stat.cefr || (dictData ? dictData.cefr : 'A1')),
+        synonym3k: (customData && customData.synonym3k) ? customData.synonym3k : (stat.synonym3k || null),
+        contexts: [],
         domain: topDomain,
         count: stat.count || 1,
         isOut3k: isOut3k,
@@ -202,8 +212,9 @@ function processAllItems() {
         ipa: dictData.ipa && dictData.ipa[0] ? dictData.ipa[0].join('') : '',
         mean: dictData.mean,
         cefr: dictData.cefr || 'A1',
+        cefr: dictData.cefr || 'A1',
         synonym3k: null,
-        sentence: '',
+        contexts: [],
         domain: 'app',
         count: 1,
         isOut3k: isOut3k,
@@ -234,15 +245,25 @@ function renderVaultTable() {
   document.getElementById('badgeOut').textContent = advancedCount;
   document.getElementById('badgeMastered').textContent = allItems.filter(i => knownWords.has(i.stem)).length;
 
+  const errorItems = allItems.filter(item => item.mean && item.mean.startsWith('Lỗi:'));
+  const badgeError = document.getElementById('badgeError');
+  if (badgeError) badgeError.textContent = errorItems.length;
+
+  const btnDeleteAllErrors = document.getElementById('btnDeleteAllErrors');
+  if (btnDeleteAllErrors) {
+    btnDeleteAllErrors.style.display = (currentTab === 'ERROR' && errorItems.length > 0) ? 'inline-flex' : 'none';
+  }
+
   // Filter items
   let filtered = allItems.filter(item => {
     // 1. Tab filter
     if (currentTab === 'CORE_3K' && item.isOut3k) return false;
     if (currentTab === 'OUT_3K' && !item.isOut3k) return false;
     if (currentTab === 'MASTERED' && !knownWords.has(item.stem)) return false;
+    if (currentTab === 'ERROR' && !(item.mean && item.mean.startsWith('Lỗi:'))) return false;
 
     // 2. CEFR filter
-    if (currentCefr !== 'ALL' && item.cefr !== currentCefr) return false;
+    if (!currentCefr.has(item.cefr)) return false;
 
     // 3. Search query filter
     if (currentSearchQuery) {
@@ -255,13 +276,33 @@ function renderVaultTable() {
     return true;
   });
 
+  // Helper to clean words for sorting
+  const getSortKey = (w) => (w || '').toString().replace(/^[^a-zA-Z0-9]+/, '').toLowerCase();
+
   // Sort items
   if (currentSort === 'MOST_LOOKED_UP') {
     filtered.sort((a, b) => (b.count || 1) - (a.count || 1));
   } else if (currentSort === 'NEWEST') {
     filtered.sort((a, b) => (b.lastLookedUp || 0) - (a.lastLookedUp || 0));
   } else if (currentSort === 'WORD_ASC') {
-    filtered.sort((a, b) => a.word.localeCompare(b.word));
+    filtered.sort((a, b) => getSortKey(a.word).localeCompare(getSortKey(b.word)));
+  } else if (currentSort === 'WORD_DESC') {
+    filtered.sort((a, b) => getSortKey(b.word).localeCompare(getSortKey(a.word)));
+  } else if (currentSort === 'COUNT_DESC') {
+    filtered.sort((a, b) => (b.count || 1) - (a.count || 1));
+  } else if (currentSort === 'COUNT_ASC') {
+    filtered.sort((a, b) => (a.count || 1) - (b.count || 1));
+  } else if (currentSort === 'TIME_DESC') {
+    filtered.sort((a, b) => (b.lastLookedUp || 0) - (a.lastLookedUp || 0));
+  } else if (currentSort === 'TIME_ASC') {
+    filtered.sort((a, b) => (a.lastLookedUp || 0) - (b.lastLookedUp || 0));
+  } else if (currentSort === 'GROUP_ASC' || currentSort === 'GROUP_DESC') {
+    filtered.sort((a, b) => {
+      const gA = a.isOut3k ? 1 : 0;
+      const gB = b.isOut3k ? 1 : 0;
+      if (gA !== gB) return currentSort === 'GROUP_ASC' ? gA - gB : gB - gA;
+      return getSortKey(a.word).localeCompare(getSortKey(b.word));
+    });
   }
 
   // Render Table Body
@@ -289,6 +330,28 @@ function renderVaultTable() {
     let displayWord = item.stem;
     let displayIpa = item.ipa ? '/' + item.ipa + '/' : '';
     let displayMean = item.mean;
+    
+    let actionButtons = '';
+    if (item.mean && item.mean.startsWith('Lỗi:')) {
+      displayMean = `<span style="color:#ef4444; font-weight:bold;">⚠️ ${item.mean}</span>`;
+      actionButtons = `
+        <select class="error-label-select" data-stem="${item.stem}" style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3); color: #3b82f6; padding: 0.25rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer; outline: none; max-width: 100px;">
+          <option value="" disabled selected>✏️ Gán nhãn</option>
+          <option value="= Tên riêng">= Tên riêng</option>
+          <option value="= Lỗi: Ký tự đơn">= Lỗi: Ký tự đơn</option>
+          <option value="= Lỗi: Tiếng Việt">= Lỗi: Tiếng Việt</option>
+          <option value="= Lỗi: Vô nghĩa">= Lỗi: Vô nghĩa / Khác</option>
+          <option value="Chưa rõ nghĩa (Cần cập nhật AI)">↩️ Khôi phục (Chờ AI)</option>
+        </select>
+        <button class="dva-tt-btn-mark delete-vault-btn" data-stem="${item.stem}" style="background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #f87171; padding: 0.25rem 0.5rem; display: flex; align-items: center; justify-content: center;" title="Xóa vĩnh viễn từ này khỏi bộ nhớ">🗑️</button>
+      `;
+    } else {
+      actionButtons = `
+        <button class="${btnClass} toggle-known-btn" data-stem="${item.stem}" style="display: flex; align-items: center; justify-content: center;">${btnText}</button>
+        <button class="dva-tt-btn-mark delete-vault-btn" data-stem="${item.stem}" style="background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #f87171; padding: 0.25rem 0.5rem; display: flex; align-items: center; justify-content: center;" title="Xóa vĩnh viễn từ này khỏi bộ nhớ">🗑️</button>
+      `;
+    }
+    
     let displayCatLabel = catLabel;
     let displayCefr = item.cefr;
 
@@ -315,10 +378,7 @@ function renderVaultTable() {
         }
       } else {
         if (item.mean === 'Không có trong từ điển' || item.mean === 'Chưa có trong từ điển' || !item.mean) {
-          // Still waiting for AI
-          displayWord = '⏳ Waiting...';
-          displayIpa = '';
-          displayMean = item.stem;
+          displayMean = 'Chưa rõ nghĩa (Cần cập nhật AI)';
         }
       }
     }
@@ -337,13 +397,38 @@ function renderVaultTable() {
         <td style="text-align:center;">${synHtml}</td>
         <td><span class="lookup-badge">👁️ ${item.count} lần</span></td>
         <td>
-          ${item.sentence ? `<div class="sentence-quote" title="${item.sentence}">"${item.sentence}"</div>` : ''}
+          ${item.contexts && item.contexts.length > 0 ? (() => {
+            const firstCtx = item.contexts[0];
+            let tooltipHtml = '';
+            item.contexts.forEach((ctx, idx) => {
+              let safeCtx = ctx.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+              try {
+                const regex = new RegExp('(' + (item.word || item.stem) + ')', 'gi');
+                safeCtx = safeCtx.replace(regex, '<b style="color: #60a5fa; font-weight: 800; background: rgba(96,165,250,0.15); padding: 0 2px; border-radius: 2px;">$1</b>');
+              } catch(e) {}
+              
+              tooltipHtml += `
+                <div style="margin-bottom: 0.5rem; padding-bottom: 0.5rem; ${idx < item.contexts.length - 1 ? 'border-bottom: 1px solid #334155;' : ''}">
+                  <span style="color: #94a3b8; font-size: 0.7rem; font-weight: 600; font-style: normal; display: block; margin-bottom: 0.2rem;">${idx + 1}. Nguồn: ${ctx.domain}</span>
+                  "${safeCtx}"
+                </div>
+              `;
+            });
+
+            return `
+              <div class="sentence-container">
+                <div class="sentence-quote">"${firstCtx.text}" ${item.contexts.length > 1 ? `<span style="color: #3b82f6; font-size: 0.7rem; font-weight: bold; font-style: normal; margin-left: 4px;">[+${item.contexts.length - 1}]</span>` : ''}</div>
+                <div class="sentence-tooltip">
+                  ${tooltipHtml}
+                </div>
+              </div>
+            `;
+          })() : ''}
           <span class="domain-tag">${item.domain || 'web'}</span>
         </td>
         <td style="text-align: center;">
-          <div style="display: flex; gap: 0.5rem; justify-content: center;">
-            <button class="${btnClass}" onclick="toggleKnownInVault('${item.stem}')">${btnText}</button>
-            <button class="dva-tt-btn-mark" style="background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #f87171; padding: 0.25rem 0.5rem;" onclick="deleteWordFromVault('${item.stem}')" title="Xóa từ này khỏi bộ nhớ">🗑️</button>
+          <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: stretch;">
+            ${actionButtons}
           </div>
         </td>
       </tr>
@@ -351,7 +436,49 @@ function renderVaultTable() {
   }).join('');
 }
 
-window.toggleKnownInVault = function(stem) {
+// Event Delegation for table actions (to bypass Extension CSP on inline handlers)
+document.getElementById('vaultTableBody').addEventListener('click', (e) => {
+  const toggleBtn = e.target.closest('.toggle-known-btn');
+  if (toggleBtn) {
+    toggleKnownInVault(toggleBtn.getAttribute('data-stem'));
+    return;
+  }
+  
+  const deleteBtn = e.target.closest('.delete-vault-btn');
+  if (deleteBtn) {
+    deleteWordFromVault(deleteBtn.getAttribute('data-stem'));
+    return;
+  }
+});
+
+document.getElementById('vaultTableBody').addEventListener('change', (e) => {
+  if (e.target.classList.contains('error-label-select')) {
+    assignErrorLabel(e.target.getAttribute('data-stem'), e.target.value);
+  }
+});
+
+function assignErrorLabel(stem, value) {
+  if (!value) return;
+  if (!customDictionary[stem]) customDictionary[stem] = {};
+  customDictionary[stem].mean = value;
+  
+  if (wordLookupStats[stem]) {
+    wordLookupStats[stem].mean = value;
+  }
+  
+  if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+    chrome.storage.local.set({ 
+      customDictionary: customDictionary,
+      wordLookupStats: wordLookupStats
+    }, () => {
+      renderVaultTable();
+    });
+  } else {
+    renderVaultTable();
+  }
+}
+
+function toggleKnownInVault(stem) {
   if (knownWords.has(stem)) {
     knownWords.delete(stem);
   } else {
@@ -359,15 +486,14 @@ window.toggleKnownInVault = function(stem) {
   }
 
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-    chrome.storage.local.set({ knownWords: [...knownWords] });
+    chrome.storage.local.set({ knownWords: [...knownWords] }, () => renderVaultTable());
   } else {
     localStorage.setItem('knownWords', JSON.stringify([...knownWords]));
+    renderVaultTable();
   }
+}
 
-  renderVaultTable();
-};
-
-window.deleteWordFromVault = function(stem) {
+function deleteWordFromVault(stem) {
   if (confirm(`Bạn có chắc chắn muốn xóa từ "${stem}" khỏi lịch sử?`)) {
     let updated = false;
     
@@ -385,12 +511,22 @@ window.deleteWordFromVault = function(stem) {
       knownWords.delete(stem);
       updated = true;
     }
+    
+    const initialLen = encounteredAdvancedWords.length;
+    encounteredAdvancedWords = encounteredAdvancedWords.filter(w => 
+      (w.stem || '').toLowerCase() !== stem.toLowerCase() && 
+      (w.word || '').toLowerCase() !== stem.toLowerCase()
+    );
+    if (encounteredAdvancedWords.length !== initialLen) {
+      updated = true;
+    }
 
     if (updated && typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       chrome.storage.local.set({ 
         wordLookupStats: wordLookupStats,
         customDictionary: customDictionary,
-        knownWords: [...knownWords]
+        knownWords: [...knownWords],
+        encounteredAdvancedWords: encounteredAdvancedWords
       }, () => {
         renderVaultTable();
       });
@@ -427,21 +563,83 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // CEFR select
-  const cefrSelect = document.getElementById('vCefrSelect');
-  if (cefrSelect) {
-    cefrSelect.addEventListener('change', (e) => {
-      currentCefr = e.target.value;
+  // CEFR multi-select filters
+  document.querySelectorAll('.cefr-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget;
+      const cefr = target.getAttribute('data-cefr');
+      if (currentCefr.has(cefr)) {
+        currentCefr.delete(cefr);
+        target.classList.remove('active');
+      } else {
+        currentCefr.add(cefr);
+        target.classList.add('active');
+      }
       renderVaultTable();
     });
-  }
+  });
 
-  // Sort select
-  const sortSelect = document.getElementById('vSortSelect');
-  if (sortSelect) {
-    sortSelect.addEventListener('change', (e) => {
-      currentSort = e.target.value;
+  // Sort headers
+  document.querySelectorAll('th[data-sort-col]').forEach(th => {
+    th.addEventListener('click', (e) => {
+      const col = th.getAttribute('data-sort-col').toUpperCase();
+      if (currentSort === col + '_DESC') {
+        currentSort = col + '_ASC';
+      } else {
+        currentSort = col + '_DESC'; // Default to desc on first click
+      }
       renderVaultTable();
+    });
+  });
+
+  // Delete All Errors logic
+  const btnDeleteAllErrors = document.getElementById('btnDeleteAllErrors');
+  if (btnDeleteAllErrors) {
+    btnDeleteAllErrors.addEventListener('click', () => {
+      const errorItems = processAllItems().filter(item => item.mean && item.mean.startsWith('Lỗi:'));
+      if (errorItems.length === 0) return;
+      if (confirm(`Bạn có chắc muốn xóa vĩnh viễn ${errorItems.length} từ bị lỗi?`)) {
+        let updated = false;
+        const errorStems = new Set(errorItems.map(item => item.stem));
+        
+        errorItems.forEach(item => {
+          const stem = item.stem;
+          if (wordLookupStats[stem]) {
+            delete wordLookupStats[stem];
+            updated = true;
+          }
+          if (customDictionary[stem]) {
+            delete customDictionary[stem];
+            updated = true;
+          }
+          if (knownWords.has(stem)) {
+            knownWords.delete(stem);
+            updated = true;
+          }
+        });
+        
+        const initialLen = encounteredAdvancedWords.length;
+        encounteredAdvancedWords = encounteredAdvancedWords.filter(w => 
+          !errorStems.has((w.stem || '').toLowerCase()) && 
+          !errorStems.has((w.word || '').toLowerCase())
+        );
+        if (encounteredAdvancedWords.length !== initialLen) {
+          updated = true;
+        }
+
+        if (updated && typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+          chrome.storage.local.set({ 
+            wordLookupStats: wordLookupStats,
+            customDictionary: customDictionary,
+            knownWords: [...knownWords],
+            encounteredAdvancedWords: encounteredAdvancedWords
+          }, () => {
+            renderVaultTable();
+          });
+        } else if (updated) {
+          renderVaultTable();
+        }
+      }
     });
   }
 
@@ -450,7 +648,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnExtractAI) {
     btnExtractAI.addEventListener('click', () => {
       const allItems = processAllItems();
-      const needsSync = allItems.filter(item => item.mean === 'Chưa rõ nghĩa (Cần cập nhật AI)');
+      // Filter words that need AI: Not in dict, or currently marked as error, or explicitly needing update
+      const needsSync = allItems.filter(item => {
+        return (item.isOut3k && !customDictionary[item.stem]) || 
+               item.mean === 'Chưa rõ nghĩa (Cần cập nhật AI)' || 
+               item.mean.startsWith('Lỗi:');
+      }).slice(0, 50); // Batch of 50 words to avoid ChatGPT truncation
 
       if (needsSync.length === 0) {
         const ogText = btnExtractAI.innerHTML;
@@ -461,11 +664,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const wordsList = needsSync.map(item => `"${item.stem}"`).join(', ');
       
-      const promptText = `Tôi có danh sách các từ vựng tiếng Anh sau cần dịch nghĩa sát với ngữ cảnh thực tế, cung cấp phiên âm IPA, và trình độ CEFR (A1-C2).
+      const promptText = `Tôi có danh sách các từ vựng tiếng Anh (hoặc tiếng Việt) sau. Xin lưu ý, trong danh sách có thể có những từ bị bắt lỗi do sai sót của bộ lọc (chỉ là 1-2 ký tự vô nghĩa, hoặc tiếng Việt bị cắt vụn...). 
+
+Nhiệm vụ của bạn:
+1. Với các từ HỢP LỆ: dịch nghĩa sát với ngữ cảnh thực tế, cung cấp phiên âm IPA, và trình độ CEFR (A1-C2). Nếu là từ Nâng cao (B2-C2) hoặc ngoài 3000 từ thông dụng, hãy cung cấp 1 từ đồng nghĩa phổ biến thuộc mức (A1-B1) vào trường "synonym" (Nếu từ đã thông dụng sẵn thì để rỗng).
+2. Với các từ VÔ NGHĨA / BỊ LỖI: gán "mean" là một trong các phân loại sau (BẮT BUỘC bắt đầu bằng "Lỗi:"):
+   - "Lỗi: Ký tự đơn" (ví dụ: c, h, b...)
+   - "Lỗi: Tiếng Việt" (ví dụ: khoa, học, việt...)
+   - "Lỗi: Vô nghĩa / Khác"
+   (Các trường "ipa", "cefr", "synonym" để trống).
+
 Vui lòng trả về kết quả DƯỚI DẠNG MỘT KHỐI JSON DUY NHẤT theo định dạng sau (chỉ trả về JSON, không giải thích thêm):
 {
-  "từ_1": { "mean": "nghĩa tiếng việt", "ipa": "phiên âm", "cefr": "C2" },
-  "từ_2": { "mean": "nghĩa tiếng việt", "ipa": "phiên âm", "cefr": "C2" }
+  "từ_hợp_lệ": { "mean": "nghĩa tiếng việt", "ipa": "phiên âm", "cefr": "C2", "synonym": "từ đồng nghĩa A1-B1" },
+  "c": { "mean": "Lỗi: Ký tự đơn", "ipa": "", "cefr": "", "synonym": "" }
 }
 
 Danh sách từ:
@@ -508,19 +720,21 @@ Danh sách từ:
         for (const [key, value] of Object.entries(data)) {
           const stemKey = getBaseStem(key.toLowerCase());
           
-          if (value.mean && value.ipa) {
+          if (value.mean) {
             customDictionary[stemKey] = {
               mean: value.mean,
-              ipa: [[value.ipa]],
-              cefr: value.cefr || 'C2',
-              isAdvanced: true
+              ipa: value.ipa ? [[value.ipa]] : [],
+              cefr: value.cefr || 'A1',
+              isAdvanced: true,
+              synonym3k: value.synonym || null
             };
             
             // Also update wordLookupStats if it exists
             if (wordLookupStats[stemKey]) {
               wordLookupStats[stemKey].mean = value.mean;
-              wordLookupStats[stemKey].ipa = value.ipa;
-              wordLookupStats[stemKey].cefr = value.cefr || 'C2';
+              if (value.ipa) wordLookupStats[stemKey].ipa = value.ipa;
+              if (value.cefr) wordLookupStats[stemKey].cefr = value.cefr;
+              if (value.synonym) wordLookupStats[stemKey].synonym3k = value.synonym;
             }
             
             updatedCount++;
@@ -536,7 +750,7 @@ Danh sách từ:
             renderVaultTable();
           });
         } else {
-          alert('⚠️ Không tìm thấy từ nào hợp lệ trong JSON!');
+          if (updatedCount > 0) renderVaultTable(); // For local dev without chrome extension API
         }
 
       } catch (e) {
