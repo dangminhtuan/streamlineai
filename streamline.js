@@ -278,6 +278,7 @@ let state = {
   streak: parseInt(localStorage.getItem('reflex_streak') || '1', 10),
   mastered: JSON.parse(localStorage.getItem('reflex_mastered') || '[]'),
   masteredWords: JSON.parse(localStorage.getItem('streaml_mastered_words') || '[]'),
+  visitedLessons: JSON.parse(localStorage.getItem('streaml_visited_lessons') || '[]'),
   currentQuizIdx: 0,
   curriculumMasteryPct: 0
 };
@@ -361,6 +362,7 @@ function toggleWordMastered(word) {
   }
   localStorage.setItem('streaml_mastered_words', JSON.stringify(state.masteredWords));
   calculateCurriculumMastery();
+  renderLessonSidebar();
   const currentLesson = STREAMLINE_LESSONS[state.currentLessonIdx];
   if (currentLesson) renderVocabularyAnalytics(currentLesson);
 }
@@ -1065,29 +1067,66 @@ function getLessonDesc(lesson, lang) {
 // 4. LESSON RENDERING & DIALOGUE STREAM
 // --------------------------------------------------------------------------
 function renderLessonSidebar() {
-  if (el.unitGrid) {
-    el.unitGrid.innerHTML = '';
-    STREAMLINE_LESSONS.forEach((lesson, idx) => {
-      const btn = document.createElement('button');
-      btn.className = `unit-btn ${idx === state.currentLessonIdx ? 'active' : ''}`;
-      btn.textContent = idx + 1;
+  if (!el.unitGrid) return;
+  el.unitGrid.innerHTML = '';
+  
+  const ignoreWords = new Set([
+    'the','a','an','is','are','am','was','were','be','been','being',
+    'to','of','and','in','on','at','for','with','about','against','between',
+    'into','through','during','before','after','above','below','from','up',
+    'down','in','out','off','over','under','again','further','then','once',
+    'here','there','when','where','why','how','all','any','both','each',
+    'few','more','most','other','some','such','no','nor','not','only','own',
+    'same','so','than','too','very','can','will','just','should','now'
+  ]);
 
-      const updatePreview = () => {
-        const title = getLessonTitle(lesson, state.currentLang);
-        if (el.previewNum) el.previewNum.textContent = `Lesson ${lesson.id}`;
-        if (el.previewTitle) el.previewTitle.textContent = title;
-        if (el.previewSub) el.previewSub.textContent = getLessonTopic(lesson, state.currentLang);
-      };
+  STREAMLINE_LESSONS.forEach((lesson, idx) => {
+    let candidateWords = new Set();
+    if (lesson.dialogue) {
+      lesson.dialogue.forEach(line => {
+        const words = (line.en || '').toLowerCase().replace(/[^a-z0-9\s'-]/g, ' ').split(/\s+/);
+        words.forEach(w => {
+          if (w.length > 2 && !ignoreWords.has(w)) candidateWords.add(w);
+        });
+      });
+    }
 
-      btn.onmouseenter = updatePreview;
-      btn.onclick = () => {
-        updatePreview();
-        loadLesson(idx);
-      };
-
-      el.unitGrid.appendChild(btn);
+    const totalCand = candidateWords.size;
+    let masteredCount = 0;
+    candidateWords.forEach(w => {
+      if (state.masteredWords.includes(w)) masteredCount++;
     });
-  }
+
+    const pct = totalCand > 0 ? Math.round((masteredCount / totalCand) * 100) : 0;
+    const isCompleted = pct === 100 && totalCand > 0;
+    const isVisited = state.visitedLessons.includes(idx);
+    const isActive = idx === state.currentLessonIdx;
+
+    const btn = document.createElement('button');
+    btn.className = `unit-btn ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''} ${isVisited ? 'visited' : ''}`;
+    btn.title = `Bài ${idx + 1}: ${pct}% từ vựng đã thuộc (${masteredCount}/${totalCand})`;
+
+    btn.innerHTML = `
+      <span class="unit-btn-num">${idx + 1}</span>
+      ${isCompleted ? '<span class="unit-badge-check">✓</span>' : ''}
+      ${pct > 0 ? `<span class="unit-btn-bar" style="width: ${pct}%;"></span>` : ''}
+    `;
+
+    const updatePreview = () => {
+      const title = getLessonTitle(lesson, state.currentLang);
+      if (el.previewNum) el.previewNum.textContent = `Lesson ${lesson.id}`;
+      if (el.previewTitle) el.previewTitle.textContent = title;
+      if (el.previewSub) el.previewSub.textContent = getLessonTopic(lesson, state.currentLang);
+    };
+
+    btn.onmouseenter = updatePreview;
+    btn.onclick = () => {
+      updatePreview();
+      loadLesson(idx);
+    };
+
+    el.unitGrid.appendChild(btn);
+  });
 }
 
 function renderGrammarBreakdown(lesson) {
@@ -1135,6 +1174,11 @@ function loadLesson(idx) {
   state.currentLessonIdx = idx;
   state.activeSpeechBubbleIdx = -1;
   state.currentQuizIdx = 0;
+  
+  if (!state.visitedLessons.includes(idx)) {
+    state.visitedLessons.push(idx);
+    localStorage.setItem('streaml_visited_lessons', JSON.stringify(state.visitedLessons));
+  }
   
   const lesson = STREAMLINE_LESSONS[idx];
   
