@@ -474,20 +474,56 @@ const WORD_MEANINGS = {
   "reflex": { vi: "Phản xạ", hv: "Phản xạ", zh: "反应 / 反射", ko: "반사 신경" },
   "fluency": { vi: "Sự trôi chảy", hv: "Lưu lợi độ", zh: "流利度", ko: "유창성" },
   "master": { vi: "Thành thạo / Quán quân", hv: "Chuyên gia / Hạch tâm", zh: "精通 / 掌握", ko: "마스터" },
-  "journey": { vi: "Hành trình / Chuyến đi", hv: "Hành trình / Chi lữ", zh: "旅程", ko: "여정" }
+  "journey": { vi: "Hành trình / Chuyến đi", hv: "Hành trình / Chi lữ", zh: "旅程", ko: "여정" },
+  "hello": { vi: "Xin chào", hv: "Nẫm hảo", zh: "你好", ko: "안녕하세요" },
+  "good": { vi: "Tốt / Giỏi", hv: "Hảo", zh: "好", ko: "좋은" },
+  "morning": { vi: "Buổi sáng", hv: "Tảo thượng", zh: "早上", ko: "아침" },
+  "evening": { vi: "Buổi tối", hv: "Vãn thượng", zh: "晚上", ko: "저녁" },
+  "night": { vi: "Ban đêm / Đêm", hv: "Dạ / Vãn", zh: "夜晚 / 晚上", ko: "밤" },
+  "sir": { vi: "Ngài / Tiên sinh", hv: "Tiên sinh", zh: "先生", ko: "손님 / 선생님" },
+  "call": { vi: "Gọi điện / Gọi", hv: "Hô / Tiếp điện thoại", zh: "呼叫 / 打电话", ko: "전화하다 / 부르다" },
+  "number": { vi: "Số / Số điện thoại", hv: "Số tự / Phòng", zh: "号码 / 数字", ko: "번호 / 숫자" },
+  "pounds": { vi: "Đồng Anh bảng (£)", hv: "Anh bảng", zh: "英镑", ko: "파운드" },
+  "person": { vi: "Người / Cá nhân", hv: "Nhân", zh: "人 / 个人", ko: "사람" },
+  "stranger": { vi: "Người lạ", hv: "Thái nhân / Nhất bàng", zh: "陌生人", ko: "낯선 사람" },
+  "excuses": { vi: "Lời bào chữa / Lý do", hv: "Lý do", zh: "借口 / 理由", ko: "변명 / 이유" },
+  "everyday": { vi: "Hàng ngày", hv: "Nhật thường", zh: "日常 / 每天", ko: "매일의" },
+  "much": { vi: "Nhiều / Bao nhiêu", hv: "Đa / Đa thiểu", zh: "很多 / 多少", ko: "많은 / 얼마" },
+  "walk": { vi: "Đi bộ", hv: "Tẩu lộ", zh: "步行 / 走路", ko: "걷다" },
+  "near": { vi: "Gần đây", hv: "Phụ cận", zh: "附近 / 近", ko: "가까운" },
+  "far": { vi: "Xa / Xa xôi", hv: "Viễn", zh: "远", ko: "멀리" },
+  "street": { vi: "Con đường / Phố", hv: "Nhai / Đạo lộ", zh: "街道 / 街", ko: "거리 / 길" },
+  "main": { vi: "Chính / Trung tâm", hv: "Chủ nhai", zh: "主要 / 主", ko: "주요한" },
+  "opposite": { vi: "Đối diện", hv: "Đối diện", zh: "对面", ko: "맞은편" },
+  "next": { vi: "Bên cạnh / Tiếp theo", hv: "Kế / Bàng biên", zh: "旁边 / 下一个", ko: "옆에 / 다음" },
+  "photograph": { vi: "Bức ảnh", hv: "Chiếu phiến", zh: "照片", ko: "사진" },
+  "dark": { vi: "Sẫm màu / Tối", hv: "Thâm sắc", zh: "深色 / 细暗", ko: "어두운 / 어두운색" },
+  "hair": { vi: "Mái tóc", hv: "Phát", zh: "头发", ko: "머리카락" },
+  "short": { vi: "Ngắn / Thấp", hv: "Đoản", zh: "短 / 矮", ko: "짧은 / 키가 작은" },
+  "tall": { vi: "Cao / Dáng cao", hv: "Cao", zh: "高 / 身材高大", ko: "키가 큰" },
+  "thin": { vi: "Gầy / Mảnh khảnh", hv: "Sấu", zh: "瘦", ko: "마른" },
+  "old": { vi: "Tuổi / Cũ", hv: "Niên kỷ / Tuế", zh: "年龄 / 老", ko: "나이 든" },
+  "years": { vi: "Năm / Tuổi", hv: "Tuế / Niên", zh: "岁 / 年", ko: "세 / 년" },
+  "about": { vi: "Khoảng / Về", hv: "Đại khái", zh: "大约 / 关于", ko: "약 / ~에 대해" },
+  "leave": { vi: "Rời đi / Xuất phát", hv: "Xuất môn / Khứ", zh: "离开 / 出门", ko: "떠나다 / 출발하다" },
+  "work": { vi: "Làm việc / Công việc", hv: "Công tác / Thượng ban", zh: "工作 / 上班", ko: "일하다" },
+  "home": { vi: "Nhà / Gia đình", hv: "Gia", zh: "家", ko: "집" },
+  "get": { vi: "Thức dậy / Lấy", hv: "Khởi sàng / Đắc", zh: "起床 / 获得", ko: "일어나다 / 얻다" }
 };
 
 function getWordMeaning(word, lang, lesson) {
   const w = word.toLowerCase();
-  if (WORD_MEANINGS[w] && WORD_MEANINGS[w][lang]) {
-    return WORD_MEANINGS[w][lang];
-  }
-  if (WORD_MEANINGS[w] && WORD_MEANINGS[w]['vi']) {
-    return WORD_MEANINGS[w]['vi'];
+  if (WORD_MEANINGS[w]) {
+    if (WORD_MEANINGS[w][lang]) return WORD_MEANINGS[w][lang];
+    if (WORD_MEANINGS[w]['vi']) return WORD_MEANINGS[w]['vi'];
   }
   if (SINO_VIETNAMESE_MAP[word]) return SINO_VIETNAMESE_MAP[word];
   
-  return 'Từ vựng giao tiếp cốt lõi';
+  const capital = word.charAt(0).toUpperCase() + word.slice(1);
+  if (lang === 'hv') return `Từ vựng Hán Việt (${capital})`;
+  if (lang === 'zh') return `核心词汇 (${capital})`;
+  if (lang === 'ko') return `핵심 어휘 (${capital})`;
+  return `Từ vựng giao tiếp (${capital})`;
 }
 
 function renderVocabularyAnalytics(lesson) {
