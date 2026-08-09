@@ -212,6 +212,94 @@ body {
   padding: 0.5rem;
 }
 
+/* Mobile Responsive Header Layout Adjustments */
+@media (max-width: 900px) {
+  .app-header {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .header-content {
+    gap: 0.5rem;
+  }
+
+  .brand-title h1 {
+    font-size: 1.15rem;
+  }
+
+  .accent-badge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.35rem;
+  }
+
+  .top-lesson-badge {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.78rem;
+  }
+
+  .lang-dropdown {
+    padding: 0.25rem 0.45rem;
+    font-size: 0.78rem;
+    max-width: 130px;
+  }
+
+  .stat-pill {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 680px) {
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .app-header {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .header-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    row-gap: 0.4rem;
+  }
+
+  .brand {
+    gap: 0.4rem;
+  }
+
+  .badge-icon {
+    font-size: 1.1rem;
+  }
+
+  .header-center-controls {
+    justify-self: end;
+    gap: 0.35rem;
+  }
+
+  .header-stats {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 0.35rem;
+    margin-top: 0.15rem;
+  }
+
+  .stat-pill {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.35rem;
+  }
+
+  .stat-lbl {
+    font-size: 0.7rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
    Main Container Layout
    -------------------------------------------------------------------------- */
