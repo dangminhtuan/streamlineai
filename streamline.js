@@ -1,191 +1,299 @@
 /* ==========================================================================
-   STREAMLAI 2.0 - GEN Z EDITION INTERACTIVE ENGINE & CURRICULUM
+   STREAMLAI 2.0 - CLASSIC SE NOSTALGIC EDITION (1-TO-1 WITH STREAMLINE ENGLISH)
    ========================================================================== */
 
 // --------------------------------------------------------------------------
-// 1. LESSON DATA (StreamlAI Gen Z Modern Reflex Curriculum)
+// 1. LESSON DATA (Streamline English Classic 1-to-1 Nostalgic Curriculum)
 // --------------------------------------------------------------------------
 const STREAMLINE_LESSONS = [
   {
     id: 1,
-    title: "1. Everyday Reflex - Rớt Hộp AirPods",
-    subtitle: "Rớt hộp AirPod ở quán cafe / giảng đường",
-    topic: "Giao tiếp hàng ngày",
+    title: "1. Everyday Excuses - Nhặt Túi Xách Rơi",
+    subtitle: "Bài 1 SE: Excuse me. Is this your handbag?",
+    topic: "Giao tiếp căn bản SE",
     level: "A1 Departures",
-    description: "Luyện phản xạ lịch sự khi vô tình nhặt đồ rơi, hỏi thăm và phản ứng nhanh trong đời sống Gen Z.",
+    description: "Bài học kinh điển nhất của Streamline English. Luyện phản xạ lịch sự khi vô tình nhặt đồ rơi trên phố.",
     dialogue: [
-      { speaker: "A", name: "Stranger A", en: "Excuse me. Is this your AirPod case?", vi: "Xin lỗi. Đây có phải là hộp AirPod của bạn không?" },
+      { speaker: "A", name: "Stranger A", en: "Excuse me.", vi: "Xin lỗi quý khách." },
+      { speaker: "B", name: "You (Person B)", en: "Yes?", vi: "Vâng? Có chuyện gì thế ạ?" },
+      { speaker: "A", name: "Stranger A", en: "Is this your handbag?", vi: "Đây có phải là chiếc túi xách của bạn không?" },
       { speaker: "B", name: "You (Person B)", en: "Pardon?", vi: "Dạ? Bạn nói sao cơ?" },
-      { speaker: "A", name: "Stranger A", en: "Is this your AirPod case? You dropped it under the table.", vi: "Đây có phải hộp AirPod của bạn không? Bạn làm rớt nó dưới gầm bàn kìa." },
-      { speaker: "B", name: "You (Person B)", en: "Oh, wow, yes it is! I didn't even notice. Thank you so much!", vi: "Ồ, đúng rồi! Mình còn không để ý thấy nữa. Cảm ơn bạn nhiều lắm nhé!" },
-      { speaker: "A", name: "Stranger A", en: "No problem! Have a good one.", vi: "Không có gì đâu! Chúc bạn một ngày tốt lành nhé." },
-      { speaker: "B", name: "You (Person B)", en: "You too!", vi: "Bạn cũng vậy nhé!" }
+      { speaker: "A", name: "Stranger A", en: "Is this your handbag?", vi: "Đây có phải là chiếc túi xách của bạn không?" },
+      { speaker: "B", name: "You (Person B)", en: "Oh, yes it is! Thank you very much.", vi: "Ô đúng rồi! Cảm ơn bạn rất nhiều." },
+      { speaker: "A", name: "Stranger A", en: "You're welcome.", vi: "Không có chi." }
     ],
     patterns: [
-      { en: "Is this your [object]?", vi: "Đây có phải là [đồ vật] của bạn không?" },
-      { en: "Pardon?", vi: "Dạ? (dùng khi nghe không rõ và muốn người khác nhắc lại)" },
-      { en: "I didn't even notice!", vi: "Mình còn không để ý thấy luôn!" },
-      { en: "Have a good one!", vi: "Chúc một ngày vui vẻ! (Cách nói Gen Z thân mật)" }
+      { en: "Excuse me.", vi: "Xin lỗi (gây chú ý lịch sự)" },
+      { en: "Is this your [handbag / watch]?", vi: "Đây có phải là [túi xách / đồng hồ] của bạn không?" },
+      { en: "Pardon?", vi: "Dạ? (Dùng khi nghe không rõ và muốn nhắc lại)" },
+      { en: "You're welcome.", vi: "Không có gì (Đáp lại lời cảm ơn)" }
     ],
     quizzes: [
       {
-        prompt: "Khi nghe chưa rõ và muốn người khác nhắc lại một cách lịch sự, bạn phản xạ:",
+        prompt: "Khi nghe không rõ và muốn nhờ người khác nhắc lại lịch sự:",
         sentence: "B: _______?",
-        options: ["Pardon", "Sorry you", "What you say", "Repeat now"],
+        options: ["Pardon", "Sorry you", "What", "Repeat now"],
         correct: 0
       },
       {
-        prompt: "Đáp lại lời chúc 'Have a good one!' một cách thân mật ngắn gọn:",
-        sentence: "B: _______!",
-        options: ["You too", "Same to same", "Thank for that", "No problem"],
+        prompt: "Phản xạ đáp lại câu 'Thank you very much':",
+        sentence: "A: _______.",
+        options: ["You're welcome", "Nothing", "Yes it is", "No thanks"],
         correct: 0
       }
     ]
   },
   {
     id: 2,
-    title: "2. Finding Aesthetic Cafe - Cafe Workspace",
-    subtitle: "Tìm quán Cafe decor đẹp có Wi-Fi mạnh để chạy deadline",
-    topic: "Hỏi đường & Lifestyle",
+    title: "2. Personal Identification - Tên Tuổi & Quốc Tịch",
+    subtitle: "Bài 2 SE: What's your name? Where are you from?",
+    topic: "Giới thiệu bản thân",
     level: "A1 Departures",
-    description: "Hỏi vị trí quán cafe không gian đẹp, yên tĩnh để làm việc trên laptop.",
+    description: "Hỏi đáp tên tuổi, quê quán và quốc tịch chuẩn phong cách Streamline English.",
     dialogue: [
-      { speaker: "A", name: "Freelancer A", en: "Excuse me. Is there any aesthetic coffee shop with fast Wi-Fi near here?", vi: "Xin lỗi. Có quán cafe decor đẹp nào có Wi-Fi mạnh gần đây không bạn?" },
-      { speaker: "B", name: "You (Person B)", en: "Yes, there is one right around the corner. It's called The Daily Hub.", vi: "Có đấy, có một quán ngay góc đường kia. Tên là The Daily Hub." },
-      { speaker: "A", name: "Freelancer A", en: "Awesome! Is it quiet enough to work on a laptop?", vi: "Tuyệt quá! Ở đó có đủ yên tĩnh để làm việc trên máy tính không bạn?" },
-      { speaker: "B", name: "You (Person B)", en: "Yeah, totally! It's next to the indie bookstore, opposite the park.", vi: "Có chứ, thoải mái luôn! Nó nằm kế bên tiệm sách indie, đối diện công viên." },
-      { speaker: "A", name: "Freelancer A", en: "Is it far to walk?", vi: "Đi bộ có xa lắm không ạ?" },
-      { speaker: "B", name: "You (Person B)", en: "Not at all. It's only a three-minute walk.", vi: "Không xa chút nào. Đi bộ tầm 3 phút là tới." }
+      { speaker: "A", name: "Customs Officer", en: "What's your name, please?", vi: "Xin hỏi tên của bạn là gì ạ?" },
+      { speaker: "B", name: "Arthur Clark", en: "My name's Arthur Clark.", vi: "Tên tôi là Arthur Clark." },
+      { speaker: "A", name: "Customs Officer", en: "Where are you from?", vi: "Bạn từ đâu đến?" },
+      { speaker: "B", name: "Arthur Clark", en: "I'm from London.", vi: "Tôi đến từ London." },
+      { speaker: "A", name: "Customs Officer", en: "What's your nationality?", vi: "Quốc tịch của bạn là gì?" },
+      { speaker: "B", name: "Arthur Clark", en: "I'm British.", vi: "Tôi là người Anh." }
     ],
     patterns: [
-      { en: "Is there any [place] near here?", vi: "Có [địa điểm] nào gần đây không?" },
-      { en: "Is it quiet enough to [action]?", vi: "Ở đó có đủ yên tĩnh để [làm gì] không?" },
-      { en: "It's next to [A], opposite [B].", vi: "Nó nằm kế bên [A], đối diện [B]." },
-      { en: "It's only a [X]-minute walk.", vi: "Chỉ mất [X] phút đi bộ." }
+      { en: "What's your name, please?", vi: "Xin hỏi tên của bạn là gì?" },
+      { en: "Where are you from?", vi: "Bạn đến từ đâu?" },
+      { en: "I'm from [city / country].", vi: "Tôi đến từ [thành phố / quốc gia]." }
     ],
     quizzes: [
       {
-        prompt: "Để diễn tả 'Nó chỉ mất 3 phút đi bộ', bạn phản xạ câu:",
-        sentence: "It's only a _______ walk.",
-        options: ["three-minute", "three minutes", "third minute", "walking 3 min"],
+        prompt: "Hỏi quốc tịch của một người:",
+        sentence: "What's your _______?",
+        options: ["nationality", "national", "nation", "native"],
         correct: 0
       }
     ]
   },
   {
     id: 3,
-    title: "3. Catching a Music Concert - Rủ Đi Show",
-    subtitle: "Rủ rê bạn thân đi nghe nhạc live tối nay",
-    topic: "Giao tiếp xã hội & Gen Z",
-    level: "A2 Connections",
-    description: "Luyện phản xạ hẹn hò, chốt kèo đi concert và chốt thời gian địa điểm.",
+    title: "3. Asking for Directions - Hỏi Đường Bưu Điện",
+    subtitle: "Bài 3 SE: Is there a post office near here?",
+    topic: "Hỏi đường kinh điển",
+    level: "A1 Departures",
+    description: "Bài học hỏi vị trí bưu điện, ngân hàng, siêu thị kinh điển của Streamline Departures.",
     dialogue: [
-      { speaker: "A", name: "Friend A", en: "Hey! Are you free tonight?", vi: "Ê! Tối nay rảnh không bạn ơi?" },
-      { speaker: "B", name: "You (Friend B)", en: "Yeah, I think so! What's up?", vi: "Có chứ, sao thế có chuyện gì à?" },
-      { speaker: "A", name: "Friend A", en: "Would you like to catch the indie concert tonight? My favorite band is performing!", vi: "Bạn có muốn đi xem concert indie tối nay không? Ban nhạc ruột của mình diễn đó!" },
-      { speaker: "B", name: "You (Friend B)", en: "That sounds awesome! What time does it start?", vi: "Nghe cháy đấy! Mấy giờ bắt đầu vậy?" },
-      { speaker: "A", name: "Friend A", en: "It starts at 7:30. Shall we meet at the venue around 7:00?", vi: "Diễn lúc 7:30. Chúng mình gặp nhau ở địa điểm diễn tầm 7:00 nhé?" },
-      { speaker: "B", name: "You (Friend B)", en: "Perfect! Count me in. See you at seven!", vi: "Tuyệt vời! Chốt kèo nha. Gặp bạn lúc 7 giờ!" }
+      { speaker: "A", name: "Tourist A", en: "Excuse me. Is there a post office near here?", vi: "Xin lỗi. Có bưu điện nào ở gần đây không?" },
+      { speaker: "B", name: "You (Local)", en: "Yes, there's one in Main Street.", vi: "Có, có một bưu điện ở đường Main Street." },
+      { speaker: "A", name: "Tourist A", en: "Where in Main Street?", vi: "Ở đoạn nào trên đường Main Street ạ?" },
+      { speaker: "B", name: "You (Local)", en: "It's next to the bank, opposite the supermarket.", vi: "Nó nằm kế bên ngân hàng, đối diện siêu thị." },
+      { speaker: "A", name: "Tourist A", en: "Is it far from here?", vi: "Nó có xa đây lắm không?" },
+      { speaker: "B", name: "You (Local)", en: "No, it isn't. It's only a five-minute walk.", vi: "Không xa đâu. Chỉ mất 5 phút đi bộ thôi." },
+      { speaker: "A", name: "Tourist A", en: "Thank you very much.", vi: "Cảm ơn bạn rất nhiều." }
     ],
     patterns: [
-      { en: "Are you free tonight?", vi: "Tối nay bạn có rảnh không?" },
-      { en: "Would you like to [action]?", vi: "Bạn có muốn [làm gì] không?" },
-      { en: "That sounds awesome!", vi: "Nghe cháy đấy / Nghe tuyệt đấy!" },
-      { en: "Count me in!", vi: "Chốt kèo nha! / Cho mình tham gia với!" }
+      { en: "Is there a [place] near here?", vi: "Có [nơi chốn] nào gần đây không?" },
+      { en: "It's next to [A], opposite [B].", vi: "Nó kế bên [A], đối diện [B]." },
+      { en: "It's a five-minute walk.", vi: "Chỉ mất 5 phút đi bộ." }
     ],
     quizzes: [
       {
-        prompt: "Chốt kèo rủ rê bạn bè tham gia một sự kiện:",
-        sentence: "B: Perfect! _______ in!",
-        options: ["Count me", "Take me", "Give me", "Include me"],
+        prompt: "Mô tả 'kế bên ngân hàng, đối diện siêu thị':",
+        sentence: "It's _______ to the bank, _______ the supermarket.",
+        options: ["next / opposite", "near / in", "by / behind", "front / back"],
         correct: 0
       }
     ]
   },
   {
     id: 4,
-    title: "4. Customizing Matcha Latte - Order Đồ Uống",
-    subtitle: "Order Matcha Latte sữa hạt tùy chỉnh độ ngọt/đá",
-    topic: "Dịch vụ & Đời sống ẩm thực",
-    level: "A2 Connections",
-    description: "Thực hành phản xạ order đồ uống chuẩn phong cách Gen Z hiện đại.",
+    title: "4. At a Hotel - Đặt Phòng Khách Sạn",
+    subtitle: "Bài 4 SE: I'd like a single room for two nights",
+    topic: "Khách sạn & Du lịch",
+    level: "A1 Departures",
+    description: "Thủ tục đặt phòng đơn/phòng đôi tại lễ tân khách sạn phong cách SE.",
     dialogue: [
-      { speaker: "A", name: "Barista A", en: "Hi there! Welcome to StreamlAI Cafe. What can I get started for you today?", vi: "Chào bạn! Chào mừng đến StreamlAI Cafe. Bạn muốn dùng gì hôm nay ạ?" },
-      { speaker: "B", name: "You (Customer)", en: "Hi! Can I get an Iced Matcha Latte, please?", vi: "Chào bạn! Cho mình một Iced Matcha Latte nhé." },
-      { speaker: "A", name: "Barista A", en: "Sure thing! Would you like whole milk, oat milk, or almond milk?", vi: "Dạ được chứ! Bạn muốn dùng sữa tươi nguyên kem, sữa hạt yến mạch hay sữa hạnh nhân ạ?" },
-      { speaker: "B", name: "You (Customer)", en: "Oat milk, please. And can I get less ice with 30% sugar?", vi: "Cho mình sữa yến mạch nhé. Và cho mình ít đá 30% đường thôi nhé?" },
-      { speaker: "A", name: "Barista A", en: "Got it! Less ice, oat milk, 30% sugar. Is that for here or to go?", vi: "Đã rõ! Ít đá, sữa yến mạch, 30% đường. Bạn uống ở đây hay mang đi ạ?" },
-      { speaker: "B", name: "You (Customer)", en: "To go, please. Thanks!", vi: "Mang đi giúp mình nhé. Cảm ơn bạn!" }
+      { speaker: "A", name: "Receptionist", en: "Good evening, sir. Can I help you?", vi: "Chào buổi tối quý khách. Tôi có thể giúp gì cho ông ạ?" },
+      { speaker: "B", name: "You (Guest)", en: "Yes, please. I'd like a single room for two nights.", vi: "Vâng. Cho tôi đặt một phòng đơn trong 2 đêm." },
+      { speaker: "A", name: "Receptionist", en: "With a bathroom or a shower?", vi: "Quý khách muốn phòng có bồn tắm hay vòi hoa sen ạ?" },
+      { speaker: "B", name: "You (Guest)", en: "With a bathroom, please.", vi: "Cho tôi phòng có bồn tắm nhé." },
+      { speaker: "A", name: "Receptionist", en: "Room 304 on the third floor. Here's your key.", vi: "Phòng 304 ở tầng 3. Chìa khóa của ông đây ạ." }
     ],
     patterns: [
-      { en: "Can I get an [Item], please?", vi: "Cho mình gọi [Món đồ], được không?" },
-      { en: "Can I get less ice with [X]% sugar?", vi: "Cho mình ít đá và [X]% đường được không?" },
-      { en: "Is that for here or to go?", vi: "Dùng tại đây hay mang đi ạ?" },
-      { en: "To go, please.", vi: "Mang đi nhé." }
+      { en: "I'd like a [single/double] room for [X] nights.", vi: "Tôi muốn đặt phòng [đơn/đôi] trong [X] đêm." },
+      { en: "Here's your key.", vi: "Chìa khóa của ông đây ạ." }
     ],
     quizzes: [
       {
-        prompt: "Khi bồi bàn hỏi 'Is that for here or to go?', bạn muốn mua mang về thì trả lời:",
-        sentence: "B: _______, please.",
-        options: ["To go", "For take", "Out of here", "Bring away"],
+        prompt: "Đặt phòng đơn tại lễ tân:",
+        sentence: "I'd like a _______ room, please.",
+        options: ["single", "one", "alone", "solo"],
         correct: 0
       }
     ]
   },
   {
     id: 5,
-    title: "5. Remote Work Interview - Phỏng Vấn AI Creator",
-    subtitle: "Phỏng vấn Remote Work vị trí Sáng tạo nội dung / AI",
-    topic: "Phỏng vấn & Công nghệ",
-    level: "B1 Destinations",
-    description: "Phản xạ phỏng vấn xin việc làm từ xa (Remote Work) ứng dụng AI hiện đại.",
+    title: "5. Telephoning - Điện Thoại Bàn 73048",
+    subtitle: "Bài 5 SE: Hello, 73048. Could I speak to Mr. Clark?",
+    topic: "Điện thoại bàn hoài niệm",
+    level: "A1 Departures",
+    description: "Cuộc gọi điện thoại bàn kinh điển thập niên 80-90 với số máy lẻ 73048.",
     dialogue: [
-      { speaker: "A", name: "Interviewer", en: "Welcome to the interview! Why do you want to work remotely as our Lead Content Creator?", vi: "Chào mừng bạn đến buổi phỏng vấn! Tại sao bạn muốn làm việc từ xa ở vị trí Trưởng nhóm Sáng tạo nội dung của chúng tôi?" },
-      { speaker: "B", name: "You (Candidate)", en: "I thrive in flexible environments. I've been managing remote teams and building viral video campaigns for two years.", vi: "Tôi phát huy tốt nhất trong môi trường linh hoạt. Tôi đã quản lý đội ngũ từ xa và xây dựng các chiến dịch video lên xu hướng trong 2 năm qua." },
-      { speaker: "A", name: "Interviewer", en: "That's impressive! How do you utilize AI tools in your daily workflow?", vi: "Ấn tượng đấy! Bạn ứng dụng các công cụ AI thế nào trong công việc hàng ngày?" },
-      { speaker: "B", name: "You (Candidate)", en: "I use AI to streamline research and draft creative hooks, which speeds up our production time by 50%.", vi: "Tôi dùng AI để tối ưu hóa việc nghiên cứu và viết tiêu đề thu hút, giúp tăng tốc độ sản xuất lên 50%." },
-      { speaker: "A", name: "Interviewer", en: "Sounds great! When can you start?", vi: "Nghe tuyệt lắm! Khi nào bạn có thể bắt đầu làm việc?" },
-      { speaker: "B", name: "You (Candidate)", en: "I can start immediately!", vi: "Tôi có thể bắt đầu ngay lập tức ạ!" }
+      { speaker: "A", name: "Operator", en: "Hello. 73048.", vi: "Alô. Số 73048 xin nghe." },
+      { speaker: "B", name: "You (Caller)", en: "Hello. Could I speak to Mr. Clark, please?", vi: "Xin chào. Cho tôi nói chuyện với ông Clark được không ạ?" },
+      { speaker: "A", name: "Operator", en: "Who's calling, please?", vi: "Xin hỏi ai đang gọi đấy ạ?" },
+      { speaker: "B", name: "You (Caller)", en: "My name is Peter Jackson.", vi: "Tên tôi là Peter Jackson." },
+      { speaker: "A", name: "Operator", en: "Hold on a moment, please. I'll put you through.", vi: "Xin vui lòng giữ máy một chút. Tôi sẽ nối máy cho ông." }
     ],
     patterns: [
-      { en: "I thrive in [environment].", vi: "Tôi phát triển/phát huy tốt nhất trong [môi trường]." },
-      { en: "I've been building [projects] for [time].", vi: "Tôi đã và đang làm [dự án] được [thời gian]." },
-      { en: "I use [tool] to streamline [process].", vi: "Tôi dùng [công cụ] để tinh gọn [quy trình]." }
+      { en: "Could I speak to [Name], please?", vi: "Cho tôi xin nói chuyện với [Tên] được không?" },
+      { en: "Who's calling, please?", vi: "Xin hỏi ai đang gọi đấy ạ?" },
+      { en: "Hold on a moment, please.", vi: "Xin vui lòng giữ máy một chút." }
     ],
     quizzes: [
       {
-        prompt: "Diễn tả 'Tôi dùng AI để tinh gọn quy trình':",
-        sentence: "I use AI to _______ research.",
-        options: ["streamline", "make hard", "slow down", "cut off"],
+        prompt: "Khi tổng đài viên xin người gọi giữ máy để nối cuộc gọi:",
+        sentence: "_______ on a moment, please.",
+        options: ["Hold", "Keep", "Wait", "Stay"],
         correct: 0
       }
     ]
   },
   {
     id: 6,
-    title: "6. Digital Nomad & Workation - Check-in Bali",
-    subtitle: "Thủ tục nhập cảnh cho chuyến đi Workation 2 tuần",
-    topic: "Du lịch quốc tế & Digital Nomad",
-    level: "B1 Destinations",
-    description: "Thực hành phản xạ trả lời hải quan về phong cách sống Digital Nomad (Vừa đi du lịch vừa làm việc).",
+    title: "6. Shopping & Prices - Mua Sắm Áo Len",
+    subtitle: "Bài 6 SE: How much is this sweater, please?",
+    topic: "Mua sắm & Hỏi giá",
+    level: "A1 Departures",
+    description: "Hỏi giá tiền và phòng thử đồ tại cửa hàng quần áo truyền thống.",
     dialogue: [
-      { speaker: "A", name: "Immigration Officer", en: "Good afternoon. What is the purpose of your visit to Bali?", vi: "Chào buổi chiều. Mục đích chuyến đi của bạn tới Bali là gì?" },
-      { speaker: "B", name: "You (Nomad)", en: "I'm here on a two-week workation, combining remote work with vacation.", vi: "Tôi đến đây cho chuyến Workation 2 tuần, kết hợp làm việc từ xa và nghỉ dưỡng." },
-      { speaker: "A", name: "Immigration Officer", en: "Where will you be staying during your visit?", vi: "Bạn sẽ lưu trú ở đâu trong thời gian này?" },
-      { speaker: "B", name: "You (Nomad)", en: "I've booked a co-living space in Canggu.", vi: "Tôi đã đặt chỗ tại một không gian Co-living ở Canggu." },
-      { speaker: "A", name: "Immigration Officer", en: "Great! Enjoy your stay and productivity!", vi: "Tuyệt vời! Chúc bạn có một chuyến đi vui vẻ và làm việc năng suất!" },
-      { speaker: "B", name: "You (Nomad)", en: "Thank you very much!", vi: "Cảm ơn bạn rất nhiều!" }
+      { speaker: "A", name: "Shop Assistant", en: "Good morning. Can I help you?", vi: "Chào buổi sáng. Tôi có thể giúp gì cho quý khách?" },
+      { speaker: "B", name: "You (Customer)", en: "Yes, how much is this sweater, please?", vi: "Vâng, cái áo len này giá bao nhiêu tiền vậy ạ?" },
+      { speaker: "A", name: "Shop Assistant", en: "It's twenty-five pounds.", vi: "Nó có giá 25 bảng Anh." },
+      { speaker: "B", name: "You (Customer)", en: "Can I try it on?", vi: "Tôi có thể mặc thử nó được không?" },
+      { speaker: "A", name: "Shop Assistant", en: "Yes, of course. The changing room is over there.", vi: "Dạ được chứ. Phòng thay đồ ở đằng kia ạ." }
     ],
     patterns: [
-      { en: "What is the purpose of your visit?", vi: "Mục đích chuyến đi của bạn là gì?" },
-      { en: "I'm here on a [duration] workation.", vi: "Tôi ở đây đi [thời gian] làm việc kết hợp nghỉ dưỡng." },
-      { en: "I've booked a [type of accommodation].", vi: "Tôi đã đặt chỗ tại [loại hình lưu trú]." }
+      { en: "How much is this [item]?", vi: "[Món đồ] này giá bao nhiêu?" },
+      { en: "Can I try it on?", vi: "Tôi có thể mặc thử nó được không?" },
+      { en: "The changing room is over there.", vi: "Phòng thay đồ ở đằng kia." }
     ],
     quizzes: [
       {
-        prompt: "Từ chỉ chuyến đi vừa du lịch vừa làm việc từ xa:",
-        sentence: "I'm here on a two-week _______.",
-        options: ["workation", "working hard", "office job", "flight stay"],
+        prompt: "Xin phép thử đồ tại cửa hàng:",
+        sentence: "Can I _______ it on?",
+        options: ["try", "wear", "put", "dress"],
+        correct: 0
+      }
+    ]
+  },
+  {
+    id: 7,
+    title: "7. At a Restaurant - Gọi Món Bít Tết",
+    subtitle: "Bài 7 SE: Rare, medium, or well-done?",
+    topic: "Nhà hàng & Ẩm thực",
+    level: "A2 Connections",
+    description: "Bài gọi bít tết bò kinh điển với bồi bàn trong Streamline Connections.",
+    dialogue: [
+      { speaker: "A", name: "Waiter", en: "Good evening. Are you ready to order, sir?", vi: "Chào buổi tối. Quý khách đã sẵn sàng gọi món chưa ạ?" },
+      { speaker: "B", name: "You (Customer)", en: "Yes. I'd like the roast beef, please.", vi: "Vâng. Cho tôi một phần bò nướng bít tết nhé." },
+      { speaker: "A", name: "Waiter", en: "How would you like your beef cooked? Rare, medium, or well-done?", vi: "Quý khách muốn bò chín ở mức nào? Tái, vừa hay chín kỹ ạ?" },
+      { speaker: "B", name: "You (Customer)", en: "Medium, please.", vi: "Cho tôi chín vừa (medium) nhé." },
+      { speaker: "A", name: "Waiter", en: "And what would you like to drink?", vi: "Và quý khách muốn dùng nước uống gì ạ?" },
+      { speaker: "B", name: "You (Customer)", en: "A glass of red wine, please.", vi: "Cho tôi một ly rượu vang đỏ, cảm ơn." }
+    ],
+    patterns: [
+      { en: "Are you ready to order?", vi: "Bạn đã sẵn sàng gọi món chưa?" },
+      { en: "Rare, medium, or well-done?", vi: "Tái, vừa hay chín kỹ?" }
+    ],
+    quizzes: [
+      {
+        prompt: "Yêu cầu bít tết bò ở mức chín vừa:",
+        sentence: "B: _______, please.",
+        options: ["Medium", "Middle", "Center", "Half"],
+        correct: 0
+      }
+    ]
+  },
+  {
+    id: 8,
+    title: "8. Making Plans - Rủ Đi Xem Phim James Bond",
+    subtitle: "Bài 8 SE: Bob & Connie rủ đi rạp Odeon",
+    topic: "Hẹn hò Bob & Connie",
+    level: "A2 Connections",
+    description: "Đoạn thoại huyền thoại giữa Bob và Connie rủ đi xem phim James Bond tại rạp Odeon.",
+    dialogue: [
+      { speaker: "A", name: "Bob", en: "Hello, Connie. Are you free tonight?", vi: "Chào Connie. Tối nay em có rảnh không?" },
+      { speaker: "B", name: "You (Connie)", en: "Yes, I am. Why?", vi: "Dạ có. Có chuyện gì thế anh?" },
+      { speaker: "A", name: "Bob", en: "Would you like to go to the cinema?", vi: "Em có muốn đi xem phim rạp không?" },
+      { speaker: "B", name: "You (Connie)", en: "That sounds nice. What's on?", vi: "Nghe hay đấy. Chiếu phim gì thế anh?" },
+      { speaker: "A", name: "Bob", en: "There's a new James Bond film at the Odeon.", vi: "Có phim James Bond mới chiếu ở rạp Odeon." },
+      { speaker: "B", name: "You (Connie)", en: "Great! What time does it start?", vi: "Tuyệt quá! Mấy giờ phim bắt đầu vậy?" },
+      { speaker: "A", name: "Bob", en: "At seven thirty. Let's meet outside at seven.", vi: "Lúc 7:30. Chúng mình gặp nhau trước rạp lúc 7:00 nhé." }
+    ],
+    patterns: [
+      { en: "Are you free tonight?", vi: "Tối nay em/bạn có rảnh không?" },
+      { en: "Would you like to go to the cinema?", vi: "Em/bạn có muốn đi xem phim không?" },
+      { en: "What's on?", vi: "Đang chiếu phim gì thế?" },
+      { en: "Let's meet outside at [time].", vi: "Chúng mình gặp nhau bên ngoài lúc [giờ] nhé." }
+    ],
+    quizzes: [
+      {
+        prompt: "Hỏi xem rạp chiếu phim đang có phim gì chiếu:",
+        sentence: "B: That sounds nice. _______?",
+        options: ["What's on", "What's up", "What's film", "What's go"],
+        correct: 0
+      }
+    ]
+  },
+  {
+    id: 9,
+    title: "9. The Job Interview - Phỏng Vấn Xin Việc SE",
+    subtitle: "Bài 9 SE: Why do you want to leave your present job?",
+    topic: "Phỏng vấn xin việc kinh điển",
+    level: "B1 Destinations",
+    description: "Bài phỏng vấn công sở hỏi lý do nhảy việc và bằng cấp trong Streamline Destinations.",
+    dialogue: [
+      { speaker: "A", name: "Interviewer", en: "Why do you want to leave your present job?", vi: "Tại sao ông muốn nghỉ công việc hiện tại?" },
+      { speaker: "B", name: "You (Candidate)", en: "Well, I've been with the same company for five years, and I'd like a change.", vi: "Chà, tôi đã làm ở cùng một công ty 5 năm rồi, và tôi muốn có sự thay đổi." },
+      { speaker: "A", name: "Interviewer", en: "What are your qualifications?", vi: "Bằng cấp chuyên môn của ông là gì?" },
+      { speaker: "B", name: "You (Candidate)", en: "I have a degree in Economics and I speak fluent French and German.", vi: "Tôi có bằng Cử nhân Kinh tế và tôi nói trôi chảy tiếng Pháp và tiếng Đức." }
+    ],
+    patterns: [
+      { en: "Why do you want to leave your present job?", vi: "Tại sao bạn muốn rời công việc hiện tại?" },
+      { en: "I have a degree in [Subject].", vi: "Tôi có bằng cấp về ngành [Môn học]." }
+    ],
+    quizzes: [
+      {
+        prompt: "Trình bày lý do muốn thay đổi công việc:",
+        sentence: "I'd like a _______.",
+        options: ["change", "turn", "move", "switch"],
+        correct: 0
+      }
+    ]
+  },
+  {
+    id: 10,
+    title: "10. Airport Customs - Hải Quan Sân Bay SE",
+    subtitle: "Bài 10 SE: May I see your passport, please?",
+    topic: "Hải quan & Nhập cảnh",
+    level: "B1 Destinations",
+    description: "Thủ tục xuất nhập cảnh kiểm tra hộ chiếu và hành lý tại sân bay quốc tế.",
+    dialogue: [
+      { speaker: "A", name: "Customs Officer", en: "May I see your passport, please?", vi: "Cho tôi xem hộ chiếu của ông được không ạ?" },
+      { speaker: "B", name: "You (Passenger)", en: "Here you are.", vi: "Dạ hộ chiếu đây ạ." },
+      { speaker: "A", name: "Customs Officer", en: "What is the purpose of your visit?", vi: "Mục đích chuyến đi của ông là gì?" },
+      { speaker: "B", name: "You (Passenger)", en: "I'm here on business for one week.", vi: "Tôi đến đây đi công tác trong một tuần." },
+      { speaker: "A", name: "Customs Officer", en: "Do you have anything to declare?", vi: "Ông có đồ đạc gì cần khai báo hải quan không?" },
+      { speaker: "B", name: "You (Passenger)", en: "Nothing, just my personal belongings.", vi: "Không có gì cả, chỉ là đồ dùng cá nhân của tôi thôi." }
+    ],
+    patterns: [
+      { en: "Here you are.", vi: "Dạ đây ạ." },
+      { en: "Do you have anything to declare?", vi: "Ông có gì cần khai báo hải quan không?" }
+    ],
+    quizzes: [
+      {
+        prompt: "Khi đưa giấy tờ/hộ chiếu cho nhân viên hải quan:",
+        sentence: "B: _______ you are.",
+        options: ["Here", "There", "This", "Take"],
         correct: 0
       }
     ]
@@ -197,8 +305,8 @@ const STREAMLINE_LESSONS = [
 // --------------------------------------------------------------------------
 let state = {
   currentLessonIdx: 0,
-  currentMode: 'listen', // 'listen', 'roleplay', 'quiz'
-  userRole: 'B',        // 'B', 'A', 'SPECTATOR'
+  currentMode: 'listen',
+  userRole: 'B',
   activeSpeechBubbleIdx: -1,
   isPlayingAll: false,
   isRecording: false,
@@ -212,10 +320,8 @@ let state = {
   currentQuizIdx: 0
 };
 
-// Speech Recognition Instance
 let recognition = null;
 
-// DOM Elements
 const el = {
   lessonList: document.getElementById('lessonList'),
   lessonTopic: document.getElementById('lessonTopic'),
@@ -292,7 +398,7 @@ function initSpeechSynthesis() {
       const option = document.createElement('option');
       option.value = idx;
       option.textContent = `${v.name} (${v.lang})`;
-      if (v.name.includes('Google') || v.name.includes('Natural') || v.lang === 'en-US') {
+      if (v.name.includes('Google') || v.name.includes('Natural') || v.lang === 'en-GB' || v.lang === 'en-US') {
         option.selected = true;
         state.selectedVoice = v;
       }
