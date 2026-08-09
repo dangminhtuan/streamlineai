@@ -823,6 +823,17 @@ function updateModeView() {
 }
 
 function attachEventListeners() {
+  document.querySelectorAll('.book-tab').forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll('.book-tab').forEach(b => b.classList.remove('active'));
+      tab.classList.add('active');
+      const book = tab.dataset.book;
+      const badge = document.getElementById('bookBadge');
+      if (badge) badge.textContent = `${book.charAt(0) + book.slice(1).toLowerCase()} (80 Units)`;
+      showToast(`📚 Đã chọn tập sách ${book}`);
+    };
+  });
+
   document.querySelectorAll('.mode-tab').forEach(tab => {
     tab.onclick = () => {
       state.currentMode = tab.dataset.mode;

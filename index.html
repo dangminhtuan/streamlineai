@@ -49,10 +49,17 @@
     <aside class="sidebar-panel">
       <div class="panel-card">
         <div class="panel-header">
-          <h2>📚 Danh Sách Bài Học</h2>
-          <span class="badge-level">Departures & Connections</span>
+          <h2>📚 Danh Sách 320 Bài</h2>
+          <span class="badge-level" id="bookBadge">Departures (80 Units)</span>
         </div>
         
+        <div class="book-tabs">
+          <button class="book-tab active" data-book="DEPARTURES">Departures</button>
+          <button class="book-tab" data-book="CONNECTIONS">Connections</button>
+          <button class="book-tab" data-book="DESTINATIONS">Destinations</button>
+          <button class="book-tab" data-book="DIRECTIONS">Directions</button>
+        </div>
+
         <div class="lesson-list" id="lessonList">
           <!-- Dynamically populated lessons -->
         </div>

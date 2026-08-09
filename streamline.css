@@ -221,6 +221,42 @@ body {
   font-weight: 600;
 }
 
+/* Book Tabs Selector */
+.book-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+  background: rgba(15, 23, 42, 0.7);
+  padding: 0.3rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.book-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 0.35rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.book-tab:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.book-tab.active {
+  background: rgba(99, 102, 241, 0.3);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.5);
+}
+
 /* Lesson Items */
 .lesson-list {
   display: flex;
