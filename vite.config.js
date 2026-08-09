@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        dict: resolve(__dirname, 'dict.html'),
         popup: resolve(__dirname, 'popup.html'),
         vault: resolve(__dirname, 'vault.html'),
         read: resolve(__dirname, 'read.html'),
