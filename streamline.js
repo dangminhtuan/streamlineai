@@ -1230,6 +1230,22 @@ function loadLesson(idx) {
   renderGrammarBreakdown(lesson);
   updateModeView();
 
+  // Handle AI Lesson Video Player
+  const videoContainer = document.getElementById('lessonVideoContainer');
+  const videoPlayer = document.getElementById('lessonVideoPlayer');
+  const videoSource = document.getElementById('lessonVideoSource');
+
+  if (videoContainer && videoPlayer && videoSource) {
+    if (lesson.video) {
+      videoSource.src = lesson.video;
+      videoPlayer.load();
+      videoContainer.classList.remove('hidden');
+    } else {
+      videoPlayer.pause();
+      videoContainer.classList.add('hidden');
+    }
+  }
+
   if (el.chatStream) el.chatStream.scrollTop = 0;
   const banner = document.getElementById('lessonBanner');
   if (banner) {
@@ -1634,6 +1650,93 @@ function attachEventListeners() {
 
   el.btnPlayAll.onclick = () => playAllDialogue(0);
   el.btnStopPlay.onclick = () => stopSpeech();
+
+  const btnCopyPrompt = document.getElementById('btnCopyPrompt');
+  if (btnCopyPrompt) {
+    btnCopyPrompt.onclick = () => {
+      const lesson = STREAMLINE_LESSONS[state.currentLessonIdx];
+      if (!lesson) return;
+
+      const dialogueScript = lesson.dialogue.map((line, i) => {
+        return `Scene ${i + 1} - ${line.name || line.speaker}: "${line.en}"\n(Subtitle: ${line.vi})`;
+      }).join('\n\n');
+
+      const promptText = `🎬 AI VIDEO GENERATION PROMPT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📌 LESSON TITLE: ${lesson.title || `Lesson ${lesson.id}`}
+📍 TOPIC & SETTING: ${lesson.topic || 'Modern GenZ Social Encounter'}, US 2025 modern environment (Starbucks / College Campus / Apartment / City Cafe).
+🎨 VISUAL STYLE: Cinematic 4K, 35mm lens, natural daylighting, realistic depth of field, modern GenZ fashion aesthetics, vibrant colors.
+
+👥 CHARACTERS & DIALOGUE SCRIPT:
+${dialogueScript}
+
+💡 PRODUCTION INSTRUCTIONS:
+- Generate a continuous modern 9:16 short-form video (Reels / TikTok / Shorts style).
+- Speaker A and Speaker B interact with natural facial expressions, subtle gestures, and realistic lip-syncing.
+- Include subtle background ambience matching the venue.
+- English dialogue spoken clearly with authentic American accents.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+      const originalHTML = btnCopyPrompt.innerHTML;
+      const originalBg = btnCopyPrompt.style.background;
+
+      const showSuccessUI = () => {
+        btnCopyPrompt.innerHTML = `<span class="btn-icon">✅</span><span class="btn-text">Đã Copy Prompt!</span>`;
+        btnCopyPrompt.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        btnCopyPrompt.style.transform = 'scale(1.05)';
+        btnCopyPrompt.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.6)';
+
+        showToast(`🎬 Đã sao chép Video Prompt cho Bài ${state.currentLessonIdx + 1}!`);
+
+        setTimeout(() => {
+          btnCopyPrompt.innerHTML = originalHTML;
+          btnCopyPrompt.style.background = originalBg;
+          btnCopyPrompt.style.transform = 'none';
+          btnCopyPrompt.style.boxShadow = 'none';
+        }, 2200);
+      };
+
+      // Robust cross-platform copy execution
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(promptText).then(showSuccessUI).catch(() => fallbackCopy(promptText, showSuccessUI));
+      } else {
+        fallbackCopy(promptText, showSuccessUI);
+      }
+    };
+  }
+
+  // Toggle Video Player Visibility
+  const btnToggleVideo = document.getElementById('btnToggleVideo');
+  const videoWrapper = document.getElementById('videoWrapper');
+  if (btnToggleVideo && videoWrapper) {
+    btnToggleVideo.onclick = () => {
+      if (videoWrapper.classList.contains('hidden')) {
+        videoWrapper.classList.remove('hidden');
+        btnToggleVideo.textContent = '👁️ Ẩn Video';
+      } else {
+        videoWrapper.classList.add('hidden');
+        btnToggleVideo.textContent = '👁️ Hiện Video';
+      }
+    };
+  }
+
+  function fallbackCopy(text, onSuccess) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      onSuccess();
+    } catch (err) {
+      showToast('⚠️ Không thể tự động copy, hãy thử chọn thủ công.');
+    }
+    document.body.removeChild(textarea);
+  }
 
   el.voiceSelect.onchange = () => {
     const idx = parseInt(el.voiceSelect.value, 10);

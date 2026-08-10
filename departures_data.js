@@ -1,53 +1,74 @@
 export const DEPARTURES_LESSONS = [
   {
     "id": 1,
-    "title": "1. Everyday Excuses",
-    "subtitle": "Bài 1 SE (Departures 1): Everyday Excuses",
-    "topic": "Everyday Excuses SE",
+    "title": "1. HELLO",
+    "subtitle": "Bài 1 SE: HELLO",
+    "topic": "HELLO (GenZ 2025)",
     "level": "A1 Departures",
+    "video": "videos/unit_1.mp4",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 1 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to everyday excuses?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến everyday excuses không?",
-        "zh": "打扰一下，让我们讨论一下Everyday Excuses。",
-        "ko": "실례합니다, Everyday Excuses에 대해 논의해 봅시다."
+        "name": "Jake",
+        "en": "Hey! I'm Jake.",
+        "vi": "Này! Tôi là Jake."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Sofia",
+        "en": "Hi, I'm Sofia.",
+        "vi": "Chào, tôi là Sofia."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Jake",
+        "en": "Are you a freshman?",
+        "vi": "Bạn là sinh viên năm nhất không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Sofia",
+        "en": "No, I'm not. I'm a junior.",
+        "vi": "Không phải. Tôi đang năm 3."
+      },
+      {
+        "speaker": "A",
+        "name": "Jake",
+        "en": "Oh nice! Are you from around here?",
+        "vi": "Ồ hay đó! Bạn người địa phương không?"
+      },
+      {
+        "speaker": "B",
+        "name": "Sofia",
+        "en": "No, I'm from Miami. You?",
+        "vi": "Không, tôi từ Miami. Còn bạn?"
+      },
+      {
+        "speaker": "A",
+        "name": "Jake",
+        "en": "I'm from Portland. How's your day going?",
+        "vi": "Tôi từ Portland. Hôm nay của bạn thế nào?"
+      },
+      {
+        "speaker": "B",
+        "name": "Sofia",
+        "en": "Pretty good, thanks! You?",
+        "vi": "Khá ổn, cảm ơn! Còn bạn?"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for everyday excuses.",
-        "vi": "Mẫu câu phản xạ về everyday excuses."
+        "en": "Are you a [student / teacher / doctor]?",
+        "vi": "`Yes, I am. / No, I'm not.`"
       },
       {
-        "en": "Practice expressing everyday excuses clearly.",
-        "vi": "Luyện tập diễn đạt everyday excuses rõ ràng."
+        "en": "Where are you from?",
+        "vi": "`I'm from [city / country].`"
+      },
+      {
+        "en": "How are you?",
+        "vi": "`I'm very well / fine, thanks.`"
       }
     ],
     "quizzes": [
@@ -66,53 +87,55 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 2,
-    "title": "2. Personal Identification",
-    "subtitle": "Bài 2 SE (Departures 2): Personal Identification",
-    "topic": "Personal Identification SE",
+    "title": "2. EXCUSE ME!",
+    "subtitle": "Bài 2 SE: EXCUSE ME!",
+    "topic": "EXCUSE ME! (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 2 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to personal identification?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến personal identification không?",
-        "zh": "打扰一下，让我们讨论一下Personal Identification。",
-        "ko": "실례합니다, Personal Identification에 대해 논의해 봅시다."
+        "name": "Marcus",
+        "en": "Excuse me!",
+        "vi": "Xin lỗi!"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Emma",
+        "en": "Yeah?",
+        "vi": "Ừ?"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Marcus",
+        "en": "Is this your phone? You left it on the counter.",
+        "vi": "Đây có phải điện thoại của bạn không? Bạn để quên trên quầy."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Emma",
+        "en": "Oh my god, yes it is! Thank you so much!",
+        "vi": "Trời ơi, đúng rồi! Cảm ơn bạn nhiều lắm!"
+      },
+      {
+        "speaker": "A",
+        "name": "Marcus",
+        "en": "No worries!",
+        "vi": "Không có gì!"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for personal identification.",
-        "vi": "Mẫu câu phản xạ về personal identification."
+        "en": "Excuse me.",
+        "vi": "Ngắt lời / gây chú ý lịch sự"
       },
       {
-        "en": "Practice expressing personal identification clearly.",
-        "vi": "Luyện tập diễn đạt personal identification rõ ràng."
+        "en": "Is this your [object]?",
+        "vi": "`Yes, it is. / No, it isn't.`"
+      },
+      {
+        "en": "You're welcome.",
+        "vi": "You're welcome."
       }
     ],
     "quizzes": [
@@ -131,53 +154,57 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 3,
-    "title": "3. Asking for Directions",
-    "subtitle": "Bài 3 SE (Departures 3): Asking for Directions",
-    "topic": "Asking for Directions SE",
+    "title": "3. WHAT IS IT?  *(New American Streamline version)*",
+    "subtitle": "Bài 3 SE: WHAT IS IT?  *(New American Streamline version)*",
+    "topic": "WHAT IS IT?  *(New American Streamline version)* (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 3 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to asking for directions?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến asking for directions không?",
-        "zh": "打扰一下，让我们讨论一下Asking for Directions。",
-        "ko": "실례합니다, Asking for Directions에 대해 논의해 봅시다."
+        "name": "Ryan",
+        "en": "Dude, what's this?",
+        "vi": "Ê, cái này là cái gì vậy?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Aiden",
+        "en": "It's an air fryer!",
+        "vi": "Đó là nồi chiên không dầu!"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Ryan",
+        "en": "Wait, is it yours?",
+        "vi": "Khoan, nó là của mày à?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Aiden",
+        "en": "No, it isn't. It's my sister's. She left it here.",
+        "vi": "Không phải. Của chị gái tao. Chị để quên ở đây."
+      },
+      {
+        "speaker": "A",
+        "name": "Ryan",
+        "en": "Oh! What's that over there?",
+        "vi": "À! Còn cái kia là gì?"
+      },
+      {
+        "speaker": "B",
+        "name": "Aiden",
+        "en": "That's a blender. That one is mine.",
+        "vi": "Đó là máy xay sinh tố. Cái đó của tao."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for asking for directions.",
-        "vi": "Mẫu câu phản xạ về asking for directions."
+        "en": "What's this?",
+        "vi": "What's this?"
       },
       {
-        "en": "Practice expressing asking for directions clearly.",
-        "vi": "Luyện tập diễn đạt asking for directions rõ ràng."
+        "en": "What's that?",
+        "vi": "What's that?"
       }
     ],
     "quizzes": [
@@ -196,53 +223,61 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 4,
-    "title": "4. Hotel Room Reservation",
-    "subtitle": "Bài 4 SE (Departures 4): Hotel Room Reservation",
-    "topic": "Hotel Room Reservation SE",
+    "title": "4. WHAT'S YOUR NAME?  *(Cần đối chiếu sách gốc)*",
+    "subtitle": "Bài 4 SE: WHAT'S YOUR NAME?  *(Cần đối chiếu sách gốc)*",
+    "topic": "WHAT'S YOUR NAME?  *(Cần đối chiếu sách gốc)* (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 4 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to hotel room reservation?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến hotel room reservation không?",
-        "zh": "打扰一下，让我们讨论一下Hotel Room Reservation。",
-        "ko": "실례합니다, Hotel Room Reservation에 대해 논의해 봅시다."
+        "name": "Brianna",
+        "en": "Hey, what's your name? I don't think we've met.",
+        "vi": "Này, tên bạn là gì? Tôi nghĩ chúng ta chưa gặp."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Carlos",
+        "en": "I'm Carlos. What's yours?",
+        "vi": "Tôi là Carlos. Còn bạn?"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Brianna",
+        "en": "Brianna. So where are you from, Carlos?",
+        "vi": "Brianna. Vậy bạn từ đâu đến, Carlos?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Carlos",
+        "en": "I'm from San Antonio. What about you?",
+        "vi": "Tôi từ San Antonio. Còn bạn?"
+      },
+      {
+        "speaker": "A",
+        "name": "Brianna",
+        "en": "I'm from here! Austin born and raised.",
+        "vi": "Tôi là dân Austin chính gốc!"
+      },
+      {
+        "speaker": "B",
+        "name": "Carlos",
+        "en": "No way! What's your Instagram?",
+        "vi": "Thật không! Instagram của bạn là gì?"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for hotel room reservation.",
-        "vi": "Mẫu câu phản xạ về hotel room reservation."
+        "en": "What's your [name / number / Instagram]?",
+        "vi": "What's your [name / number / Instagram]?"
       },
       {
-        "en": "Practice expressing hotel room reservation clearly.",
-        "vi": "Luyện tập diễn đạt hotel room reservation rõ ràng."
+        "en": "Where are you from?",
+        "vi": "Where are you from?"
+      },
+      {
+        "en": "What about you?",
+        "vi": "What about you?"
       }
     ],
     "quizzes": [
@@ -261,53 +296,51 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 5,
-    "title": "5. Phone Call Etiquette",
-    "subtitle": "Bài 5 SE (Departures 5): Phone Call Etiquette",
-    "topic": "Phone Call Etiquette SE",
+    "title": "5. I'M COLD",
+    "subtitle": "Bài 5 SE: I'M COLD",
+    "topic": "I'M COLD (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 5 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to phone call etiquette?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến phone call etiquette không?",
-        "zh": "打扰一下，让我们讨论一下Phone Call Etiquette。",
-        "ko": "실례합니다, Phone Call Etiquette에 대해 논의해 봅시다."
+        "name": "Jasmine",
+        "en": "Ugh, I'm freezing! Is the AC always like this?",
+        "vi": "Ugh, tôi lạnh cóng! Điều hòa lúc nào cũng vậy không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Tyler",
+        "en": "Are you? I'm actually hot. I love it in here.",
+        "vi": "Bạn lạnh à? Tôi thì nóng. Tôi thấy ở đây dễ chịu mà."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Jasmine",
+        "en": "Seriously? I'm so tired and hungry too. It's been a long morning.",
+        "vi": "Thật không? Tôi vừa mệt vừa đói nữa. Sáng nay dài quá."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Tyler",
+        "en": "Are you hungry? Let's grab lunch. I'm not busy.",
+        "vi": "Bạn đói à? Đi ăn trưa đi. Tôi đang rảnh."
+      },
+      {
+        "speaker": "A",
+        "name": "Jasmine",
+        "en": "Yes! I'm so ready.",
+        "vi": "Ừ! Sẵn sàng rồi đây."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for phone call etiquette.",
-        "vi": "Mẫu câu phản xạ về phone call etiquette."
+        "en": "I'm [cold / hungry / tired].",
+        "vi": "I'm [cold / hungry / tired]."
       },
       {
-        "en": "Practice expressing phone call etiquette clearly.",
-        "vi": "Luyện tập diễn đạt phone call etiquette rõ ràng."
+        "en": "Are you [busy / ready / hungry]?",
+        "vi": "Are you [busy / ready / hungry]?"
       }
     ],
     "quizzes": [
@@ -326,53 +359,79 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 6,
-    "title": "6. Shopping for Clothes",
-    "subtitle": "Bài 6 SE (Departures 6): Shopping for Clothes",
-    "topic": "Shopping for Clothes SE",
+    "title": "6. A NICE FLAT",
+    "subtitle": "Bài 6 SE: A NICE FLAT",
+    "topic": "A NICE FLAT (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 6 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to shopping for clothes?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến shopping for clothes không?",
-        "zh": "打扰一下，让我们讨论一下Shopping for Clothes。",
-        "ko": "실례합니다, Shopping for Clothes에 대해 논의해 봅시다."
+        "name": "Leasing Agent (Kevin)",
+        "en": "Okay so this is a really nice unit. Here's the layout—",
+        "vi": "Okay đây là căn hộ rất đẹp. Đây là sơ đồ nhé—"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Potential Renter (Priya)",
+        "en": "Is there a washer and dryer in the unit?",
+        "vi": "Trong căn hộ có máy giặt và máy sấy không?"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Kevin",
+        "en": "No, there isn't. There's a laundry room on the first floor though.",
+        "vi": "Không có. Nhưng có phòng giặt ở tầng một."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Priya",
+        "en": "Hmm. Is there a dishwasher?",
+        "vi": "Hmm. Có máy rửa bát không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Kevin",
+        "en": "Yes, there is! And there are some new appliances in the kitchen.",
+        "vi": "Có chứ! Và trong bếp có một số thiết bị mới."
+      },
+      {
+        "speaker": "B",
+        "name": "Priya",
+        "en": "Are there any closets?",
+        "vi": "Có tủ quần áo không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Kevin",
+        "en": "Yes, there are two in the bedroom.",
+        "vi": "Có, trong phòng ngủ có hai cái."
+      },
+      {
+        "speaker": "B",
+        "name": "Priya",
+        "en": "Nice. But... are there any parking spots?",
+        "vi": "Tốt. Nhưng... có chỗ đỗ xe không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Kevin",
+        "en": "No, there aren't, unfortunately.",
+        "vi": "Không có, tiếc là vậy."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for shopping for clothes.",
-        "vi": "Mẫu câu phản xạ về shopping for clothes."
+        "en": "There's a [bedroom / kitchen].",
+        "vi": "There's a [bedroom / kitchen]."
       },
       {
-        "en": "Practice expressing shopping for clothes clearly.",
-        "vi": "Luyện tập diễn đạt shopping for clothes rõ ràng."
+        "en": "Is there a [balcony]?",
+        "vi": "Is there a [balcony]?"
+      },
+      {
+        "en": "Are there any [glasses]?",
+        "vi": "Are there any [glasses]?"
       }
     ],
     "quizzes": [
@@ -391,53 +450,57 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 7,
-    "title": "7. Everyday Daily Routines",
-    "subtitle": "Bài 7 SE (Departures 7): Everyday Daily Routines",
-    "topic": "Everyday Daily Routines SE",
+    "title": "7. EVERYDAY CONVERSATION",
+    "subtitle": "Bài 7 SE: EVERYDAY CONVERSATION",
+    "topic": "EVERYDAY CONVERSATION (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 7 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to everyday daily routines?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến everyday daily routines không?",
-        "zh": "打扰一下，让我们讨论一下Everyday Daily Routines。",
-        "ko": "실례합니다, Everyday Daily Routines에 대해 논의해 봅시다."
+        "name": "Neighbor 1 (Derek)",
+        "en": "Oh hey! How's it going?",
+        "vi": "Ô này! Khỏe không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Neighbor 2 (Rachel)",
+        "en": "Pretty good! Super busy lately though. You?",
+        "vi": "Khá ổn! Nhưng dạo này bận lắm. Còn bạn?"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Derek",
+        "en": "Same. Are you still working from home?",
+        "vi": "Tôi cũng vậy. Bạn vẫn làm việc ở nhà không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Rachel",
+        "en": "No, I'm not anymore. Back in the office now.",
+        "vi": "Không còn nữa. Giờ đi làm trực tiếp rồi."
+      },
+      {
+        "speaker": "A",
+        "name": "Derek",
+        "en": "Oh nice. Is your commute far?",
+        "vi": "Ồ hay đó. Bạn đi làm có xa không?"
+      },
+      {
+        "speaker": "B",
+        "name": "Rachel",
+        "en": "Not too bad. Only 20 minutes on the subway.",
+        "vi": "Không tệ lắm. Chỉ 20 phút tàu điện ngầm."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for everyday daily routines.",
-        "vi": "Mẫu câu phản xạ về everyday daily routines."
+        "en": "How's it going?",
+        "vi": "How's it going?"
       },
       {
-        "en": "Practice expressing everyday daily routines clearly.",
-        "vi": "Luyện tập diễn đạt everyday daily routines rõ ràng."
+        "en": "Are you still [working from home]?",
+        "vi": "Are you still [working from home]?"
       }
     ],
     "quizzes": [
@@ -456,53 +519,55 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 8,
-    "title": "8. Family Members & Occupations",
-    "subtitle": "Bài 8 SE (Departures 8): Family Members & Occupations",
-    "topic": "Family Members & Occupations SE",
+    "title": "8. A FAMILY RE-UNION",
+    "subtitle": "Bài 8 SE: A FAMILY RE-UNION",
+    "topic": "A FAMILY RE-UNION (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 8 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to family members & occupations?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến family members & occupations không?",
-        "zh": "打扰一下，让我们讨论一下Family Members & Occupations。",
-        "ko": "실례합니다, Family Members & Occupations에 대해 논의해 봅시다."
+        "name": "Olivia",
+        "en": "Okay babe, these are my parents. Mom, Dad, this is Ethan!",
+        "vi": "Okay babe, đây là bố mẹ mình. Bố, Mẹ, đây là Ethan!"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Ethan",
+        "en": "Hi Mr. and Mrs. Chen! Great to finally meet you!",
+        "vi": "Chào chú và cô! Vui được gặp cuối cùng!"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Mr. Chen",
+        "en": "Hello Ethan! Are these your parents on the screen?",
+        "vi": "Chào Ethan! Đó có phải là bố mẹ cháu trên màn hình không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Ethan",
+        "en": "Yes, they are! Mom, Dad — say hi!",
+        "vi": "Vâng ạ! Bố Mẹ — chào đi!"
+      },
+      {
+        "speaker": "A",
+        "name": "Ethan's Mom",
+        "en": "Hi everyone! We're so happy to meet you all!",
+        "vi": "Chào tất cả! Chúng tôi rất vui được gặp mọi người!"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for family members & occupations.",
-        "vi": "Mẫu câu phản xạ về family members & occupations."
+        "en": "These are my [parents / friends / colleagues].",
+        "vi": "These are my [parents / friends / colleagues]."
       },
       {
-        "en": "Practice expressing family members & occupations clearly.",
-        "vi": "Luyện tập diễn đạt family members & occupations rõ ràng."
+        "en": "Are these your [brothers]?",
+        "vi": "Are these your [brothers]?"
+      },
+      {
+        "en": "This is [Name]. That is [Name].",
+        "vi": "This is [Name]. That is [Name]."
       }
     ],
     "quizzes": [
@@ -521,53 +586,59 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 9,
-    "title": "9. Physical Appearance Descriptions",
-    "subtitle": "Bài 9 SE (Departures 9): Physical Appearance Descriptions",
-    "topic": "Physical Appearance Descriptions SE",
+    "title": "9. WHOSE IS IT?",
+    "subtitle": "Bài 9 SE: WHOSE IS IT?",
+    "topic": "WHOSE IS IT? (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 9 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to physical appearance descriptions?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến physical appearance descriptions không?",
-        "zh": "打扰一下，让我们讨论一下Physical Appearance Descriptions。",
-        "ko": "실례합니다, Physical Appearance Descriptions에 대해 논의해 봅시다."
+        "name": "Jordan",
+        "en": "Dude, whose Tesla is that?",
+        "vi": "Ê, cái Tesla đó của ai vậy?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Alex",
+        "en": "I don't know. Is it yours?",
+        "vi": "Tôi không biết. Của mày à?"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Jordan",
+        "en": "No way, it's not mine. Mine's the Honda over there.",
+        "vi": "Nói gì vậy, không phải của tao. Của tao là chiếc Honda kia."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Alex",
+        "en": "Is it Professor Williams'?",
+        "vi": "Của Giáo sư Williams không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Jordan",
+        "en": "No, his is the Prius. I've seen it.",
+        "vi": "Không, của ông ấy là xe Prius. Tao thấy rồi."
+      },
+      {
+        "speaker": "B",
+        "name": "Alex",
+        "en": "Then whose is it?",
+        "vi": "Vậy của ai?"
+      },
+      {
+        "speaker": "A",
+        "name": "Jordan",
+        "en": "No idea. Should we leave a note?",
+        "vi": "Không biết. Mình có nên để lại tờ giấy nhắn không?"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for physical appearance descriptions.",
-        "vi": "Mẫu câu phản xạ về physical appearance descriptions."
-      },
-      {
-        "en": "Practice expressing physical appearance descriptions clearly.",
-        "vi": "Luyện tập diễn đạt physical appearance descriptions rõ ràng."
+        "en": "Whose [car] is it?",
+        "vi": "Whose [car] is it?"
       }
     ],
     "quizzes": [
@@ -586,53 +657,73 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 10,
-    "title": "10. Ordering Beverages & Coffee",
-    "subtitle": "Bài 10 SE (Departures 10): Ordering Beverages & Coffee",
-    "topic": "Ordering Beverages & Coffee SE",
+    "title": "10. IS THERE ANY WINE IN THE BOTTLE?",
+    "subtitle": "Bài 10 SE: IS THERE ANY WINE IN THE BOTTLE?",
+    "topic": "IS THERE ANY WINE IN THE BOTTLE? (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 10 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to ordering beverages & coffee?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến ordering beverages & coffee không?",
-        "zh": "打扰一下，让我们讨论一下Ordering Beverages & Coffee。",
-        "ko": "실례합니다, Ordering Beverages & Coffee에 대해 논의해 봅시다."
+        "name": "Zoe",
+        "en": "Is there any milk left? I want cereal.",
+        "vi": "Còn sữa không? Tôi muốn ăn ngũ cốc."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Liam",
+        "en": "Hmm, there's a little. Not much though.",
+        "vi": "Còn một ít. Nhưng không nhiều."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Zoe",
+        "en": "Is there any bread?",
+        "vi": "Còn bánh mì không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Liam",
+        "en": "No, there isn't. We're out.",
+        "vi": "Không còn. Hết rồi."
+      },
+      {
+        "speaker": "A",
+        "name": "Zoe",
+        "en": "Are there any eggs at least?",
+        "vi": "Ít nhất còn trứng không?"
+      },
+      {
+        "speaker": "B",
+        "name": "Liam",
+        "en": "Yeah, there are some. Like four or five.",
+        "vi": "Có, còn vài quả. Khoảng 4-5 cái."
+      },
+      {
+        "speaker": "A",
+        "name": "Zoe",
+        "en": "Okay, scrambled eggs it is then. Is there any butter?",
+        "vi": "Okay, ăn trứng bác vậy. Còn bơ không?"
+      },
+      {
+        "speaker": "B",
+        "name": "Liam",
+        "en": "Yes! There's some in the door.",
+        "vi": "Có! Có một ít ở ngăn cửa."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for ordering beverages & coffee.",
-        "vi": "Mẫu câu phản xạ về ordering beverages & coffee."
+        "en": "Is there any [milk / bread / wine]?",
+        "vi": "Is there any [milk / bread / wine]?"
       },
       {
-        "en": "Practice expressing ordering beverages & coffee clearly.",
-        "vi": "Luyện tập diễn đạt ordering beverages & coffee rõ ràng."
+        "en": "Are there any [eggs / apples]?",
+        "vi": "Are there any [eggs / apples]?"
+      },
+      {
+        "en": "We're out (of something).",
+        "vi": "We're out (of something)."
       }
     ],
     "quizzes": [
@@ -651,53 +742,67 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 11,
-    "title": "11. Asking for the Time",
-    "subtitle": "Bài 11 SE (Departures 11): Asking for the Time",
-    "topic": "Asking for the Time SE",
+    "title": "11. AN ENGLISH RESTAURANT",
+    "subtitle": "Bài 11 SE: AN ENGLISH RESTAURANT",
+    "topic": "AN ENGLISH RESTAURANT (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 11 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to asking for the time?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến asking for the time không?",
-        "zh": "打扰一下，让我们讨论一下Asking for the Time。",
-        "ko": "실례합니다, Asking for the Time에 대해 논의해 봅시다."
+        "name": "Server",
+        "en": "Hi guys! What can I get started for you?",
+        "vi": "Chào hai bạn! Tôi có thể bắt đầu gọi món cho các bạn không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Caleb",
+        "en": "I'd like the tonkotsu ramen, please.",
+        "vi": "Tôi muốn gọi ramen tonkotsu ạ."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Server",
+        "en": "Spice level? Mild, medium, or hot?",
+        "vi": "Độ cay? Nhẹ, vừa hay cay?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Caleb",
+        "en": "Medium, please. And I'd like an extra egg.",
+        "vi": "Vừa thôi ạ. Và cho tôi thêm một quả trứng."
+      },
+      {
+        "speaker": "A",
+        "name": "Server",
+        "en": "Sure! And for you?",
+        "vi": "Được! Còn bạn?"
+      },
+      {
+        "speaker": "B",
+        "name": "Aisha",
+        "en": "I'd like the vegetarian one, please. No shellfish.",
+        "vi": "Tôi muốn cái chay ạ. Không có hải sản nhé."
+      },
+      {
+        "speaker": "A",
+        "name": "Server",
+        "en": "Of course. Anything to drink?",
+        "vi": "Dĩ nhiên. Đồ uống gì không?"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for asking for the time.",
-        "vi": "Mẫu câu phản xạ về asking for the time."
+        "en": "I'd like [a steak / some soup].",
+        "vi": "I'd like [a steak / some soup]."
       },
       {
-        "en": "Practice expressing asking for the time clearly.",
-        "vi": "Luyện tập diễn đạt asking for the time rõ ràng."
+        "en": "Rare, medium, or well-done?",
+        "vi": "3 mức độ chín của thịt bò"
+      },
+      {
+        "en": "Anything else?",
+        "vi": "Anything else?"
       }
     ],
     "quizzes": [
@@ -716,43 +821,53 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 12,
-    "title": "12. Weather & Seasons",
-    "subtitle": "Bài 12 SE (Departures 12): Weather & Seasons",
-    "topic": "Weather & Seasons SE",
+    "title": "12. DO THIS! DON'T DO THAT!",
+    "subtitle": "Bài 12 SE: DO THIS! DON'T DO THAT!",
+    "topic": "DO THIS! DON'T DO THAT! (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 12 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to weather & seasons?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến weather & seasons không?",
-        "zh": "打扰一下，让我们讨论一下Weather & Seasons。",
-        "ko": "실례합니다, Weather & Seasons에 대해 논의해 봅시다."
+        "name": "Trainer (Marcus)",
+        "en": "Alright everyone, let's go! Jump!",
+        "vi": "Nào, bắt đầu thôi! Nhảy!"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Marcus",
+        "en": "Don't bend your knees too much!",
+        "vi": "Đừng cong gối quá!"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Marcus",
+        "en": "Push up! Hold it!",
+        "vi": "Chống đẩy! Giữ nguyên!"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Marcus",
+        "en": "Don't drop your hips!",
+        "vi": "Đừng để hông võng xuống!"
+      },
+      {
+        "speaker": "A",
+        "name": "Marcus",
+        "en": "Stand up! Breathe!",
+        "vi": "Đứng dậy! Thở đi!"
+      },
+      {
+        "speaker": "B",
+        "name": "Client (Tyler)",
+        "en": "How long do we hold this?",
+        "vi": "Giữ bao lâu vậy?"
+      },
+      {
+        "speaker": "A",
+        "name": "Marcus",
+        "en": "Don't talk! Just breathe!",
+        "vi": "Đừng nói! Cứ thở!"
       }
     ],
     "patterns": [
@@ -781,43 +896,17 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 13,
-    "title": "13. Transportation & Buses",
-    "subtitle": "Bài 13 SE (Departures 13): Transportation & Buses",
-    "topic": "Transportation & Buses SE",
+    "title": "13. ELTON KASK",
+    "subtitle": "Bài 13 SE: ELTON KASK",
+    "topic": "ELTON KASK (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 13 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to transportation & buses?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến transportation & buses không?",
-        "zh": "打扰一下，让我们讨论一下Transportation & Buses。",
-        "ko": "실례합니다, Transportation & Buses에 대해 논의해 봅시다."
-      },
-      {
-        "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
-      },
-      {
-        "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
-      },
-      {
-        "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Narrator (voiceover, trending audio)",
+        "en": "*(Giọng kể, phong cách TikTok viral)*",
+        "vi": "Đây là Chase Voss. Anh ta là content creator ở LA."
       }
     ],
     "patterns": [
@@ -846,53 +935,73 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 14,
-    "title": "14. At the Airport Customs",
-    "subtitle": "Bài 14 SE (Departures 14): At the Airport Customs",
-    "topic": "At the Airport Customs SE",
+    "title": "14. AT THE HAIRDRESSER'S",
+    "subtitle": "Bài 14 SE: AT THE HAIRDRESSER'S",
+    "topic": "AT THE HAIRDRESSER'S (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 14 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to at the airport customs?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến at the airport customs không?",
-        "zh": "打扰一下，让我们讨论一下At the Airport Customs。",
-        "ko": "실례합니다, At the Airport Customs에 대해 논의해 봅시다."
+        "name": "Mom",
+        "en": "Have you packed your suitcase yet?",
+        "vi": "Mẹ: Con xếp vali chưa?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Jake",
+        "en": "I've already packed it, Mom.",
+        "vi": "Jake: Con xếp rồi mẹ ơi."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Mom",
+        "en": "Did you call your grandmother?",
+        "vi": "Mẹ: Con gọi điện cho bà chưa?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Jake",
+        "en": "I've already called her. We talked for like an hour.",
+        "vi": "Jake: Gọi rồi mẹ. Tụi con nói chuyện gần một tiếng."
+      },
+      {
+        "speaker": "A",
+        "name": "Mom",
+        "en": "Have you done your laundry?",
+        "vi": "Mẹ: Giặt đồ chưa?"
+      },
+      {
+        "speaker": "B",
+        "name": "Jake",
+        "en": "I've already done it. Relax!",
+        "vi": "Jake: Xong rồi mẹ. Thư giãn đi!"
+      },
+      {
+        "speaker": "A",
+        "name": "Mom",
+        "en": "😅 Okay okay. Have you charged your laptop?",
+        "vi": "Mẹ: 😅 Ừ ừ. Sạc máy tính chưa?"
+      },
+      {
+        "speaker": "B",
+        "name": "Jake",
+        "en": "...not yet.",
+        "vi": "Jake: ...chưa."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for at the airport customs.",
-        "vi": "Mẫu câu phản xạ về at the airport customs."
+        "en": "I've already [washed / packed / called].",
+        "vi": "hành động đã hoàn thành"
       },
       {
-        "en": "Practice expressing at the airport customs clearly.",
-        "vi": "Luyện tập diễn đạt at the airport customs rõ ràng."
+        "en": "Have you [done it] yet?",
+        "vi": "Have you [done it] yet?"
+      },
+      {
+        "en": "already",
+        "vi": "already"
       }
     ],
     "quizzes": [
@@ -911,43 +1020,53 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 15,
-    "title": "15. Buying Train Tickets",
-    "subtitle": "Bài 15 SE (Departures 15): Buying Train Tickets",
-    "topic": "Buying Train Tickets SE",
+    "title": "15. EVERYDAY CONVERSATION",
+    "subtitle": "Bài 15 SE: EVERYDAY CONVERSATION",
+    "topic": "EVERYDAY CONVERSATION (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 15 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to buying train tickets?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến buying train tickets không?",
-        "zh": "打扰一下，让我们讨论一下Buying Train Tickets。",
-        "ko": "실례합니다, Buying Train Tickets에 대해 논의해 봅시다."
+        "name": "Olivia",
+        "en": "Okay everyone, have you packed yet?",
+        "vi": "Nào mọi người, xếp đồ chưa?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "DeShawn",
+        "en": "I've already packed. Since yesterday lol.",
+        "vi": "Xếp từ hôm qua rồi lol."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Olivia",
+        "en": "Ryan, don't forget your charger this time!",
+        "vi": "Ryan, lần này đừng quên sạc nhé!"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Ryan",
+        "en": "I've already put it in the bag, chill!",
+        "vi": "Bỏ vô túi rồi, thư giãn đi!"
+      },
+      {
+        "speaker": "A",
+        "name": "Olivia",
+        "en": "And don't bring too many bags — we only have one trunk.",
+        "vi": "Và đừng mang nhiều túi quá — chúng ta chỉ có một cốp xe."
+      },
+      {
+        "speaker": "B",
+        "name": "DeShawn",
+        "en": "Would anyone like Chick-fil-A on the way?",
+        "vi": "Ai muốn ghé Chick-fil-A trên đường không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Everyone",
+        "en": "YES.",
+        "vi": "Muốn hết."
       }
     ],
     "patterns": [
@@ -976,53 +1095,27 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 16,
-    "title": "16. At the Bakery",
-    "subtitle": "Bài 16 SE (Departures 16): At the Bakery",
-    "topic": "At the Bakery SE",
+    "title": "16. GLORIA GUSTO, TOM ATKINS",
+    "subtitle": "Bài 16 SE: GLORIA GUSTO, TOM ATKINS",
+    "topic": "GLORIA GUSTO, TOM ATKINS (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 16 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to at the bakery?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến at the bakery không?",
-        "zh": "打扰一下，让我们讨论一下At the Bakery。",
-        "ko": "실례합니다, At the Bakery에 대해 논의해 봅시다."
-      },
-      {
-        "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
-      },
-      {
-        "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
-      },
-      {
-        "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Narrator (podcast voice)",
+        "en": "*Profile 1 — Brandon Liu.*",
+        "vi": "Brandon là founder startup ở San Francisco. Anh có căn penthouse ở SOMA và Tesla Model S. Anh có 50,000 người theo dõi LinkedIn và công ty được VC rót vốn. Anh có tất cả — kể cả podcast chẳng ai cần."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for at the bakery.",
-        "vi": "Mẫu câu phản xạ về at the bakery."
+        "en": "I've got / He's got / She hasn't got",
+        "vi": "British English"
       },
       {
-        "en": "Practice expressing at the bakery clearly.",
-        "vi": "Luyện tập diễn đạt at the bakery rõ ràng."
+        "en": "I've got everything.",
+        "vi": "I've got everything."
       }
     ],
     "quizzes": [
@@ -1041,53 +1134,73 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 17,
-    "title": "17. At the Restaurant",
-    "subtitle": "Bài 17 SE (Departures 17): At the Restaurant",
-    "topic": "At the Restaurant SE",
+    "title": "17. AT THE CUSTOMS",
+    "subtitle": "Bài 17 SE: AT THE CUSTOMS",
+    "topic": "AT THE CUSTOMS (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 17 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to at the restaurant?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến at the restaurant không?",
-        "zh": "打扰一下，让我们讨论一下At the Restaurant。",
-        "ko": "실례합니다, At the Restaurant에 대해 논의해 봅시다."
+        "name": "CBP Officer",
+        "en": "Next! Passport please.",
+        "vi": "Người tiếp theo! Hộ chiếu."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Ryan",
+        "en": "Here you go.",
+        "vi": "Đây ạ."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Officer",
+        "en": "Do you have anything to declare? Any food, alcohol, or items over $800?",
+        "vi": "Bạn có gì cần khai báo không? Thực phẩm, rượu bia, hay đồ trên 800 đô?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Ryan",
+        "en": "No, I don't. Just my clothes and stuff.",
+        "vi": "Không ạ. Chỉ quần áo và đồ cá nhân thôi."
+      },
+      {
+        "speaker": "A",
+        "name": "Officer",
+        "en": "How many bags do you have?",
+        "vi": "Bạn có bao nhiêu túi?"
+      },
+      {
+        "speaker": "B",
+        "name": "Ryan",
+        "en": "Just two. One carry-on, one checked.",
+        "vi": "Chỉ hai. Một xách tay, một ký gửi."
+      },
+      {
+        "speaker": "A",
+        "name": "Officer",
+        "en": "What do you have in your backpack?",
+        "vi": "Trong ba lô bạn có gì?"
+      },
+      {
+        "speaker": "B",
+        "name": "Ryan",
+        "en": "My laptop, some snacks... and like, a lot of sunscreen.",
+        "vi": "Máy tính, đồ ăn vặt... và rất nhiều kem chống nắng."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for at the restaurant.",
-        "vi": "Mẫu câu phản xạ về at the restaurant."
+        "en": "Do you have anything to declare?",
+        "vi": "câu hỏi yes/no chuẩn hải quan"
       },
       {
-        "en": "Practice expressing at the restaurant clearly.",
-        "vi": "Luyện tập diễn đạt at the restaurant rõ ràng."
+        "en": "Yes, I do. / No, I don't.",
+        "vi": "short answers với `do`"
+      },
+      {
+        "en": "May I see your [passport]?",
+        "vi": "lịch sự hơn `Can I see...`"
       }
     ],
     "quizzes": [
@@ -1106,53 +1219,67 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 18,
-    "title": "18. Doctor's Appointment",
-    "subtitle": "Bài 18 SE (Departures 18): Doctor's Appointment",
-    "topic": "Doctor's Appointment SE",
+    "title": "18. WHICH ONE?",
+    "subtitle": "Bài 18 SE: WHICH ONE?",
+    "topic": "WHICH ONE? (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 18 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to doctor's appointment?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến doctor's appointment không?",
-        "zh": "打扰一下，让我们讨论一下Doctor's Appointment。",
-        "ko": "실례합니다, Doctor's Appointment에 대해 논의해 봅시다."
+        "name": "Jaylen",
+        "en": "Okay which ones do you like?",
+        "vi": "Oke mày thích cái nào?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Connor",
+        "en": "Those ones. The white ones.",
+        "vi": "Những cái đó. Cái màu trắng."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Jaylen",
+        "en": "Which one exactly? The Nike or the New Balance?",
+        "vi": "Cái nào cụ thể? Nike hay New Balance?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Connor",
+        "en": "The New Balance ones. The clean ones, not the chunky one.",
+        "vi": "Cái New Balance. Cái gọn, không phải cái to cục mịch."
+      },
+      {
+        "speaker": "A",
+        "name": "Jaylen",
+        "en": "Those are $150. Which size?",
+        "vi": "Cái đó 150 đô. Size nào?"
+      },
+      {
+        "speaker": "B",
+        "name": "Connor",
+        "en": "Size 11. Hey, which bag is yours by the way?",
+        "vi": "Size 11. Này, túi nào của mày?"
+      },
+      {
+        "speaker": "A",
+        "name": "Jaylen",
+        "en": "The black one on the bench.",
+        "vi": "Cái đen trên ghế kia."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for doctor's appointment.",
-        "vi": "Mẫu câu phản xạ về doctor's appointment."
+        "en": "Which [glass] is yours?",
+        "vi": "Which [glass] is yours?"
       },
       {
-        "en": "Practice expressing doctor's appointment clearly.",
-        "vi": "Luyện tập diễn đạt doctor's appointment rõ ràng."
+        "en": "one",
+        "vi": "one"
+      },
+      {
+        "en": "ones",
+        "vi": "ones"
       }
     ],
     "quizzes": [
@@ -1171,43 +1298,53 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 19,
-    "title": "19. Asking for Price",
-    "subtitle": "Bài 19 SE (Departures 19): Asking for Price",
-    "topic": "Asking for Price SE",
+    "title": "19. EVERYDAY CONVERSATION",
+    "subtitle": "Bài 19 SE: EVERYDAY CONVERSATION",
+    "topic": "EVERYDAY CONVERSATION (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 19 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to asking for price?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến asking for price không?",
-        "zh": "打扰一下，让我们讨论一下Asking for Price。",
-        "ko": "실례합니다, Asking for Price에 대해 논의해 봅시다."
+        "name": "Sophia",
+        "en": "Excuse me, is this seat taken?",
+        "vi": "Xin lỗi, chỗ này có ai ngồi chưa?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Noah",
+        "en": "No, go ahead!",
+        "vi": "Không, mời bạn."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Sophia",
+        "en": "Thanks. Which flight are you on?",
+        "vi": "Cảm ơn. Bạn đi chuyến nào?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Noah",
+        "en": "The one to Denver. You?",
+        "vi": "Chuyến đến Denver. Còn bạn?"
+      },
+      {
+        "speaker": "A",
+        "name": "Sophia",
+        "en": "Same one! Have you already checked in?",
+        "vi": "Cùng chuyến! Bạn làm thủ tục rồi chưa?"
+      },
+      {
+        "speaker": "B",
+        "name": "Noah",
+        "en": "Yeah, I've already done it online. Do you have a carry-on?",
+        "vi": "Rồi, tôi làm trực tuyến rồi. Bạn có hành lý xách tay không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Sophia",
+        "en": "Just this one.",
+        "vi": "Chỉ cái này thôi."
       }
     ],
     "patterns": [
@@ -1236,53 +1373,49 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 20,
-    "title": "20. Making Weekend Plans",
-    "subtitle": "Bài 20 SE (Departures 20): Making Weekend Plans",
-    "topic": "Making Weekend Plans SE",
+    "title": "20. A POSTCARD",
+    "subtitle": "Bài 20 SE: A POSTCARD",
+    "topic": "A POSTCARD (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 20 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to making weekend plans?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến making weekend plans không?",
-        "zh": "打扰一下，让我们讨论一下Making Weekend Plans。",
-        "ko": "실례합니다, Making Weekend Plans에 대해 논의해 봅시다."
+        "name": "Story slide 1",
+        "en": "*\"Hey guys! Currently in Bali and I'm literally not okay 😭\"*",
+        "vi": "Này mọi người! Hiện đang ở Bali và tôi literally không ổn 😭"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Story slide 2",
+        "en": "*\"The weather is perfect. I'm staying at this insane villa with a private pool. The food is SO good and SO cheap.\"*",
+        "vi": "Thời tiết hoàn hảo. Tôi đang ở một biệt thự tuyệt vời với hồ bơi riêng. Đồ ăn NGON và RẺ kinh khủng."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Story slide 3 (DM reply)",
+        "en": "**Friend:** Wish I was there!!",
+        "vi": "Ước gì tao cũng ở đó!!"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Poster",
+        "en": "SAME. Come next time, no excuses.",
+        "vi": "ĐÚNG VẬY. Lần sau đi cùng nhé, không có lý do gì không đi."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for making weekend plans.",
-        "vi": "Mẫu câu phản xạ về making weekend plans."
+        "en": "I'm having a great time.",
+        "vi": "Present Continuous diễn tả việc đang diễn ra ngay lúc viết"
       },
       {
-        "en": "Practice expressing making weekend plans clearly.",
-        "vi": "Luyện tập diễn đạt making weekend plans rõ ràng."
+        "en": "Wish you were here!",
+        "vi": "cụm cố định, dùng subjunctive (were thay cho was)"
+      },
+      {
+        "en": "See you soon!",
+        "vi": "kết thư thân mật chuẩn"
       }
     ],
     "quizzes": [
@@ -1301,53 +1434,61 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 21,
-    "title": "21. Describing Hobbies",
-    "subtitle": "Bài 21 SE (Departures 21): Describing Hobbies",
-    "topic": "Describing Hobbies SE",
+    "title": "21. WHAT'S THE TIME?",
+    "subtitle": "Bài 21 SE: WHAT'S THE TIME?",
+    "topic": "WHAT'S THE TIME? (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 21 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to describing hobbies?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến describing hobbies không?",
-        "zh": "打扰一下，让我们讨论一下Describing Hobbies。",
-        "ko": "실례합니다, Describing Hobbies에 대해 논의해 봅시다."
+        "name": "Jaylen",
+        "en": "Hey, sorry! Do you have the time? My phone's dead.",
+        "vi": "Này, xin lỗi! Bạn có giờ không? Điện thoại tôi hết pin rồi."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Stranger (Maya)",
+        "en": "Yeah, it's half past seven.",
+        "vi": "Rồi, bây giờ là 7 rưỡi."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Jaylen",
+        "en": "Wait, half past seven?! The headliner goes on at quarter to eight!",
+        "vi": "Khoan, 7 rưỡi rồi?! Nghệ sĩ chính lên sân khấu lúc 7:45!"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Maya",
+        "en": "Yeah, you've got like fifteen minutes. You're cutting it close!",
+        "vi": "Ừ, còn khoảng 15 phút. Bạn sát nút quá!"
+      },
+      {
+        "speaker": "A",
+        "name": "Jaylen",
+        "en": "Which stage? Is it quarter past or quarter to?",
+        "vi": "Sân khấu nào? Lúc 15 phút qua hay 15 phút trước?"
+      },
+      {
+        "speaker": "B",
+        "name": "Maya",
+        "en": "Quarter to — stage B. Run!",
+        "vi": "15 phút trước 8 — sân khấu B. Chạy đi!"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for describing hobbies.",
-        "vi": "Mẫu câu phản xạ về describing hobbies."
+        "en": "What's the time?",
+        "vi": "What's the time?"
       },
       {
-        "en": "Practice expressing describing hobbies clearly.",
-        "vi": "Luyện tập diễn đạt describing hobbies rõ ràng."
+        "en": "It's 7:30",
+        "vi": "It's 7:30"
+      },
+      {
+        "en": "It's 7:45",
+        "vi": "It's 7:45"
       }
     ],
     "quizzes": [
@@ -1366,53 +1507,67 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 22,
-    "title": "22. In a Department Store",
-    "subtitle": "Bài 22 SE (Departures 22): In a Department Store",
-    "topic": "In a Department Store SE",
+    "title": "22. CAN I HELP YOU?",
+    "subtitle": "Bài 22 SE: CAN I HELP YOU?",
+    "topic": "CAN I HELP YOU? (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 22 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to in a department store?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến in a department store không?",
-        "zh": "打扰一下，让我们讨论一下In a Department Store。",
-        "ko": "실례합니다, In a Department Store에 대해 논의해 봅시다."
+        "name": "Associate (Zoe)",
+        "en": "Hey there, can I help you find anything?",
+        "vi": "Chào bạn, tôi có thể giúp bạn tìm gì không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Customer (Ethan)",
+        "en": "Yeah... I'm bringing something to a first date and I have no idea what to get.",
+        "vi": "Ừ... tôi đang mang gì đó đến buổi hẹn đầu tiên và không biết mua gì."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Zoe",
+        "en": "Oh, fun! What do you recommend? Flowers? Wine?",
+        "vi": "Ồ, hay đó! Bạn muốn gì? Hoa? Rượu?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Ethan",
+        "en": "What would you recommend?",
+        "vi": "Bạn gợi ý gì cho tôi?"
+      },
+      {
+        "speaker": "A",
+        "name": "Zoe",
+        "en": "Honestly? The bouquet by the entrance is really nice right now. Sunflowers are very popular this season.",
+        "vi": "Thật lòng? Bó hoa ở lối vào đang rất đẹp. Hoa hướng dương rất được ưa chuộng mùa này."
+      },
+      {
+        "speaker": "B",
+        "name": "Ethan",
+        "en": "Perfect. I'll take one, please. And... would you like to come?",
+        "vi": "Hoàn hảo. Cho tôi một bó. Và... bạn có muốn đi cùng không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Zoe",
+        "en": "😐 I'm working.",
+        "vi": "😐 Tôi đang làm việc."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for in a department store.",
-        "vi": "Mẫu câu phản xạ về in a department store."
+        "en": "Can I help you?",
+        "vi": "Lời chào mời của nhân viên (Mỹ hay nói `Can I help you find anything?`)"
       },
       {
-        "en": "Practice expressing in a department store clearly.",
-        "vi": "Luyện tập diễn đạt in a department store rõ ràng."
+        "en": "What do you recommend?",
+        "vi": "What do you recommend?"
+      },
+      {
+        "en": "I'll take [one / a dozen], please.",
+        "vi": "cách order lịch sự chuẩn Mỹ"
       }
     ],
     "quizzes": [
@@ -1431,53 +1586,61 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 23,
-    "title": "23. At the Post Office",
-    "subtitle": "Bài 23 SE (Departures 23): At the Post Office",
-    "topic": "At the Post Office SE",
+    "title": "23. HE CAN'T BE A TEACHER!",
+    "subtitle": "Bài 23 SE: HE CAN'T BE A TEACHER!",
+    "topic": "HE CAN'T BE A TEACHER! (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 23 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to at the post office?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến at the post office không?",
-        "zh": "打扰一下，让我们讨论一下At the Post Office。",
-        "ko": "실례합니다, At the Post Office에 대해 논의해 봅시다."
+        "name": "Brianna",
+        "en": "Wait, he can't be our professor. He looks like he's 22.",
+        "vi": "Khoan, anh ta không thể là giáo sư của mình được. Trông như mới 22 tuổi."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "DeShawn",
+        "en": "He's a TA. Can he actually grade our papers?",
+        "vi": "Anh ta là trợ giảng. Anh ta có thể chấm bài của tụi mình không?"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Brianna",
+        "en": "Yeah, TAs can do that. Can he fail us though?",
+        "vi": "Ừ, trợ giảng làm được. Nhưng anh ta có thể đánh rớt mình không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "DeShawn",
+        "en": "I think he can recommend it but can't officially decide.",
+        "vi": "Tôi nghĩ anh ta có thể đề xuất nhưng không thể quyết định chính thức."
+      },
+      {
+        "speaker": "A",
+        "name": "Brianna",
+        "en": "Okay. Can you speak to him after class?",
+        "vi": "Ừ. Bạn có thể nói chuyện với anh ta sau giờ học không?"
+      },
+      {
+        "speaker": "B",
+        "name": "DeShawn",
+        "en": "No, I can't. You can — you're better at this stuff.",
+        "vi": "Không, tôi không thể. Bạn làm được — bạn giỏi khoản này hơn."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for at the post office.",
-        "vi": "Mẫu câu phản xạ về at the post office."
+        "en": "Can you [speak French / drive / swim]?",
+        "vi": "Can you [speak French / drive / swim]?"
       },
       {
-        "en": "Practice expressing at the post office clearly.",
-        "vi": "Luyện tập diễn đạt at the post office rõ ràng."
+        "en": "He can't be [a teacher]!",
+        "vi": "dùng `can't` để suy đoán điều không thể xảy ra"
+      },
+      {
+        "en": "can",
+        "vi": "can"
       }
     ],
     "quizzes": [
@@ -1496,43 +1659,53 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 24,
-    "title": "24. Asking for Help",
-    "subtitle": "Bài 24 SE (Departures 24): Asking for Help",
-    "topic": "Asking for Help SE",
+    "title": "24. EVERYDAY CONVERSATION",
+    "subtitle": "Bài 24 SE: EVERYDAY CONVERSATION",
+    "topic": "EVERYDAY CONVERSATION (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 24 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to asking for help?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến asking for help không?",
-        "zh": "打扰一下，让我们讨论一下Asking for Help。",
-        "ko": "실례합니다, Asking for Help에 대해 논의해 봅시다."
+        "name": "Emma",
+        "en": "Hey, can everyone meet at the library at half past two?",
+        "vi": "Này, mọi người có thể gặp nhau ở thư viện lúc 2 rưỡi không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Liam",
+        "en": "I can't. I have class until quarter to three.",
+        "vi": "Tôi không thể. Tôi có lớp đến 2:45."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Sofia",
+        "en": "Can we make it three o'clock instead?",
+        "vi": "Mình dời lại 3 giờ được không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Emma",
+        "en": "Sure! Can you bring your notes, Liam?",
+        "vi": "Được! Liam mang notes theo nhé?"
+      },
+      {
+        "speaker": "A",
+        "name": "Liam",
+        "en": "Yeah, I can. Can someone order coffee? I can Venmo you.",
+        "vi": "Được. Ai order cà phê giúp không? Tôi Venmo cho."
+      },
+      {
+        "speaker": "B",
+        "name": "Sofia",
+        "en": "I can do that. What do you recommend? Cold brew?",
+        "vi": "Để tôi làm. Bạn gợi ý gì? Cold brew?"
+      },
+      {
+        "speaker": "A",
+        "name": "Liam",
+        "en": "Perfect. See you at three!",
+        "vi": "Hoàn hảo. Gặp lúc 3 giờ nhé!"
       }
     ],
     "patterns": [
@@ -1561,53 +1734,63 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 25,
-    "title": "25. Inviting Friends to Dinner",
-    "subtitle": "Bài 25 SE (Departures 25): Inviting Friends to Dinner",
-    "topic": "Inviting Friends to Dinner SE",
+    "title": "25. YESTERDAY",
+    "subtitle": "Bài 25 SE: YESTERDAY",
+    "topic": "YESTERDAY (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 25 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to inviting friends to dinner?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến inviting friends to dinner không?",
-        "zh": "打扰一下，让我们讨论一下Inviting Friends to Dinner。",
-        "ko": "실례합니다, Inviting Friends to Dinner에 대해 논의해 봅시다."
+        "name": "Tyler",
+        "en": "Hey! How was your weekend?",
+        "vi": "Này! Cuối tuần của bạn thế nào?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Jasmine",
+        "en": "It was so good! I went to that new rooftop bar on Saturday.",
+        "vi": "Tuyệt lắm! Thứ Bảy tôi đi quán bar trên mái nhà mới đó."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Tyler",
+        "en": "Oh nice! Was it crowded?",
+        "vi": "Ồ hay đó! Đông không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Jasmine",
+        "en": "A little. But I had an amazing time. The view was incredible.",
+        "vi": "Hơi đông. Nhưng tôi vui lắm. Tầm nhìn đẹp không tả được."
+      },
+      {
+        "speaker": "A",
+        "name": "Tyler",
+        "en": "Did you go with your roommates?",
+        "vi": "Bạn đi với mấy người ở cùng không?"
+      },
+      {
+        "speaker": "B",
+        "name": "Jasmine",
+        "en": "Yeah, we all went together. What did you do?",
+        "vi": "Ừ, tụi tôi đi cùng nhau. Còn bạn làm gì?"
+      },
+      {
+        "speaker": "A",
+        "name": "Tyler",
+        "en": "I stayed home and rewatched Succession. Again.",
+        "vi": "Tôi ở nhà xem lại Succession. Lần nữa."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for inviting friends to dinner.",
-        "vi": "Mẫu câu phản xạ về inviting friends to dinner."
+        "en": "Where were you [yesterday]?",
+        "vi": "Where were you [yesterday]?"
       },
       {
-        "en": "Practice expressing inviting friends to dinner clearly.",
-        "vi": "Luyện tập diễn đạt inviting friends to dinner rõ ràng."
+        "en": "Did you have a good time?",
+        "vi": "Did you have a good time?"
       }
     ],
     "quizzes": [
@@ -1626,53 +1809,57 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 26,
-    "title": "26. Talking about Pets",
-    "subtitle": "Bài 26 SE (Departures 26): Talking about Pets",
-    "topic": "Talking about Pets SE",
+    "title": "26. WHAT'S ON TV TONIGHT?",
+    "subtitle": "Bài 26 SE: WHAT'S ON TV TONIGHT?",
+    "topic": "WHAT'S ON TV TONIGHT? (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 26 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to talking about pets?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến talking about pets không?",
-        "zh": "打扰一下，让我们讨论一下Talking about Pets。",
-        "ko": "실례합니다, Talking about Pets에 대해 논의해 봅시다."
+        "name": "Noah",
+        "en": "What's on Netflix tonight? Anything new?",
+        "vi": "Tối nay Netflix có gì? Có gì mới không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Riley",
+        "en": "There's a new true crime doc. It starts at... well, anytime — it's on demand.",
+        "vi": "Có phim tài liệu tội phạm có thật mới. Bắt đầu lúc... thôi muốn xem lúc nào thì xem — theo yêu cầu mà."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Noah",
+        "en": "What time does the live football game start?",
+        "vi": "Trận bóng trực tiếp bắt đầu lúc mấy giờ?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Riley",
+        "en": "It starts at half past eight. Finishes around eleven.",
+        "vi": "Bắt đầu lúc 8 rưỡi. Kết thúc khoảng 11 giờ."
+      },
+      {
+        "speaker": "A",
+        "name": "Noah",
+        "en": "What channel?",
+        "vi": "Kênh mấy?"
+      },
+      {
+        "speaker": "B",
+        "name": "Riley",
+        "en": "ESPN2. But we can stream it on the app.",
+        "vi": "ESPN2. Nhưng mình cũng có thể xem trên app."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for talking about pets.",
-        "vi": "Mẫu câu phản xạ về talking about pets."
+        "en": "What time does it start?",
+        "vi": "What time does it start?"
       },
       {
-        "en": "Practice expressing talking about pets clearly.",
-        "vi": "Luyện tập diễn đạt talking about pets rõ ràng."
+        "en": "It finishes at [half past ten].",
+        "vi": "It finishes at [half past ten]."
       }
     ],
     "quizzes": [
@@ -1691,53 +1878,61 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 27,
-    "title": "27. Sports & Fitness",
-    "subtitle": "Bài 27 SE (Departures 27): Sports & Fitness",
-    "topic": "Sports & Fitness SE",
+    "title": "27. AT THE PARTY",
+    "subtitle": "Bài 27 SE: AT THE PARTY",
+    "topic": "AT THE PARTY (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 27 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to sports & fitness?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến sports & fitness không?",
-        "zh": "打扰一下，让我们讨论一下Sports & Fitness。",
-        "ko": "실례합니다, Sports & Fitness에 대해 논의해 봅시다."
+        "name": "Carlos",
+        "en": "Did you enjoy the party last night?",
+        "vi": "Tối qua bạn có vui ở bữa tiệc không?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Mia",
+        "en": "Yes! I had so much fun. Did you stay late?",
+        "vi": "Có! Vui lắm. Bạn có ở lại muộn không?"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Carlos",
+        "en": "Yeah, I left at like two. Who did you talk to?",
+        "vi": "Ừ, tôi về khoảng 2 giờ. Bạn nói chuyện với ai?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Mia",
+        "en": "I talked to Jake's girlfriend — she was super nice. Did you meet her?",
+        "vi": "Tôi nói chuyện với bạn gái của Jake — cô ấy rất dễ thương. Bạn có gặp cô ấy không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Carlos",
+        "en": "Yeah, I did! She was really interesting. Did you see what happened with the cake?",
+        "vi": "Có! Cô ấy rất thú vị. Bạn có thấy cái gì xảy ra với cái bánh không?"
+      },
+      {
+        "speaker": "B",
+        "name": "Mia",
+        "en": "Yes I did and I am STILL thinking about it 😭",
+        "vi": "Có thấy và tôi VẪN đang nghĩ về nó 😭"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for sports & fitness.",
-        "vi": "Mẫu câu phản xạ về sports & fitness."
+        "en": "Did you enjoy the [party]?",
+        "vi": "Did you enjoy the [party]?"
       },
       {
-        "en": "Practice expressing sports & fitness clearly.",
-        "vi": "Luyện tập diễn đạt sports & fitness rõ ràng."
+        "en": "Who did you talk to?",
+        "vi": "Who did you talk to?"
+      },
+      {
+        "en": "Did you meet [name]?",
+        "vi": "Did you meet [name]?"
       }
     ],
     "quizzes": [
@@ -1756,43 +1951,47 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 28,
-    "title": "28. At the Cinema",
-    "subtitle": "Bài 28 SE (Departures 28): At the Cinema",
-    "topic": "At the Cinema SE",
+    "title": "28. EVERYDAY CONVERSATION",
+    "subtitle": "Bài 28 SE: EVERYDAY CONVERSATION",
+    "topic": "EVERYDAY CONVERSATION (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 28 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to at the cinema?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến at the cinema không?",
-        "zh": "打扰一下，让我们讨论一下At the Cinema。",
-        "ko": "실례합니다, At the Cinema에 대해 논의해 봅시다."
+        "name": "Olivia",
+        "en": "So what did you do this week? I feel like I didn't see you at all.",
+        "vi": "Vậy tuần này bạn làm gì? Tôi cảm giác không thấy bạn đâu cả."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Ryan",
+        "en": "I had midterms. I was at the library every day. What about you?",
+        "vi": "Tôi có thi giữa kỳ. Ngày nào tôi cũng ở thư viện. Còn bạn?"
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Olivia",
+        "en": "I went to a rooftop concert on Thursday. It was amazing!",
+        "vi": "Tôi đi xem hòa nhạc trên mái nhà tối thứ Năm. Tuyệt vời lắm!"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Ryan",
+        "en": "Did you go alone?",
+        "vi": "Bạn đi một mình không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Olivia",
+        "en": "No, I went with Sofia. Did you finish your midterms?",
+        "vi": "Không, tôi đi với Sofia. Bạn thi xong chưa?"
+      },
+      {
+        "speaker": "B",
+        "name": "Ryan",
+        "en": "Yes! I finished yesterday. I had pizza and watched three movies.",
+        "vi": "Rồi! Tôi thi xong hôm qua. Tôi ăn pizza và xem ba bộ phim."
       }
     ],
     "patterns": [
@@ -1821,53 +2020,61 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 29,
-    "title": "29. Renting an Apartment",
-    "subtitle": "Bài 29 SE (Departures 29): Renting an Apartment",
-    "topic": "Renting an Apartment SE",
+    "title": "29. WHAT WERE YOU DOING?",
+    "subtitle": "Bài 29 SE: WHAT WERE YOU DOING?",
+    "topic": "WHAT WERE YOU DOING? (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 29 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to renting an apartment?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến renting an apartment không?",
-        "zh": "打扰一下，让我们讨论一下Renting an Apartment。",
-        "ko": "실례합니다, Renting an Apartment에 대해 논의해 봅시다."
+        "name": "Host (podcast)",
+        "en": "What were you doing when you heard the news?",
+        "vi": "Bạn đang làm gì khi nghe tin?"
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Caller 1 (Aisha)",
+        "en": "I was scrolling TikTok at 2am when my FYP just blew up.",
+        "vi": "Tôi đang lướt TikTok lúc 2 giờ sáng thì FYP của tôi toàn tin đó."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Caller 2 (Marcus)",
+        "en": "I was sleeping! My phone kept buzzing so I woke up.",
+        "vi": "Tôi đang ngủ! Điện thoại rung mãi nên tôi thức dậy."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Caller 3 (Sofia)",
+        "en": "I was studying for an exam. I gave up immediately.",
+        "vi": "Tôi đang ôn thi. Tôi bỏ cuộc ngay lập tức."
+      },
+      {
+        "speaker": "A",
+        "name": "Caller 4 (Jake)",
+        "en": "I was driving home from work and nearly crashed when the notification popped up.",
+        "vi": "Tôi đang lái xe về nhà từ chỗ làm và suýt đâm xe khi thông báo hiện lên."
+      },
+      {
+        "speaker": "B",
+        "name": "Host",
+        "en": "While you were all sleeping or driving, history was happening!",
+        "vi": "Trong khi mọi người đang ngủ hay lái xe, lịch sử đang được tạo ra!"
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for renting an apartment.",
-        "vi": "Mẫu câu phản xạ về renting an apartment."
+        "en": "What were you doing [at 4 o'clock]?",
+        "vi": "What were you doing [at 4 o'clock]?"
       },
       {
-        "en": "Practice expressing renting an apartment clearly.",
-        "vi": "Luyện tập diễn đạt renting an apartment rõ ràng."
+        "en": "What were you doing WHEN [the news broke]?",
+        "vi": "Past Continuous bị gián đoạn"
+      },
+      {
+        "en": "While you were [sleeping], I was [working].",
+        "vi": "2 việc xảy ra đồng thời"
       }
     ],
     "quizzes": [
@@ -1886,53 +2093,81 @@ export const DEPARTURES_LESSONS = [
   },
   {
     "id": 30,
-    "title": "30. Borrowing Books at Library",
-    "subtitle": "Bài 30 SE (Departures 30): Borrowing Books at Library",
-    "topic": "Borrowing Books at Library SE",
+    "title": "30. I WANT YOU, FIONA",
+    "subtitle": "Bài 30 SE: I WANT YOU, FIONA",
+    "topic": "I WANT YOU, FIONA (GenZ 2025)",
     "level": "A1 Departures",
     "description": "Luyện tập phản xạ giao tiếp nâng cao thuộc bài học số 30 trong bộ 320 bài Master.",
     "dialogue": [
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Excuse me, is this related to borrowing books at library?",
-        "vi": "Xin lỗi quý khách, cái này có liên quan đến borrowing books at library không?",
-        "zh": "打扰一下，让我们讨论一下Borrowing Books at Library。",
-        "ko": "실례합니다, Borrowing Books at Library에 대해 논의해 봅시다."
+        "name": "Brandon",
+        "en": "Hey... I know it's late but I need to say this.",
+        "vi": "Này... Tôi biết muộn rồi nhưng tôi cần nói điều này."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "Yes, it is! Let me show you right away.",
-        "vi": "Vâng đúng rồi! Để tôi hướng dẫn cho bạn ngay.",
-        "zh": "是的，这是Departures部分非常重要的主题。",
-        "ko": "네, Departures 부분에서 매우 중요한 주제입니다."
+        "name": "Brandon",
+        "en": "I like you. A lot. I think I love you.",
+        "vi": "Tôi thích bạn. Rất nhiều. Tôi nghĩ tôi yêu bạn."
       },
       {
         "speaker": "A",
-        "name": "Stranger A",
-        "en": "Thank you very much for your help.",
-        "vi": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "zh": "我们如何才能有效练习这些核心表达？",
-        "ko": "이러한 핵심 표현을 어떻게 효과적으로 연습할 수 있나요?"
+        "name": "Kayla",
+        "en": "Brandon... I'm sorry. I can't.",
+        "vi": "Brandon... Tôi xin lỗi. Tôi không thể."
       },
       {
         "speaker": "B",
-        "name": "Person B",
-        "en": "You're welcome. Have a pleasant day!",
-        "vi": "Không có chi. Chúc bạn một ngày tốt lành!",
-        "zh": "通过每天使用互动角色扮演和反射句型！",
-        "ko": "매일 대화형 역할극과 반사 패턴을 사용하는 것입니다!"
+        "name": "Brandon",
+        "en": "Why not? Don't you like me at all?",
+        "vi": "Tại sao? Bạn không thích tôi chút nào sao?"
+      },
+      {
+        "speaker": "A",
+        "name": "Kayla",
+        "en": "I like you. You're a great person. But I don't feel that way about you.",
+        "vi": "Tôi thích bạn. Bạn là người tuyệt vời. Nhưng tôi không có cảm giác đó với bạn."
+      },
+      {
+        "speaker": "B",
+        "name": "Brandon",
+        "en": "Is there someone else?",
+        "vi": "Có người khác không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Kayla",
+        "en": "...yes.",
+        "vi": "…có."
+      },
+      {
+        "speaker": "B",
+        "name": "Brandon",
+        "en": "Is it Tyler?",
+        "vi": "Có phải Tyler không?"
+      },
+      {
+        "speaker": "A",
+        "name": "Kayla",
+        "en": "I know this hurts. I'm sorry.",
+        "vi": "Tôi biết điều này làm bạn đau. Tôi xin lỗi."
+      },
+      {
+        "speaker": "B",
+        "name": "Brandon",
+        "en": "It's fine. I understand. I just needed you to know.",
+        "vi": "Không sao. Tôi hiểu. Tôi chỉ cần bạn biết thôi."
       }
     ],
     "patterns": [
       {
-        "en": "Key pattern for borrowing books at library.",
-        "vi": "Mẫu câu phản xạ về borrowing books at library."
+        "en": "I only want [James / you].",
+        "vi": "`only` nhấn mạnh sự độc nhất"
       },
       {
-        "en": "Practice expressing borrowing books at library clearly.",
-        "vi": "Luyện tập diễn đạt borrowing books at library rõ ràng."
+        "en": "Do you love another man?",
+        "vi": "Do you love another man?"
       }
     ],
     "quizzes": [

@@ -118,6 +118,10 @@
               <span class="btn-icon">⏹</span>
               <span class="btn-text" data-i18n="btnStopPlay">Dừng lại</span>
             </button>
+            <button id="btnCopyPrompt" class="btn-secondary" style="background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; border: none;" title="Sao chép Prompt AI Video cho Sora / Runway / Kling">
+              <span class="btn-icon">🎬</span>
+              <span class="btn-text">Prompt Video AI</span>
+            </button>
           </div>
         </div>
 
@@ -129,6 +133,20 @@
           <div class="wave-bar"></div>
           <div class="wave-bar"></div>
           <span class="speech-status-text" id="speechStatusText">Đang phát âm...</span>
+        </div>
+
+        <!-- Lesson AI Video Container -->
+        <div id="lessonVideoContainer" class="lesson-video-container hidden">
+          <div class="video-header">
+            <span class="video-title">🎬 AI Video Minh Họa Bài Học</span>
+            <button id="btnToggleVideo" class="btn-toggle-video" title="Thu gọn/Mở rộng Video">👁️ Ẩn Video</button>
+          </div>
+          <div class="video-wrapper" id="videoWrapper">
+            <video id="lessonVideoPlayer" controls playsinline preload="metadata">
+              <source id="lessonVideoSource" src="" type="video/mp4">
+              Trình duyệt của bạn không hỗ trợ phát video HTML5.
+            </video>
+          </div>
         </div>
 
         <!-- Chat Bubble Stream Container -->
