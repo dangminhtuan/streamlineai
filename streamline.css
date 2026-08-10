@@ -307,7 +307,7 @@ body {
   margin: 1.5rem auto;
   padding: 0 1.5rem;
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 1fr 340px;
   gap: 1.5rem;
   flex: 1;
 }
