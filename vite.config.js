@@ -7,7 +7,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   server: {
     port: 5120,
-    strictPort: true
+    strictPort: true,
+    host: true
   },
   build: {
     rollupOptions: {

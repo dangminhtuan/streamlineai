@@ -506,6 +506,28 @@ body {
   border-color: rgba(244, 63, 94, 0.5) !important;
 }
 
+/* Book Badge (#bookBadge) — "Connections (80 Units)" etc. */
+.theme-DEPARTURES #bookBadge {
+  background: rgba(99, 102, 241, 0.2) !important;
+  border-color: rgba(129, 140, 248, 0.5) !important;
+  color: #a5b4fc !important;
+}
+.theme-CONNECTIONS #bookBadge {
+  background: rgba(16, 185, 129, 0.2) !important;
+  border-color: rgba(52, 211, 153, 0.5) !important;
+  color: #6ee7b7 !important;
+}
+.theme-DESTINATIONS #bookBadge {
+  background: rgba(245, 158, 11, 0.2) !important;
+  border-color: rgba(251, 191, 36, 0.5) !important;
+  color: #fcd34d !important;
+}
+.theme-DIRECTIONS #bookBadge {
+  background: rgba(244, 63, 94, 0.2) !important;
+  border-color: rgba(251, 113, 133, 0.5) !important;
+  color: #fda4af !important;
+}
+
 /* Dict Search Magnifying Glass Icon Button */
 .dict-search-btn {
   display: flex;
