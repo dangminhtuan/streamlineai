@@ -433,12 +433,23 @@ body {
   box-shadow: 0 0 10px rgba(244, 63, 94, 0.3);
 }
 
-/* Theme Active Buttons for Unit Grid */
+/* Theme Active Buttons for Unit Grid & Header Badges */
 .theme-DEPARTURES .unit-btn.active {
   background: #6366f1 !important;
   color: #ffffff !important;
   border-color: #818cf8 !important;
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.5) !important;
+}
+
+.theme-DEPARTURES .top-lesson-badge {
+  background: rgba(99, 102, 241, 0.25) !important;
+  border-color: rgba(129, 140, 248, 0.6) !important;
+  color: #a5b4fc !important;
+}
+
+.theme-DEPARTURES .lesson-banner {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(15, 23, 42, 0.9)) !important;
+  border-color: rgba(99, 102, 241, 0.5) !important;
 }
 
 .theme-CONNECTIONS .unit-btn.active {
@@ -448,6 +459,17 @@ body {
   box-shadow: 0 0 10px rgba(16, 185, 129, 0.5) !important;
 }
 
+.theme-CONNECTIONS .top-lesson-badge {
+  background: rgba(16, 185, 129, 0.25) !important;
+  border-color: rgba(52, 211, 153, 0.6) !important;
+  color: #6ee7b7 !important;
+}
+
+.theme-CONNECTIONS .lesson-banner {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(15, 23, 42, 0.9)) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+}
+
 .theme-DESTINATIONS .unit-btn.active {
   background: #f59e0b !important;
   color: #ffffff !important;
@@ -455,11 +477,33 @@ body {
   box-shadow: 0 0 10px rgba(245, 158, 11, 0.5) !important;
 }
 
+.theme-DESTINATIONS .top-lesson-badge {
+  background: rgba(245, 158, 11, 0.25) !important;
+  border-color: rgba(251, 191, 36, 0.6) !important;
+  color: #fcd34d !important;
+}
+
+.theme-DESTINATIONS .lesson-banner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(15, 23, 42, 0.9)) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+}
+
 .theme-DIRECTIONS .unit-btn.active {
   background: #f43f5e !important;
   color: #ffffff !important;
   border-color: #fb7185 !important;
   box-shadow: 0 0 10px rgba(244, 63, 94, 0.5) !important;
+}
+
+.theme-DIRECTIONS .top-lesson-badge {
+  background: rgba(244, 63, 94, 0.25) !important;
+  border-color: rgba(251, 113, 133, 0.6) !important;
+  color: #fda4af !important;
+}
+
+.theme-DIRECTIONS .lesson-banner {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.25), rgba(15, 23, 42, 0.9)) !important;
+  border-color: rgba(244, 63, 94, 0.5) !important;
 }
 
 /* Dict Search Magnifying Glass Icon Button */

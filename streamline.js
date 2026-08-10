@@ -1198,6 +1198,9 @@ function loadLesson(idx) {
   
   const lesson = STREAMLINE_LESSONS[idx];
   
+  const bookName = idx < 80 ? 'DEPARTURES' : (idx < 160 ? 'CONNECTIONS' : (idx < 240 ? 'DESTINATIONS' : 'DIRECTIONS'));
+  document.body.className = `theme-${bookName}`;
+  
   const topic = getLessonTopic(lesson, state.currentLang);
   const desc = getLessonDesc(lesson, state.currentLang);
   const title = getLessonTitle(lesson, state.currentLang);
